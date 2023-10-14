@@ -28,6 +28,7 @@ import com.woowacamp.soolsool.core.liquor.repository.LiquorRegionCache;
 import com.woowacamp.soolsool.core.liquor.repository.LiquorRepository;
 import com.woowacamp.soolsool.core.liquor.repository.LiquorStatusCache;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -101,7 +102,8 @@ public class LiquorService {
             .getListByClick(
                 liquorSearchCondition, pageable,
                 liquorListRequest.getLiquorId(),
-                liquorListRequest.getClickCount()
+                liquorListRequest.getClickCount(),
+                LocalDateTime.now()
             );
 
         return PageLiquorResponse.of(pageable, getLiquorElementResponseFromClick(liquors));

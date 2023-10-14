@@ -9,6 +9,7 @@ import com.woowacamp.soolsool.core.liquor.domain.LiquorStatus;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorSearchCondition;
 import com.woowacamp.soolsool.core.liquor.dto.response.LiquorClickElementDto;
 import com.woowacamp.soolsool.global.config.QuerydslConfig;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,7 @@ import org.springframework.test.context.jdbc.Sql;
 @Sql({
     "/member-type.sql", "/member.sql",
     "/liquor-type.sql", "/liquor.sql", "/liquor-stock.sql", "/liquor-ctr.sql",
+    "/statistics.sql"
 })
 class LiquorQueryDslRepositoryTest {
 
@@ -88,13 +90,13 @@ class LiquorQueryDslRepositoryTest {
         LiquorRegion region = null;
         LiquorStatus status = null;
         String brand = null;
-        Long liquorId = null;
+        Long liquorId = 3L;
         Long clickCount = null;
-
+        LocalDateTime localDateTime = LocalDateTime.of(2023, 1, 1, 0, 0, 0);
         // when
-        final List<LiquorClickElementDto> 커서첫번째 = liquorQueryDslRepository
+        List<LiquorClickElementDto> 커서첫번째 = liquorQueryDslRepository
             .getListByClick(new LiquorSearchCondition(region, brew, status, brand),
-                Pageable.ofSize(1), liquorId, clickCount);
+                Pageable.ofSize(1), liquorId, clickCount, localDateTime);
 
         // then
         assertThat(커서첫번째).hasSize(1);
@@ -110,11 +112,12 @@ class LiquorQueryDslRepositoryTest {
         String brand = null;
         Long liquorId = 3L;
         Long clickCount = null;
+        LocalDateTime localDateTime = LocalDateTime.of(2023, 1, 1, 0, 0, 0);
 
         // when
         List<LiquorClickElementDto> 커서첫번째 = liquorQueryDslRepository
             .getListByClick(new LiquorSearchCondition(region, brew, status, brand),
-                Pageable.ofSize(1), liquorId, clickCount);
+                Pageable.ofSize(1), liquorId, clickCount, localDateTime);
         Long 커서첫번째_liquorId = 커서첫번째.get(커서첫번째.size() - 1).getId();
 
         // then
@@ -131,17 +134,18 @@ class LiquorQueryDslRepositoryTest {
         String brand = null;
         Long liquorId = 3L;
         Long clickCount = 100L;
+        LocalDateTime localDateTime = LocalDateTime.of(2023, 1, 1, 0, 0, 0);
 
         // when
-        List<LiquorClickElementDto> 커서첫번째 = liquorQueryDslRepository
-            .getListByClick(new LiquorSearchCondition(region, brew, status, brand),
-                Pageable.ofSize(1), liquorId, clickCount);
+        List<LiquorClickElementDto> 커서첫번째 = liquorQueryDslRepository.getListByClick(
+            new LiquorSearchCondition(region, brew, status, brand),
+                Pageable.ofSize(1), liquorId, clickCount, localDateTime);
         Long 커서첫번째_liquorId = 커서첫번째.get(커서첫번째.size() - 1).getClickCount();
         Long 커서첫번째_clickCount = 커서첫번째.get(커서첫번째.size() - 1).getClickCount();
 
         List<LiquorClickElementDto> 커서두번째 = liquorQueryDslRepository
             .getListByClick(new LiquorSearchCondition(region, brew, status, brand),
-                Pageable.ofSize(1), 커서첫번째_liquorId, 커서첫번째_clickCount);
+                Pageable.ofSize(1), 커서첫번째_liquorId, 커서첫번째_clickCount, localDateTime);
         Long 커서두번째_clickCount = 커서두번째.get(커서두번째.size() - 1).getClickCount();
 
         // then
