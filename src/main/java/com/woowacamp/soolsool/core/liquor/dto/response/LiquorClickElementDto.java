@@ -1,7 +1,7 @@
 package com.woowacamp.soolsool.core.liquor.dto.response;
 
 import com.woowacamp.soolsool.core.liquor.domain.Liquor;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorCtrClick;
+import com.woowacamp.soolsool.core.statistics.domain.vo.Click;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -16,14 +16,14 @@ public class LiquorClickElementDto {
     private final Integer stock;
     private final Long clickCount;
 
-    public LiquorClickElementDto(final Liquor liquor, final LiquorCtrClick clickCount) {
+    public LiquorClickElementDto(final Liquor liquor, final Click click) {
         this(
             liquor.getId(),
             liquor.getName(),
             liquor.getPrice().toString(),
             liquor.getImageUrl(),
             liquor.getTotalStock(),
-            clickCount.getCount()
+            click.getCount().longValue()
         );
     }
 }
