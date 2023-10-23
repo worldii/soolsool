@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.woowacamp.soolsool.config.RedisTestConfig;
 import com.woowacamp.soolsool.core.liquor.infra.RedisLiquorCtr;
+import com.woowacamp.soolsool.fake.DistributedLockAspect;
+import com.woowacamp.soolsool.global.config.AspectProxyConfig;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,22 +16,28 @@ import org.junit.jupiter.api.Test;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
-@Import({LiquorCtrRedisRepository.class, RedisTestConfig.class})
+@Import({LiquorCtrRedisRepository.class, RedisTestConfig.class,
+    DistributedLockAspect.class, AspectProxyConfig.class})
 @DisplayName("통합 테스트 : LiquorCtrRedisRepository")
 class LiquorCtrRedisRepositoryTest {
 
     private static final String LIQUOR_CTR_KEY = "LIQUOR_CTR";
     private static final Long TARGET_LIQUOR = 1L;
 
+
     @Autowired
     LiquorCtrRedisRepository liquorCtrRedisRepository;
 
     @Autowired
     RedissonClient redissonClient;
+
+    @Autowired
+    DistributedLockAspect distributedLockAspect;
 
     @BeforeEach
     @AfterEach
