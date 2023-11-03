@@ -1,7 +1,6 @@
-package com.woowacamp.soolsool.core.liquor.event.listener;
+package com.woowacamp.soolsool.core.liquor.application;
 
-import com.woowacamp.soolsool.core.liquor.event.LiquorCtrExpiredEvent;
-import com.woowacamp.soolsool.core.liquor.service.LiquorCtrService;
+import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrExpiredEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;

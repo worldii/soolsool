@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.liquor.domain.liquor.vo;
+package com.woowacamp.soolsool.core.liquor.domain.liquorCtr;
 
 import com.woowacamp.soolsool.core.liquor.code.LiquorCtrErrorCode;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
@@ -27,9 +27,5 @@ public class LiquorCtrImpression {
         if (impression < 0) {
             throw new SoolSoolException(LiquorCtrErrorCode.INVALID_SIZE_IMPRESSION);
         }
-    }
-
-    public LiquorCtrImpression increaseOne() {
-        return new LiquorCtrImpression(this.impression + 1);
     }
 }

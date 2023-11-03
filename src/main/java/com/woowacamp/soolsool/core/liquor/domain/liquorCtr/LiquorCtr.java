@@ -3,8 +3,6 @@ package com.woowacamp.soolsool.core.liquor.domain.liquorCtr;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import com.woowacamp.soolsool.core.liquor.code.LiquorCtrErrorCode;
-import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorCtrClick;
-import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorCtrImpression;
 import com.woowacamp.soolsool.global.common.BaseEntity;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import javax.persistence.Column;
@@ -55,7 +53,7 @@ public class LiquorCtr extends BaseEntity {
         this.click = new LiquorCtrClick(click);
     }
 
-    public double getCtr() {
+    public Double getCtr() {
         if (impression.getImpression() == 0) {
             throw new SoolSoolException(LiquorCtrErrorCode.DIVIDE_BY_ZERO_IMPRESSION);
         }

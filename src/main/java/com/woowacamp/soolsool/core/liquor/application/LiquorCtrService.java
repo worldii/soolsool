@@ -1,7 +1,7 @@
-package com.woowacamp.soolsool.core.liquor.service;
+package com.woowacamp.soolsool.core.liquor.application;
 
+import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.IncreaseLiquorCtrService;
 import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtr;
-import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrRedisRepository;
 import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrRepository;
 import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorClickAddRequest;
 import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorImpressionAddRequest;
@@ -16,20 +16,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class LiquorCtrService {
 
     private final LiquorCtrRepository liquorCtrRepository;
+    private final IncreaseLiquorCtrService increaseLiquorCtrService;
 
-    private final LiquorCtrRedisRepository liquorCtrRedisRepository;
-
-    @Transactional(readOnly = true)
     public double getLiquorCtrByLiquorId(final Long liquorId) {
-        return liquorCtrRedisRepository.getCtr(liquorId);
+        return increaseLiquorCtrService.getCtr(liquorId);
     }
 
     public void increaseImpression(final LiquorImpressionAddRequest request) {
-        request.getLiquorIds().forEach(liquorCtrRedisRepository::increaseImpression);
+        request.getLiquorIds().forEach(increaseLiquorCtrService::increaseImpression);
     }
 
     public void increaseClick(final LiquorClickAddRequest request) {
-        liquorCtrRedisRepository.increaseClick(request.getLiquorId());
+        increaseLiquorCtrService.increaseClick(request.getLiquorId());
     }
 
     @Transactional

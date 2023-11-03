@@ -3,7 +3,9 @@ package com.woowacamp.soolsool.core.liquor.repository.redisson;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.woowacamp.soolsool.config.RedisTestConfig;
-import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrRedisRepository;
+import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.IncreaseLiquorCtrService;
+import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrRepository;
+import com.woowacamp.soolsool.core.liquor.infra.IncreaseRedisLiquorCtrService;
 import com.woowacamp.soolsool.core.liquor.infra.RedisLiquorCtr;
 import com.woowacamp.soolsool.fake.DistributedLockAspect;
 import com.woowacamp.soolsool.global.config.AspectProxyConfig;
@@ -21,23 +23,27 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
-@Import({LiquorCtrRedisRepository.class, RedisTestConfig.class,
+@Import({
+    IncreaseRedisLiquorCtrService.class, RedisTestConfig.class,
+    LiquorCtrRepository.class,
     DistributedLockAspect.class, AspectProxyConfig.class})
 @DisplayName("통합 테스트 : LiquorCtrRedisRepository")
-class LiquorCtrRedisRepositoryTest {
+class IncreaseRedisLiquorCtrServiceTest {
 
     private static final String LIQUOR_CTR_KEY = "LIQUOR_CTR";
     private static final Long TARGET_LIQUOR = 1L;
 
-
     @Autowired
-    LiquorCtrRedisRepository liquorCtrRedisRepository;
+    IncreaseLiquorCtrService increaseRedisLiquorCtrService;
 
     @Autowired
     RedissonClient redissonClient;
 
     @Autowired
     DistributedLockAspect distributedLockAspect;
+
+    @Autowired
+    LiquorCtrRepository liquorCtrRepository;
 
     @BeforeEach
     @AfterEach
@@ -54,7 +60,7 @@ class LiquorCtrRedisRepositoryTest {
             .put(TARGET_LIQUOR, new RedisLiquorCtr(2L, 1L));
 
         // when
-        double ctr = liquorCtrRedisRepository.getCtr(TARGET_LIQUOR);
+        double ctr = increaseRedisLiquorCtrService.getCtr(TARGET_LIQUOR);
 
         // then
         assertThat(ctr).isEqualTo(0.5);
@@ -67,7 +73,7 @@ class LiquorCtrRedisRepositoryTest {
         // given
 
         // when
-        double ctr = liquorCtrRedisRepository.getCtr(TARGET_LIQUOR);
+        double ctr = increaseRedisLiquorCtrService.getCtr(TARGET_LIQUOR);
 
         // then
         assertThat(ctr).isEqualTo(0.5);
@@ -81,10 +87,10 @@ class LiquorCtrRedisRepositoryTest {
             .put(TARGET_LIQUOR, new RedisLiquorCtr(1L, 1L));
 
         // when
-        liquorCtrRedisRepository.increaseImpression(TARGET_LIQUOR);
+        increaseRedisLiquorCtrService.increaseImpression(TARGET_LIQUOR);
 
         // then
-        double ctr = liquorCtrRedisRepository.getCtr(TARGET_LIQUOR);
+        double ctr = increaseRedisLiquorCtrService.getCtr(TARGET_LIQUOR);
         assertThat(ctr).isEqualTo(0.5);
     }
 
@@ -102,14 +108,14 @@ class LiquorCtrRedisRepositoryTest {
         // when
         for (int i = 0; i < threadCount; i++) {
             executor.submit(() -> {
-                liquorCtrRedisRepository.increaseImpression(TARGET_LIQUOR);
+                increaseRedisLiquorCtrService.increaseImpression(TARGET_LIQUOR);
                 latch.countDown();
             });
         }
         latch.await();
 
         // then
-        double ctr = liquorCtrRedisRepository.getCtr(TARGET_LIQUOR);
+        double ctr = increaseRedisLiquorCtrService.getCtr(TARGET_LIQUOR);
         assertThat(ctr).isEqualTo(0.5);
     }
 
@@ -121,10 +127,10 @@ class LiquorCtrRedisRepositoryTest {
             .put(TARGET_LIQUOR, new RedisLiquorCtr(1L, 0L));
 
         // when
-        liquorCtrRedisRepository.increaseClick(TARGET_LIQUOR);
+        increaseRedisLiquorCtrService.increaseClick(TARGET_LIQUOR);
 
         // then
-        double ctr = liquorCtrRedisRepository.getCtr(TARGET_LIQUOR);
+        double ctr = increaseRedisLiquorCtrService.getCtr(TARGET_LIQUOR);
         assertThat(ctr).isEqualTo(1);
     }
 
@@ -142,14 +148,14 @@ class LiquorCtrRedisRepositoryTest {
         // when
         for (int i = 0; i < threadCount; i++) {
             executor.submit(() -> {
-                liquorCtrRedisRepository.increaseClick(TARGET_LIQUOR);
+                increaseRedisLiquorCtrService.increaseClick(TARGET_LIQUOR);
                 latch.countDown();
             });
         }
         latch.await();
 
         // then
-        double ctr = liquorCtrRedisRepository.getCtr(TARGET_LIQUOR);
+        double ctr = increaseRedisLiquorCtrService.getCtr(TARGET_LIQUOR);
         assertThat(ctr).isEqualTo(1);
     }
 }

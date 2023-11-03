@@ -16,7 +16,7 @@ import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorBrewCache;
 import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorQueryDslRepository;
 import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorRegionCache;
 import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorStatusCache;
-import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrRedisRepository;
+import com.woowacamp.soolsool.core.liquor.infra.IncreaseRedisLiquorCtrService;
 import com.woowacamp.soolsool.core.liquor.service.LiquorService;
 import com.woowacamp.soolsool.global.config.QuerydslConfig;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
@@ -33,7 +33,7 @@ import org.springframework.test.context.jdbc.Sql;
 @Import({CartService.class, LiquorService.class, LiquorBrewCache.class,
     LiquorStatusCache.class, LiquorRegionCache.class, LiquorQueryDslRepository.class,
     LiquorStatusCache.class, LiquorRegionCache.class, AddCartItemService.class,
-    QuerydslConfig.class, LiquorCtrRedisRepository.class, RedisTestConfig.class})
+    QuerydslConfig.class, IncreaseRedisLiquorCtrService.class, RedisTestConfig.class})
 @DisplayName("통합 테스트: CartItemService")
 class AddCartItemServiceServiceIntegrationTest {
 

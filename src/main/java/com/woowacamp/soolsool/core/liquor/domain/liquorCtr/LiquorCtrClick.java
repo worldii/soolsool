@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.liquor.domain.liquor.vo;
+package com.woowacamp.soolsool.core.liquor.domain.liquorCtr;
 
 import com.woowacamp.soolsool.core.liquor.code.LiquorCtrErrorCode;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
@@ -33,9 +33,5 @@ public class LiquorCtrClick {
         if (Click < 0) {
             throw new SoolSoolException(LiquorCtrErrorCode.INVALID_SIZE_CLICK);
         }
-    }
-
-    public LiquorCtrClick increaseOne() {
-        return new LiquorCtrClick(this.count + 1);
     }
 }

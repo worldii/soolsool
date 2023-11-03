@@ -14,7 +14,7 @@ import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorBrewCache;
 import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorQueryDslRepository;
 import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorRegionCache;
 import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorStatusCache;
-import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrRedisRepository;
+import com.woowacamp.soolsool.core.liquor.infra.IncreaseRedisLiquorCtrService;
 import com.woowacamp.soolsool.core.liquor.service.LiquorService;
 import com.woowacamp.soolsool.core.receipt.dto.response.ReceiptDetailResponse;
 import com.woowacamp.soolsool.core.receipt.repository.ReceiptStatusCache;
@@ -35,7 +35,7 @@ import org.springframework.test.context.jdbc.Sql;
     ReceiptMapper.class, LiquorBrewCache.class, LiquorStatusCache.class,
     LiquorRegionCache.class, ReceiptStatusCache.class, AddCartItemService.class,
     LiquorQueryDslRepository.class, QuerydslConfig.class, MultipleCacheManagerConfig.class,
-    RedissonConfig.class, ReceiptRedisRepository.class, LiquorCtrRedisRepository.class})
+    RedissonConfig.class, ReceiptRedisRepository.class, IncreaseRedisLiquorCtrService.class})
 @DisplayName("통합 테스트: ReceiptService")
 class ReceiptServiceIntegrationTest {
 

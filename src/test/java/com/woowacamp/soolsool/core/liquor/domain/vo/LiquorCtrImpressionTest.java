@@ -2,7 +2,7 @@ package com.woowacamp.soolsool.core.liquor.domain.vo;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorCtrImpression;
+import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrImpression;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

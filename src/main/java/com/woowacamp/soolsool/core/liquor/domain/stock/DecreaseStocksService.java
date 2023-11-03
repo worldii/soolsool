@@ -40,5 +40,4 @@ public final class DecreaseStocksService {
             throw new SoolSoolException(LiquorStockErrorCode.NOT_ENOUGH_LIQUOR_STOCKS);
         }
     }
-
 }

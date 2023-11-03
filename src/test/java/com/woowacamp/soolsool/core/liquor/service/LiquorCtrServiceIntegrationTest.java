@@ -3,9 +3,10 @@ package com.woowacamp.soolsool.core.liquor.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.woowacamp.soolsool.config.RedisTestConfig;
-import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrRedisRepository;
+import com.woowacamp.soolsool.core.liquor.application.LiquorCtrService;
 import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorClickAddRequest;
 import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorImpressionAddRequest;
+import com.woowacamp.soolsool.core.liquor.infra.IncreaseRedisLiquorCtrService;
 import com.woowacamp.soolsool.core.liquor.infra.RedisLiquorCtr;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
@@ -19,7 +20,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
-@Import({LiquorCtrService.class, RedisTestConfig.class, LiquorCtrRedisRepository.class})
+@Import({LiquorCtrService.class, RedisTestConfig.class, IncreaseRedisLiquorCtrService.class})
 @DisplayName("통합 테스트: LiquorCtrService")
 class LiquorCtrServiceIntegrationTest {
 
