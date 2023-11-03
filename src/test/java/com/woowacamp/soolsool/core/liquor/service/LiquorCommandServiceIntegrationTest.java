@@ -5,10 +5,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorBrewCache;
+import com.woowacamp.soolsool.core.liquor.application.LiquorCommandService;
+import com.woowacamp.soolsool.core.liquor.application.LiquorQueryService;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorCategoryCache;
 import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorQueryDslRepository;
-import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorRegionCache;
-import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorStatusCache;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorModifyRequest;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorSaveRequest;
 import com.woowacamp.soolsool.core.liquor.dto.response.LiquorDetailResponse;
@@ -26,14 +26,15 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
-@Import({LiquorService.class, LiquorBrewCache.class, LiquorStatusCache.class,
-    LiquorRegionCache.class, LiquorQueryDslRepository.class,
-    QuerydslConfig.class, MultipleCacheManagerConfig.class})
+@Import({LiquorCommandService.class, LiquorCategoryCache.class, LiquorQueryDslRepository.class,
+    LiquorQueryService.class, QuerydslConfig.class, MultipleCacheManagerConfig.class})
 @DisplayName("통합 테스트: LiquorService")
-class LiquorServiceIntegrationTest {
+class LiquorCommandServiceIntegrationTest {
 
     @Autowired
-    LiquorService liquorService;
+    LiquorCommandService liquorCommandService;
+    @Autowired
+    LiquorQueryService liquorQueryService;
 
     @Test
     @Sql({
@@ -48,7 +49,7 @@ class LiquorServiceIntegrationTest {
         Long 새로 = 1L;
 
         /* when */
-        LiquorDetailResponse response = liquorService.liquorDetail(새로);
+        LiquorDetailResponse response = liquorQueryService.liquorDetail(새로);
 
         /* then */
         assertAll(
@@ -75,7 +76,7 @@ class LiquorServiceIntegrationTest {
         Long 새로 = 1L;
 
         /* when */
-        List<LiquorElementResponse> response = liquorService.liquorPurchasedTogether(새로);
+        List<LiquorElementResponse> response = liquorQueryService.liquorPurchasedTogether(새로);
 
         /* then */
         assertThat(response).hasSize(1);
@@ -95,7 +96,7 @@ class LiquorServiceIntegrationTest {
             12.0, 300);
 
         // when & then
-        assertThatCode(() -> liquorService.saveLiquor(liquorSaveRequest))
+        assertThatCode(() -> liquorCommandService.saveLiquor(liquorSaveRequest))
             .doesNotThrowAnyException();
     }
 
@@ -107,7 +108,7 @@ class LiquorServiceIntegrationTest {
     @DisplayName("liquor를 수정한다.")
     void modifyLiquorTest() {
         // given
-        LiquorDetailResponse target = liquorService.liquorDetail(1L);
+        LiquorDetailResponse target = liquorQueryService.liquorDetail(1L);
         LiquorModifyRequest liquorModifyRequest = new LiquorModifyRequest(
             "BERRY", "GYEONGGI_DO", "ON_SALE",
             "새로2", "3000", "브랜드", "/url",
@@ -116,10 +117,10 @@ class LiquorServiceIntegrationTest {
         );
 
         // when
-        liquorService.modifyLiquor(target.getId(), liquorModifyRequest);
+        liquorCommandService.modifyLiquor(target.getId(), liquorModifyRequest);
 
         // then
-        LiquorDetailResponse liquor = liquorService.liquorDetail(1L);
+        LiquorDetailResponse liquor = liquorQueryService.liquorDetail(1L);
 
         assertThat(liquor.getName()).isEqualTo(liquorModifyRequest.getName());
     }
@@ -141,7 +142,7 @@ class LiquorServiceIntegrationTest {
         );
 
         // when & then
-        assertThatCode(() -> liquorService.modifyLiquor(liquorId, liquorModifyRequest))
+        assertThatCode(() -> liquorCommandService.modifyLiquor(liquorId, liquorModifyRequest))
             .isInstanceOf(SoolSoolException.class)
             .hasMessage(NOT_LIQUOR_FOUND.getMessage());
     }
@@ -156,10 +157,10 @@ class LiquorServiceIntegrationTest {
         // given
 
         // when
-        liquorService.deleteLiquor(1L);
+        liquorCommandService.deleteLiquor(1L);
 
         // then
-        assertThatCode(() -> liquorService.liquorDetail(1L))
+        assertThatCode(() -> liquorQueryService.liquorDetail(1L))
             .isExactlyInstanceOf(SoolSoolException.class)
             .hasMessage("술이 존재하지 않습니다.");
     }

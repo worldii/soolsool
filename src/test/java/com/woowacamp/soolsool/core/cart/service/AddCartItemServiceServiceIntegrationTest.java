@@ -7,17 +7,13 @@ import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_FOUND_LIQU
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.woowacamp.soolsool.config.RedisTestConfig;
 import com.woowacamp.soolsool.core.cart.application.CartService;
 import com.woowacamp.soolsool.core.cart.domain.AddCartItemService;
 import com.woowacamp.soolsool.core.cart.dto.request.CartItemModifyRequest;
 import com.woowacamp.soolsool.core.cart.dto.request.CartItemSaveRequest;
-import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorBrewCache;
+import com.woowacamp.soolsool.core.liquor.application.LiquorCommandService;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorCategoryCache;
 import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorQueryDslRepository;
-import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorRegionCache;
-import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorStatusCache;
-import com.woowacamp.soolsool.core.liquor.infra.IncreaseRedisLiquorCtrService;
-import com.woowacamp.soolsool.core.liquor.service.LiquorService;
 import com.woowacamp.soolsool.global.config.QuerydslConfig;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import org.junit.jupiter.api.DisplayName;
@@ -30,10 +26,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
-@Import({CartService.class, LiquorService.class, LiquorBrewCache.class,
-    LiquorStatusCache.class, LiquorRegionCache.class, LiquorQueryDslRepository.class,
-    LiquorStatusCache.class, LiquorRegionCache.class, AddCartItemService.class,
-    QuerydslConfig.class, IncreaseRedisLiquorCtrService.class, RedisTestConfig.class})
+@Import({CartService.class, LiquorCommandService.class, LiquorQueryDslRepository.class,
+    AddCartItemService.class, LiquorCategoryCache.class,
+    QuerydslConfig.class})
 @DisplayName("통합 테스트: CartItemService")
 class AddCartItemServiceServiceIntegrationTest {
 

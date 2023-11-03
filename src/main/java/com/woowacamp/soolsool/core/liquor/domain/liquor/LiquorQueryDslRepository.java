@@ -15,12 +15,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class LiquorQueryDslRepository {
@@ -46,11 +43,7 @@ public class LiquorQueryDslRepository {
             .fetch();
     }
 
-    @Cacheable(value = "liquorsFirstPage")
-    public List<Liquor> getCachedList(
-        final Pageable pageable
-    ) {
-        log.info("LiquorQueryDslRepository getCachedList");
+    public List<Liquor> getCachedList(final Pageable pageable) {
         return queryFactory.select(liquor)
             .from(liquor)
             .orderBy(liquor.id.desc())

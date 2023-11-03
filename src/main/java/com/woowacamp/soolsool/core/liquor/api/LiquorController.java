@@ -5,6 +5,8 @@ import static com.woowacamp.soolsool.core.liquor.code.LiquorResultCode.LIQUOR_DE
 import static com.woowacamp.soolsool.core.liquor.code.LiquorResultCode.LIQUOR_LIST_FOUND;
 import static com.woowacamp.soolsool.core.liquor.code.LiquorResultCode.LIQUOR_UPDATED;
 
+import com.woowacamp.soolsool.core.liquor.application.LiquorCommandService;
+import com.woowacamp.soolsool.core.liquor.application.LiquorQueryService;
 import com.woowacamp.soolsool.core.liquor.code.LiquorResultCode;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorListRequest;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorModifyRequest;
@@ -12,7 +14,7 @@ import com.woowacamp.soolsool.core.liquor.dto.request.LiquorSaveRequest;
 import com.woowacamp.soolsool.core.liquor.dto.response.LiquorDetailResponse;
 import com.woowacamp.soolsool.core.liquor.dto.response.LiquorElementResponse;
 import com.woowacamp.soolsool.core.liquor.dto.response.PageLiquorResponse;
-import com.woowacamp.soolsool.core.liquor.service.LiquorService;
+import com.woowacamp.soolsool.core.liquor.dto.response.PageLiquorWithClickResponse;
 import com.woowacamp.soolsool.global.aop.RequestLogging;
 import com.woowacamp.soolsool.global.auth.dto.NoAuth;
 import com.woowacamp.soolsool.global.auth.dto.Vendor;
@@ -42,7 +44,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class LiquorController {
 
-    private final LiquorService liquorService;
+    private final LiquorCommandService liquorCommandService;
+    private final LiquorQueryService liquorQueryService;
 
     @Vendor
     @RequestLogging
@@ -50,7 +53,7 @@ public class LiquorController {
     public ResponseEntity<ApiResponse<Long>> saveLiquor(
         @RequestBody final LiquorSaveRequest liquorSaveRequest
     ) {
-        final Long saveLiquorId = liquorService.saveLiquor(liquorSaveRequest);
+        final Long saveLiquorId = liquorCommandService.saveLiquor(liquorSaveRequest);
 
         return ResponseEntity.created(URI.create("/liquors/" + saveLiquorId))
             .body(ApiResponse.from(LIQUOR_CREATED));
@@ -62,7 +65,7 @@ public class LiquorController {
     public ResponseEntity<ApiResponse<LiquorDetailResponse>> liquorDetail(
         @PathVariable final Long liquorId
     ) {
-        final LiquorDetailResponse response = liquorService.liquorDetail(liquorId);
+        final LiquorDetailResponse response = liquorQueryService.liquorDetail(liquorId);
 
         return ResponseEntity.ok(ApiResponse.of(LiquorResultCode.LIQUOR_DETAIL_FOUND, response));
     }
@@ -73,7 +76,7 @@ public class LiquorController {
     public ResponseEntity<ApiResponse<List<LiquorElementResponse>>> liquorPurchasedTogether(
         @PathVariable final Long liquorId
     ) {
-        final List<LiquorElementResponse> response = liquorService.liquorPurchasedTogether(
+        final List<LiquorElementResponse> response = liquorQueryService.liquorPurchasedTogether(
             liquorId);
 
         return ResponseEntity.ok(
@@ -88,7 +91,7 @@ public class LiquorController {
     ) {
         final PageRequest sortPageable = getSortedPageable(pageable);
 
-        final PageLiquorResponse response = liquorService.getFirstPage(sortPageable);
+        final PageLiquorResponse response = liquorQueryService.getFirstPage(sortPageable);
 
         return ResponseEntity.ok(ApiResponse.of(LIQUOR_LIST_FOUND, response));
     }
@@ -102,7 +105,7 @@ public class LiquorController {
     ) {
         final PageRequest sortPageable = getSortedPageable(pageable);
 
-        final PageLiquorResponse response = liquorService
+        final PageLiquorResponse response = liquorQueryService
             .liquorListByLatest(liquorListRequest, sortPageable);
 
         return ResponseEntity.ok(ApiResponse.of(LIQUOR_LIST_FOUND, response));
@@ -111,13 +114,13 @@ public class LiquorController {
     @NoAuth
     @RequestLogging
     @GetMapping("/click")
-    public ResponseEntity<ApiResponse<PageLiquorResponse>> liquorListByClick(
+    public ResponseEntity<ApiResponse<PageLiquorWithClickResponse>> liquorListByClick(
         @ModelAttribute final LiquorListRequest liquorListRequest,
         @PageableDefault final Pageable pageable
     ) {
         final PageRequest sortPageable = getSortedPageable(pageable);
 
-        final PageLiquorResponse response = liquorService
+        final PageLiquorWithClickResponse response = liquorQueryService
             .liquorListByClick(liquorListRequest, sortPageable);
 
         return ResponseEntity.ok(ApiResponse.of(LIQUOR_LIST_FOUND, response));
@@ -138,7 +141,7 @@ public class LiquorController {
         @PathVariable final Long liquorId,
         @RequestBody final LiquorModifyRequest liquorModifyRequest
     ) {
-        liquorService.modifyLiquor(liquorId, liquorModifyRequest);
+        liquorCommandService.modifyLiquor(liquorId, liquorModifyRequest);
 
         return ResponseEntity.ok(ApiResponse.from(LIQUOR_UPDATED));
     }
@@ -149,7 +152,7 @@ public class LiquorController {
     public ResponseEntity<ApiResponse<Void>> deleteLiquor(
         @PathVariable final Long liquorId
     ) {
-        liquorService.deleteLiquor(liquorId);
+        liquorCommandService.deleteLiquor(liquorId);
 
         return ResponseEntity.ok().body(ApiResponse.from(LIQUOR_DELETED));
     }
