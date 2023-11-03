@@ -10,12 +10,10 @@ import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtInterceptor implements HandlerInterceptor {
@@ -31,7 +29,6 @@ public class JwtInterceptor implements HandlerInterceptor {
     ) {
 
         if ("OPTIONS".equals(request.getMethod())) {
-            response.setStatus(HttpServletResponse.SC_ACCEPTED);
             return true;
         }
         final HandlerMethod handlerMethod = (HandlerMethod) handler;
@@ -41,10 +38,8 @@ public class JwtInterceptor implements HandlerInterceptor {
         }
 
         // TODO: 토큰이 없을 때 메시지
-        // TODO: subject에서 권한만 VENDOR로 바꾸면 판매자처럼 행동 가능한 버그 수정
-
         final String token = authorizationExtractor.extractToken(request);
-        tokenProvider.validateToken(token); // TODO: getUserDto 안으로 이동해도 될 듯
+        tokenProvider.validateToken(token);
         final String authority = tokenProvider.getUserDto(token).getAuthority();
 
         validateVendorMethod(handlerMethod, authority);

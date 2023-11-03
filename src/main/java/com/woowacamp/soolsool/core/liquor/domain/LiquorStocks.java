@@ -64,6 +64,6 @@ public class LiquorStocks {
     public List<LiquorStock> getOutOfStocks() {
         return this.liquorStocks.stream()
             .filter(LiquorStock::isOutOfStock)
-            .collect(Collectors.toList());
+            .collect(Collectors.toUnmodifiableList());
     }
 }

@@ -1,6 +1,5 @@
 package com.woowacamp.soolsool.config;
 
-import com.woowacamp.soolsool.fake.DistributedLockAspect;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
@@ -45,9 +44,5 @@ public class RedisTestConfig {
             .setAddress("redis://" + host + ":" + port);
 
         return Redisson.create(config);
-    }
-    @Bean
-    public DistributedLockAspect distributedLockAspect() {
-        return new DistributedLockAspect(redissonClient());
     }
 }

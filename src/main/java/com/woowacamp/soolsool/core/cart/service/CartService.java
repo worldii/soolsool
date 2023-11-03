@@ -32,7 +32,7 @@ public class CartService {
         final Liquor liquor = liquorRepository.findById(request.getLiquorId())
             .orElseThrow(() -> new SoolSoolException(NOT_FOUND_LIQUOR));
 
-        CartItem newCartItem = CartItem.builder()
+        final CartItem newCartItem = CartItem.builder()
             .memberId(memberId)
             .liquor(liquor)
             .quantity(request.getQuantity())

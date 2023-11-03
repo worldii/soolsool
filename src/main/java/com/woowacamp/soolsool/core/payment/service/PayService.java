@@ -5,6 +5,7 @@ import com.woowacamp.soolsool.core.liquor.service.LiquorService;
 import com.woowacamp.soolsool.core.liquor.service.LiquorStockService;
 import com.woowacamp.soolsool.core.member.service.MemberService;
 import com.woowacamp.soolsool.core.order.domain.Order;
+import com.woowacamp.soolsool.core.order.domain.OrderPaymentInfo;
 import com.woowacamp.soolsool.core.order.service.OrderService;
 import com.woowacamp.soolsool.core.payment.code.PayErrorCode;
 import com.woowacamp.soolsool.core.payment.dto.request.PayOrderRequest;
@@ -30,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class PayService {
 
     private static final long LOCK_WAIT_TIME = 3L;
@@ -72,24 +74,32 @@ public class PayService {
         try {
             multiLock.tryLock(LOCK_WAIT_TIME, LOCK_LEASE_TIME, TimeUnit.SECONDS);
 
+            // 재고 차감.
             decreaseStocks(receipt);
 
+            // 주문서를 바탕으로 주문을 넣는다.
             final Order order = orderService.addOrder(memberId, receipt);
 
+            // 마일리지를 차감한다. (멤버 락)
             memberService.subtractMemberMileage(memberId, order, receipt.getMileageUsage());
 
+            // 장바구니를 비운다. (멤버 락)
             cartService.removeCartItems(memberId);
 
+            // 주문서 상태를 Completed 로 바꾼다. (주문서 락 )
             receiptService.modifyReceiptStatus(memberId, receiptId, ReceiptStatusType.COMPLETED);
 
-            orderService.addPaymentInfo(
-                payClient.payApprove(receipt, pgToken).toEntity(order.getId()));
+            // 결제 정보를 받아 저장한다.(주문 서비스락 )
+            OrderPaymentInfo payInfo = payClient.payApprove(receipt, pgToken).toEntity(order.getId());
+            orderService.addPaymentInfo(payInfo);
 
+            // publisher 를 가지고 이벤트를 발행한다.
             publisher.publishEvent(new ReceiptRemoveEvent(receiptId));
 
             return order;
         } catch (final InterruptedException e) {
             Thread.currentThread().interrupt();
+
 
             throw new SoolSoolException(PayErrorCode.INTERRUPTED_THREAD);
         } finally {
@@ -115,7 +125,7 @@ public class PayService {
     }
 
     private void decreaseStocks(final Receipt receipt) {
-        for (ReceiptItem receiptItem : receipt.getReceiptItems()) {
+        for (final ReceiptItem receiptItem : receipt.getReceiptItems()) {
             liquorStockService.decreaseLiquorStock(receiptItem.getLiquorId(),
                 receiptItem.getQuantity());
             liquorService.decreaseTotalStock(receiptItem.getLiquorId(),

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 @Order(value = 1)
-@Profile("!test")
+@Profile("test")
 public class DistributedLockAspect {
 
     private final RedissonClient redissonClient;
