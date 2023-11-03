@@ -9,20 +9,22 @@ import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.STOPPED_LIQUOR
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
-public class CartItemService {
+@Service
+public class AddCartItemService {
 
     private static final int MAX_CART_SIZE = 100;
 
-    private final Long memberId;
-    private final List<CartItem> cartItems;
+    public void addCartItem(final List<CartItem> cartItems, final CartItem newCartItem) {
 
-    public CartItemService(final Long memberId, final List<CartItem> cartItems) {
-        validateMember(memberId, cartItems);
+        validateMember(newCartItem.getMemberId(), cartItems);
+        validateNull(newCartItem);
+        validateExceedMaxSize(cartItems);
+        validateDuplicated(cartItems, newCartItem);
+        validateLiquorStatus(newCartItem);
 
-        this.memberId = memberId;
-        this.cartItems = cartItems;
+        cartItems.add(newCartItem);
     }
 
     private void validateMember(final Long memberId, final List<CartItem> cartItems) {
@@ -31,28 +33,19 @@ public class CartItemService {
         }
     }
 
-    public void addCartItem(final CartItem newCartItem) {
-        validateNull(newCartItem);
-        validateExceedMaxSize();
-        validateDuplicated(newCartItem);
-        validateLiquorStatus(newCartItem);
-
-        cartItems.add(newCartItem);
-    }
-
     private void validateNull(final CartItem newCartItem) {
         if (Objects.isNull(newCartItem)) {
             throw new SoolSoolException(NULL_LIQUOR);
         }
     }
 
-    private void validateExceedMaxSize() {
+    private void validateExceedMaxSize(final List<CartItem> cartItems) {
         if (cartItems.size() == MAX_CART_SIZE) {
             throw new SoolSoolException(EXCEED_MAX_CART_SIZE);
         }
     }
 
-    private void validateDuplicated(final CartItem newCartItem) {
+    private void validateDuplicated(final List<CartItem> cartItems, final CartItem newCartItem) {
         if (cartItems.stream().anyMatch(newCartItem::hasSameLiquorWith)) {
             throw new SoolSoolException(EXISTS_CART_ITEM);
         }
@@ -62,22 +55,5 @@ public class CartItemService {
         if (newCartItem.hasStoppedLiquor()) {
             throw new SoolSoolException(STOPPED_LIQUOR);
         }
-    }
-
-    public boolean isEmpty() {
-        return this.cartItems.isEmpty();
-    }
-
-    public Long getMemberId() {
-        return memberId;
-    }
-
-    public List<CartItem> getCartItems() {
-        return cartItems.stream()
-            .collect(Collectors.toUnmodifiableList());
-    }
-
-    public int getCartItemSize() {
-        return this.cartItems.size();
     }
 }

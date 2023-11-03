@@ -16,7 +16,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
 @DisplayName("통합 테스트: CartItemRepository")
-class CartItemServiceItemRepositoryTest {
+class AddCartItemServiceItemRepositoryTest {
 
     @Autowired
     CartItemRepository cartItemRepository;

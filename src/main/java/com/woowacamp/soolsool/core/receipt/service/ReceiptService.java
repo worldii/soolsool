@@ -5,8 +5,8 @@ import static com.woowacamp.soolsool.core.receipt.code.ReceiptErrorCode.NOT_EQUA
 import static com.woowacamp.soolsool.core.receipt.code.ReceiptErrorCode.NOT_FOUND_RECEIPT;
 import static com.woowacamp.soolsool.core.receipt.code.ReceiptErrorCode.NOT_RECEIPT_FOUND;
 
+import com.woowacamp.soolsool.core.cart.domain.CartItem;
 import com.woowacamp.soolsool.core.cart.domain.CartItemRepository;
-import com.woowacamp.soolsool.core.cart.domain.CartItemService;
 import com.woowacamp.soolsool.core.member.domain.Member;
 import com.woowacamp.soolsool.core.member.repository.MemberRepository;
 import com.woowacamp.soolsool.core.receipt.code.ReceiptErrorCode;
@@ -19,6 +19,7 @@ import com.woowacamp.soolsool.core.receipt.repository.ReceiptStatusCache;
 import com.woowacamp.soolsool.core.receipt.repository.redisson.ReceiptRedisRepository;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import com.woowacamp.soolsool.global.infra.LockType;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
@@ -50,11 +51,10 @@ public class ReceiptService {
         final Member member = memberRepository.findById(memberId)
             .orElseThrow(() -> new SoolSoolException(ReceiptErrorCode.MEMBER_NO_INFORMATION));
 
-        final CartItemService cartItemService = new CartItemService(memberId,
-            cartItemRepository.findAllByMemberId(memberId));
+        final List<CartItem> cartItems = cartItemRepository.findAllByMemberId(memberId);
 
         final Long receiptId = receiptRepository.save(
-            receiptMapper.mapFrom(cartItemService, member.getMileage())).getId();
+            receiptMapper.mapFrom(memberId, cartItems, member.getMileage())).getId();
 
         receiptRedisRepository.addExpiredEvent(receiptId, memberId, RECEIPT_EXPIRED_MINUTES);
 

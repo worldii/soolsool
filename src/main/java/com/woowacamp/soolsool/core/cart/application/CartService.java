@@ -4,9 +4,9 @@ import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_EQUALS_MEM
 import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_FOUND_CART_ITEM;
 import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_FOUND_LIQUOR;
 
+import com.woowacamp.soolsool.core.cart.domain.AddCartItemService;
 import com.woowacamp.soolsool.core.cart.domain.CartItem;
 import com.woowacamp.soolsool.core.cart.domain.CartItemRepository;
-import com.woowacamp.soolsool.core.cart.domain.CartItemService;
 import com.woowacamp.soolsool.core.cart.dto.request.CartItemModifyRequest;
 import com.woowacamp.soolsool.core.cart.dto.request.CartItemSaveRequest;
 import com.woowacamp.soolsool.core.cart.dto.response.CartItemResponse;
@@ -26,21 +26,20 @@ public class CartService {
 
     private final CartItemRepository cartItemRepository;
     private final LiquorRepository liquorRepository;
+    private final AddCartItemService addCartItemService;
 
     @Transactional
     public Long addCartItem(final Long memberId, final CartItemSaveRequest request) {
         final Liquor liquor = findLiquor(request.getLiquorId());
-
         final CartItem newCartItem = CartItem.builder()
             .memberId(memberId)
             .liquor(liquor)
             .quantity(request.getQuantity())
             .build();
+        final List<CartItem> cartItems = cartItemRepository
+            .findAllByMemberIdOrderByCreatedAtDesc(memberId);
 
-        final CartItemService cartItemService = new CartItemService(
-            memberId, cartItemRepository.findAllByMemberIdOrderByCreatedAtDesc(memberId));
-
-        newCartItem.addCartItem(cartItemService);
+        newCartItem.addCartItem(addCartItemService, cartItems);
 
         return cartItemRepository.save(newCartItem).getId();
     }

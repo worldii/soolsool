@@ -1,7 +1,6 @@
 package com.woowacamp.soolsool.core.cart.domain;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import com.woowacamp.soolsool.core.liquor.domain.liquor.Liquor;
 import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorBrew;
@@ -18,7 +17,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("단위 테스트: Cart")
-class CartItemServiceTest {
+class AddCartItemServiceTest {
 
     private Liquor soju;
     private Liquor beer;
@@ -44,29 +43,17 @@ class CartItemServiceTest {
     }
 
     @Test
-    @DisplayName("장바구니를 생성한다.")
-    void createCart() {
-        // given
-        List<CartItem> cartItems = List.of(
-            new CartItem(1L, soju, 1),
-            new CartItem(1L, beer, 1)
-        );
-
-        // when & then
-        assertDoesNotThrow(() -> new CartItemService(1L, cartItems));
-    }
-
-    @Test
     @DisplayName("장바구니의 memberId와 CartItem의 memberId가 다르면 예외를 던진다.")
     void sameMember() {
         // given
         List<CartItem> cartItems = List.of(
             new CartItem(1L, soju, 1),
-            new CartItem(2L, beer, 1)
+            new CartItem(1L, beer, 1)
         );
+        CartItem newCartItem = new CartItem(2L, soju, 1);
 
         // when & then
-        assertThatThrownBy(() -> new CartItemService(1L, cartItems))
+        assertThatThrownBy(() -> new AddCartItemService().addCartItem(cartItems, newCartItem))
             .isExactlyInstanceOf(SoolSoolException.class)
             .hasMessage("다른 사용자의 장바구니 상품을 가지고 있습니다.");
     }
@@ -81,12 +68,12 @@ class CartItemServiceTest {
             cartItems.add(new CartItem(1L, soju, 1));
         }
 
-        CartItemService cartItemService = new CartItemService(1L, cartItems);
+        AddCartItemService addCartItemService = new AddCartItemService();
 
         CartItem newCartItem = new CartItem(1L, beer, 1);
 
         // when & then
-        assertThatThrownBy(() -> cartItemService.addCartItem(newCartItem))
+        assertThatThrownBy(() -> addCartItemService.addCartItem(cartItems, newCartItem))
             .isExactlyInstanceOf(SoolSoolException.class)
             .hasMessage("장바구니가 가득 찼습니다.");
     }
@@ -100,10 +87,10 @@ class CartItemServiceTest {
 
         List<CartItem> cartItems = new ArrayList<>(List.of(cartItem));
 
-        CartItemService cartItemService = new CartItemService(1L, cartItems);
+        AddCartItemService addCartItemService = new AddCartItemService();
 
         // when & then
-        assertThatThrownBy(() -> cartItemService.addCartItem(sameCartItem))
+        assertThatThrownBy(() -> addCartItemService.addCartItem(cartItems, sameCartItem))
             .isExactlyInstanceOf(SoolSoolException.class)
             .hasMessage("장바구니에 이미 존재하는 상품입니다.");
     }
@@ -112,7 +99,7 @@ class CartItemServiceTest {
     @DisplayName("새로운 장바구니 상품을 추가할 때 판매중지된 상품이라면 예외를 던진다.")
     void stoppedLiquor() {
         // given
-        CartItemService cartItemService = new CartItemService(1L, List.of());
+        AddCartItemService addCartItemService = new AddCartItemService();
 
         Liquor stoppedLiquor = Liquor.builder()
             .brew(new LiquorBrew(LiquorBrewType.SOJU))
@@ -129,7 +116,7 @@ class CartItemServiceTest {
         CartItem cartItem = new CartItem(1L, stoppedLiquor, 1);
 
         // when & then
-        assertThatThrownBy(() -> cartItemService.addCartItem(cartItem))
+        assertThatThrownBy(() -> addCartItemService.addCartItem(List.of(), cartItem))
             .isExactlyInstanceOf(SoolSoolException.class)
             .hasMessage("판매가 중지된 상품은 추가할 수 없습니다.");
     }

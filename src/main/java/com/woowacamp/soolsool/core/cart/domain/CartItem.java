@@ -9,6 +9,7 @@ import com.woowacamp.soolsool.core.liquor.domain.liquor.Liquor;
 import com.woowacamp.soolsool.global.common.BaseEntity;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -99,7 +100,10 @@ public class CartItem extends BaseEntity {
         return this.liquor.getPrice();
     }
 
-    public void addCartItem(final CartItemService cartItemService) {
-        cartItemService.addCartItem(this);
+    public void addCartItem(
+        final AddCartItemService addCartItemService,
+        final List<CartItem> cartItems
+    ) {
+        addCartItemService.addCartItem(cartItems, this);
     }
 }

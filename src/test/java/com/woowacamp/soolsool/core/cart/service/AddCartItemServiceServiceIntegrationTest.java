@@ -36,7 +36,7 @@ import org.springframework.test.context.jdbc.Sql;
     LiquorCtrRedisRepository.class,
     RedisTestConfig.class})
 @DisplayName("통합 테스트: CartItemService")
-class CartItemServiceServiceIntegrationTest {
+class AddCartItemServiceServiceIntegrationTest {
 
     @Autowired
     private CartService cartService;
