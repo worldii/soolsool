@@ -8,6 +8,7 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.woowacamp.soolsool.config.RedisTestConfig;
+import com.woowacamp.soolsool.core.cart.application.CartService;
 import com.woowacamp.soolsool.core.cart.dto.request.CartItemModifyRequest;
 import com.woowacamp.soolsool.core.cart.dto.request.CartItemSaveRequest;
 import com.woowacamp.soolsool.core.liquor.repository.LiquorBrewCache;
@@ -35,7 +36,7 @@ import org.springframework.test.context.jdbc.Sql;
     LiquorCtrRedisRepository.class,
     RedisTestConfig.class})
 @DisplayName("통합 테스트: CartItemService")
-class CartServiceIntegrationTest {
+class CartItemServiceServiceIntegrationTest {
 
     @Autowired
     private CartService cartService;

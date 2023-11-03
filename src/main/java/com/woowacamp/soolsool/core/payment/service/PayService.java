@@ -1,6 +1,6 @@
 package com.woowacamp.soolsool.core.payment.service;
 
-import com.woowacamp.soolsool.core.cart.service.CartService;
+import com.woowacamp.soolsool.core.cart.application.CartService;
 import com.woowacamp.soolsool.core.liquor.service.LiquorService;
 import com.woowacamp.soolsool.core.liquor.service.LiquorStockService;
 import com.woowacamp.soolsool.core.member.service.MemberService;
@@ -90,7 +90,8 @@ public class PayService {
             receiptService.modifyReceiptStatus(memberId, receiptId, ReceiptStatusType.COMPLETED);
 
             // 결제 정보를 받아 저장한다.(주문 서비스락 )
-            OrderPaymentInfo payInfo = payClient.payApprove(receipt, pgToken).toEntity(order.getId());
+            OrderPaymentInfo payInfo = payClient.payApprove(receipt, pgToken)
+                .toEntity(order.getId());
             orderService.addPaymentInfo(payInfo);
 
             // publisher 를 가지고 이벤트를 발행한다.
@@ -99,7 +100,6 @@ public class PayService {
             return order;
         } catch (final InterruptedException e) {
             Thread.currentThread().interrupt();
-
 
             throw new SoolSoolException(PayErrorCode.INTERRUPTED_THREAD);
         } finally {

@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Cart {
+public class CartItemService {
 
     private static final int MAX_CART_SIZE = 100;
 
     private final Long memberId;
     private final List<CartItem> cartItems;
 
-    public Cart(final Long memberId, final List<CartItem> cartItems) {
+    public CartItemService(final Long memberId, final List<CartItem> cartItems) {
         validateMember(memberId, cartItems);
 
         this.memberId = memberId;

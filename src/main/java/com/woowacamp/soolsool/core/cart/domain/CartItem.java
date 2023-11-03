@@ -98,4 +98,8 @@ public class CartItem extends BaseEntity {
     public BigInteger getLiquorPrice() {
         return this.liquor.getPrice();
     }
+
+    public void addCartItem(final CartItemService cartItemService) {
+        cartItemService.addCartItem(this);
+    }
 }

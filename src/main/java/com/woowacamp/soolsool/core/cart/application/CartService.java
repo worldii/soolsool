@@ -1,11 +1,11 @@
-package com.woowacamp.soolsool.core.cart.service;
+package com.woowacamp.soolsool.core.cart.application;
 
 import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_EQUALS_MEMBER;
 import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_FOUND_CART_ITEM;
 import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_FOUND_LIQUOR;
 
-import com.woowacamp.soolsool.core.cart.domain.Cart;
 import com.woowacamp.soolsool.core.cart.domain.CartItem;
+import com.woowacamp.soolsool.core.cart.domain.CartItemService;
 import com.woowacamp.soolsool.core.cart.dto.request.CartItemModifyRequest;
 import com.woowacamp.soolsool.core.cart.dto.request.CartItemSaveRequest;
 import com.woowacamp.soolsool.core.cart.dto.response.CartItemResponse;
@@ -29,8 +29,7 @@ public class CartService {
 
     @Transactional
     public Long addCartItem(final Long memberId, final CartItemSaveRequest request) {
-        final Liquor liquor = liquorRepository.findById(request.getLiquorId())
-            .orElseThrow(() -> new SoolSoolException(NOT_FOUND_LIQUOR));
+        final Liquor liquor = findLiquor(request.getLiquorId());
 
         final CartItem newCartItem = CartItem.builder()
             .memberId(memberId)
@@ -38,14 +37,17 @@ public class CartService {
             .quantity(request.getQuantity())
             .build();
 
-        final Cart cart = new Cart(memberId, findAllByMemberIdOrderByCreatedAtDesc(memberId));
-        cart.addCartItem(newCartItem);
+        final CartItemService cartItemService = new CartItemService(
+            memberId, cartItemRepository.findAllByMemberIdOrderByCreatedAtDesc(memberId));
+
+        newCartItem.addCartItem(cartItemService);
 
         return cartItemRepository.save(newCartItem).getId();
     }
 
-    private List<CartItem> findAllByMemberIdOrderByCreatedAtDesc(final Long memberId) {
-        return cartItemRepository.findAllByMemberIdOrderByCreatedAtDesc(memberId);
+    private Liquor findLiquor(final Long liquorId) {
+        return liquorRepository.findById(liquorId)
+            .orElseThrow(() -> new SoolSoolException(NOT_FOUND_LIQUOR));
     }
 
     @Transactional(readOnly = true)
@@ -64,18 +66,21 @@ public class CartService {
         final Long cartItemId,
         final CartItemModifyRequest cartItemModifyRequest
     ) {
-        final CartItem cartItem = cartItemRepository.findById(cartItemId)
-            .orElseThrow(() -> new SoolSoolException(NOT_FOUND_CART_ITEM));
+        final CartItem cartItem = findCartItem(cartItemId);
 
         validateMemberId(memberId, cartItem.getMemberId());
 
         cartItem.updateQuantity(cartItemModifyRequest.getLiquorQuantity());
     }
 
+    private CartItem findCartItem(final Long cartItemId) {
+        return cartItemRepository.findById(cartItemId)
+            .orElseThrow(() -> new SoolSoolException(NOT_FOUND_CART_ITEM));
+    }
+
     @Transactional
     public void removeCartItem(final Long memberId, final Long cartItemId) {
-        final CartItem cartItem = cartItemRepository.findById(cartItemId)
-            .orElseThrow(() -> new SoolSoolException(NOT_FOUND_CART_ITEM));
+        final CartItem cartItem = findCartItem(cartItemId);
 
         validateMemberId(memberId, cartItem.getMemberId());
 

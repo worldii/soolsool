@@ -5,7 +5,7 @@ import static com.woowacamp.soolsool.core.receipt.code.ReceiptErrorCode.NOT_EQUA
 import static com.woowacamp.soolsool.core.receipt.code.ReceiptErrorCode.NOT_FOUND_RECEIPT;
 import static com.woowacamp.soolsool.core.receipt.code.ReceiptErrorCode.NOT_RECEIPT_FOUND;
 
-import com.woowacamp.soolsool.core.cart.domain.Cart;
+import com.woowacamp.soolsool.core.cart.domain.CartItemService;
 import com.woowacamp.soolsool.core.cart.repository.CartItemRepository;
 import com.woowacamp.soolsool.core.member.domain.Member;
 import com.woowacamp.soolsool.core.member.repository.MemberRepository;
@@ -50,10 +50,11 @@ public class ReceiptService {
         final Member member = memberRepository.findById(memberId)
             .orElseThrow(() -> new SoolSoolException(ReceiptErrorCode.MEMBER_NO_INFORMATION));
 
-        final Cart cart = new Cart(memberId, cartItemRepository.findAllByMemberId(memberId));
+        final CartItemService cartItemService = new CartItemService(memberId,
+            cartItemRepository.findAllByMemberId(memberId));
 
         final Long receiptId = receiptRepository.save(
-            receiptMapper.mapFrom(cart, member.getMileage())).getId();
+            receiptMapper.mapFrom(cartItemService, member.getMileage())).getId();
 
         receiptRedisRepository.addExpiredEvent(receiptId, memberId, RECEIPT_EXPIRED_MINUTES);
 

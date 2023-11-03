@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.cart.controller;
+package com.woowacamp.soolsool.core.cart.api;
 
 import static com.woowacamp.soolsool.core.cart.code.CartResultCode.CART_ITEM_ADD_SUCCESS;
 import static com.woowacamp.soolsool.core.cart.code.CartResultCode.CART_ITEM_DELETED;
@@ -6,10 +6,10 @@ import static com.woowacamp.soolsool.core.cart.code.CartResultCode.CART_ITEM_LIS
 import static com.woowacamp.soolsool.core.cart.code.CartResultCode.CART_ITEM_LIST_FOUND;
 import static com.woowacamp.soolsool.core.cart.code.CartResultCode.CART_ITEM_MODIFY_QUANTITY_SUCCESS;
 
+import com.woowacamp.soolsool.core.cart.application.CartService;
 import com.woowacamp.soolsool.core.cart.dto.request.CartItemModifyRequest;
 import com.woowacamp.soolsool.core.cart.dto.request.CartItemSaveRequest;
 import com.woowacamp.soolsool.core.cart.dto.response.CartItemResponse;
-import com.woowacamp.soolsool.core.cart.service.CartService;
 import com.woowacamp.soolsool.global.aop.RequestLogging;
 import com.woowacamp.soolsool.global.auth.dto.LoginUser;
 import com.woowacamp.soolsool.global.common.ApiResponse;

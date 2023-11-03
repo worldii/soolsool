@@ -10,7 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 @DisplayName("단위 테스트: CartItemQuantity")
-class CartItemQuantityTest {
+class CartItemServiceItemQuantityTest {
 
     @Test
     @DisplayName("장바구니 상품 수량을 정상적으로 생성한다.")

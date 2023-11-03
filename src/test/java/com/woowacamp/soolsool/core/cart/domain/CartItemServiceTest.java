@@ -18,7 +18,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("단위 테스트: Cart")
-class CartTest {
+class CartItemServiceTest {
 
     private Liquor soju;
     private Liquor beer;
@@ -53,7 +53,7 @@ class CartTest {
         );
 
         // when & then
-        assertDoesNotThrow(() -> new Cart(1L, cartItems));
+        assertDoesNotThrow(() -> new CartItemService(1L, cartItems));
     }
 
     @Test
@@ -66,7 +66,7 @@ class CartTest {
         );
 
         // when & then
-        assertThatThrownBy(() -> new Cart(1L, cartItems))
+        assertThatThrownBy(() -> new CartItemService(1L, cartItems))
             .isExactlyInstanceOf(SoolSoolException.class)
             .hasMessage("다른 사용자의 장바구니 상품을 가지고 있습니다.");
     }
@@ -81,12 +81,12 @@ class CartTest {
             cartItems.add(new CartItem(1L, soju, 1));
         }
 
-        Cart cart = new Cart(1L, cartItems);
+        CartItemService cartItemService = new CartItemService(1L, cartItems);
 
         CartItem newCartItem = new CartItem(1L, beer, 1);
 
         // when & then
-        assertThatThrownBy(() -> cart.addCartItem(newCartItem))
+        assertThatThrownBy(() -> cartItemService.addCartItem(newCartItem))
             .isExactlyInstanceOf(SoolSoolException.class)
             .hasMessage("장바구니가 가득 찼습니다.");
     }
@@ -100,10 +100,10 @@ class CartTest {
 
         List<CartItem> cartItems = new ArrayList<>(List.of(cartItem));
 
-        Cart cart = new Cart(1L, cartItems);
+        CartItemService cartItemService = new CartItemService(1L, cartItems);
 
         // when & then
-        assertThatThrownBy(() -> cart.addCartItem(sameCartItem))
+        assertThatThrownBy(() -> cartItemService.addCartItem(sameCartItem))
             .isExactlyInstanceOf(SoolSoolException.class)
             .hasMessage("장바구니에 이미 존재하는 상품입니다.");
     }
@@ -112,7 +112,7 @@ class CartTest {
     @DisplayName("새로운 장바구니 상품을 추가할 때 판매중지된 상품이라면 예외를 던진다.")
     void stoppedLiquor() {
         // given
-        Cart cart = new Cart(1L, List.of());
+        CartItemService cartItemService = new CartItemService(1L, List.of());
 
         Liquor stoppedLiquor = Liquor.builder()
             .brew(new LiquorBrew(LiquorBrewType.SOJU))
@@ -129,7 +129,7 @@ class CartTest {
         CartItem cartItem = new CartItem(1L, stoppedLiquor, 1);
 
         // when & then
-        assertThatThrownBy(() -> cart.addCartItem(cartItem))
+        assertThatThrownBy(() -> cartItemService.addCartItem(cartItem))
             .isExactlyInstanceOf(SoolSoolException.class)
             .hasMessage("판매가 중지된 상품은 추가할 수 없습니다.");
     }
