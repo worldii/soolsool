@@ -5,11 +5,11 @@ import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_FOUND_CART
 import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_FOUND_LIQUOR;
 
 import com.woowacamp.soolsool.core.cart.domain.CartItem;
+import com.woowacamp.soolsool.core.cart.domain.CartItemRepository;
 import com.woowacamp.soolsool.core.cart.domain.CartItemService;
 import com.woowacamp.soolsool.core.cart.dto.request.CartItemModifyRequest;
 import com.woowacamp.soolsool.core.cart.dto.request.CartItemSaveRequest;
 import com.woowacamp.soolsool.core.cart.dto.response.CartItemResponse;
-import com.woowacamp.soolsool.core.cart.repository.CartItemRepository;
 import com.woowacamp.soolsool.core.liquor.domain.Liquor;
 import com.woowacamp.soolsool.core.liquor.repository.LiquorRepository;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;

@@ -5,8 +5,8 @@ import static com.woowacamp.soolsool.core.receipt.code.ReceiptErrorCode.NOT_EQUA
 import static com.woowacamp.soolsool.core.receipt.code.ReceiptErrorCode.NOT_FOUND_RECEIPT;
 import static com.woowacamp.soolsool.core.receipt.code.ReceiptErrorCode.NOT_RECEIPT_FOUND;
 
+import com.woowacamp.soolsool.core.cart.domain.CartItemRepository;
 import com.woowacamp.soolsool.core.cart.domain.CartItemService;
-import com.woowacamp.soolsool.core.cart.repository.CartItemRepository;
 import com.woowacamp.soolsool.core.member.domain.Member;
 import com.woowacamp.soolsool.core.member.repository.MemberRepository;
 import com.woowacamp.soolsool.core.receipt.code.ReceiptErrorCode;

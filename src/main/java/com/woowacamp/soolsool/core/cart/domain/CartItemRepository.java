@@ -1,6 +1,5 @@
-package com.woowacamp.soolsool.core.cart.repository;
+package com.woowacamp.soolsool.core.cart.domain;
 
-import com.woowacamp.soolsool.core.cart.domain.CartItem;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
