@@ -1,6 +1,5 @@
-package com.woowacamp.soolsool.core.liquor.repository;
+package com.woowacamp.soolsool.core.liquor.domain.liquor;
 
-import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorStatus;
 import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorStatusType;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;

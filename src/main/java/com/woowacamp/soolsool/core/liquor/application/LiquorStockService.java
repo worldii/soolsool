@@ -3,11 +3,11 @@ package com.woowacamp.soolsool.core.liquor.application;
 import static com.woowacamp.soolsool.core.liquor.code.LiquorErrorCode.NOT_LIQUOR_FOUND;
 
 import com.woowacamp.soolsool.core.liquor.domain.liquor.Liquor;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorRepository;
 import com.woowacamp.soolsool.core.liquor.domain.stock.DecreaseStocksService;
 import com.woowacamp.soolsool.core.liquor.domain.stock.LiquorStock;
 import com.woowacamp.soolsool.core.liquor.domain.stock.LiquorStockRepository;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorStockSaveRequest;
-import com.woowacamp.soolsool.core.liquor.repository.LiquorRepository;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +22,7 @@ public class LiquorStockService {
     private final LiquorRepository liquorRepository;
     private final LiquorStockRepository liquorStockRepository;
     private final DecreaseStocksService decreaseStocksService;
-    
+
     @Transactional
     public Long saveLiquorStock(final LiquorStockSaveRequest request) {
         final Liquor liquor = findLiquor(request.getLiquorId());

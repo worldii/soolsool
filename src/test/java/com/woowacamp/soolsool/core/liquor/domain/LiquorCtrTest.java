@@ -3,6 +3,7 @@ package com.woowacamp.soolsool.core.liquor.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
+import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtr;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.liquor.domain.converter;
+package com.woowacamp.soolsool.core.liquor.domain.liquor.converter;
 
 import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorPrice;
 import java.math.BigInteger;

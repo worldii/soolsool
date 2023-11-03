@@ -1,10 +1,10 @@
 package com.woowacamp.soolsool.core.liquor.service;
 
-import com.woowacamp.soolsool.core.liquor.domain.LiquorCtr;
+import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtr;
+import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrRedisRepository;
+import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrRepository;
 import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorClickAddRequest;
 import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorImpressionAddRequest;
-import com.woowacamp.soolsool.core.liquor.repository.LiquorCtrRepository;
-import com.woowacamp.soolsool.core.liquor.repository.redisson.LiquorCtrRedisRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

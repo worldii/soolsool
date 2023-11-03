@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.liquor.config;
+package com.woowacamp.soolsool.core.liquor.domain.liquor.converter;
 
 import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorStatusType;
 import java.util.Arrays;

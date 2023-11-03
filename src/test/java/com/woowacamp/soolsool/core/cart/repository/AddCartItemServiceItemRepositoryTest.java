@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.woowacamp.soolsool.core.cart.domain.CartItem;
 import com.woowacamp.soolsool.core.cart.domain.CartItemRepository;
 import com.woowacamp.soolsool.core.liquor.domain.liquor.Liquor;
-import com.woowacamp.soolsool.core.liquor.repository.LiquorRepository;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorRepository;
 import com.woowacamp.soolsool.core.member.repository.MemberRepository;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;

@@ -1,12 +1,10 @@
-package com.woowacamp.soolsool.core.liquor.repository.redisson;
+package com.woowacamp.soolsool.core.liquor.domain.liquorCtr;
 
 import com.woowacamp.soolsool.core.liquor.code.LiquorCtrErrorCode;
-import com.woowacamp.soolsool.core.liquor.domain.LiquorCtr;
 import com.woowacamp.soolsool.core.liquor.event.LiquorCtrExpiredEvent;
 import com.woowacamp.soolsool.core.liquor.infra.RedisLiquorCtr;
-import com.woowacamp.soolsool.core.liquor.repository.LiquorCtrRepository;
-import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import com.woowacamp.soolsool.global.aop.DistributedLock;
+import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RMapCache;
@@ -50,12 +48,12 @@ public class LiquorCtrRedisRepository {
         return lookUpLiquorCtr(liquorId).toEntity(liquorId).getCtr();
     }
 
-    @DistributedLock(lockName = "LIQUOR_CTR:", entityId ="#liquorId",waitTime = 1L,leaseTime = 1L)
+    @DistributedLock(lockName = "LIQUOR_CTR:", entityId = "#liquorId", waitTime = 1L, leaseTime = 1L)
     public void increaseImpression(final Long liquorId) {
         liquorCtrs.replace(liquorId, lookUpLiquorCtr(liquorId).increaseImpression());
     }
 
-    @DistributedLock(lockName = "LIQUOR_CTR:", entityId ="#liquorId",waitTime = 1L,leaseTime = 1L)
+    @DistributedLock(lockName = "LIQUOR_CTR:", entityId = "#liquorId", waitTime = 1L, leaseTime = 1L)
     public void increaseClick(final Long liquorId) {
         liquorCtrs.replace(liquorId, lookUpLiquorCtr(liquorId).increaseClick());
     }

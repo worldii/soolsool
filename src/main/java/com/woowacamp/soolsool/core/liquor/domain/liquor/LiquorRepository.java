@@ -1,6 +1,5 @@
-package com.woowacamp.soolsool.core.liquor.repository;
+package com.woowacamp.soolsool.core.liquor.domain.liquor;
 
-import com.woowacamp.soolsool.core.liquor.domain.liquor.Liquor;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

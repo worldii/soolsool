@@ -5,6 +5,7 @@ import static com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorStatusTy
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorStatus;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorStatusRepository;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

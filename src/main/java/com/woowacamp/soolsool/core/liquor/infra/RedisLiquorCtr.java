@@ -1,6 +1,6 @@
 package com.woowacamp.soolsool.core.liquor.infra;
 
-import com.woowacamp.soolsool.core.liquor.domain.LiquorCtr;
+import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtr;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

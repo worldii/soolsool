@@ -3,6 +3,7 @@ package com.woowacamp.soolsool.core.liquor.repository.redisson;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.woowacamp.soolsool.config.RedisTestConfig;
+import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrRedisRepository;
 import com.woowacamp.soolsool.core.liquor.infra.RedisLiquorCtr;
 import com.woowacamp.soolsool.fake.DistributedLockAspect;
 import com.woowacamp.soolsool.global.config.AspectProxyConfig;

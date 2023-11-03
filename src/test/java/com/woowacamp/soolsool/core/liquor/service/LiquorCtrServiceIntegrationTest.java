@@ -3,10 +3,10 @@ package com.woowacamp.soolsool.core.liquor.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.woowacamp.soolsool.config.RedisTestConfig;
+import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrRedisRepository;
 import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorClickAddRequest;
 import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorImpressionAddRequest;
 import com.woowacamp.soolsool.core.liquor.infra.RedisLiquorCtr;
-import com.woowacamp.soolsool.core.liquor.repository.redisson.LiquorCtrRedisRepository;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

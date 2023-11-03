@@ -10,11 +10,11 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 
 import com.woowacamp.soolsool.core.cart.application.CartService;
 import com.woowacamp.soolsool.core.cart.domain.AddCartItemService;
-import com.woowacamp.soolsool.core.liquor.repository.LiquorBrewCache;
-import com.woowacamp.soolsool.core.liquor.repository.LiquorQueryDslRepository;
-import com.woowacamp.soolsool.core.liquor.repository.LiquorRegionCache;
-import com.woowacamp.soolsool.core.liquor.repository.LiquorStatusCache;
-import com.woowacamp.soolsool.core.liquor.repository.redisson.LiquorCtrRedisRepository;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorBrewCache;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorQueryDslRepository;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorRegionCache;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorStatusCache;
+import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrRedisRepository;
 import com.woowacamp.soolsool.core.liquor.service.LiquorService;
 import com.woowacamp.soolsool.core.receipt.dto.response.ReceiptDetailResponse;
 import com.woowacamp.soolsool.core.receipt.repository.ReceiptStatusCache;

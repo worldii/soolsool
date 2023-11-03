@@ -1,6 +1,5 @@
-package com.woowacamp.soolsool.core.liquor.domain.converter;
+package com.woowacamp.soolsool.core.liquor.domain.stock;
 
-import com.woowacamp.soolsool.core.liquor.domain.stock.LiquorStockCount;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 

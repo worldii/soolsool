@@ -1,6 +1,5 @@
 package com.woowacamp.soolsool.core.liquor.domain.stock;
 
-import com.woowacamp.soolsool.core.liquor.domain.converter.LiquorStockCountConverter;
 import com.woowacamp.soolsool.global.common.BaseEntity;
 import java.time.LocalDateTime;
 import javax.persistence.Column;

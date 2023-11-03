@@ -1,6 +1,5 @@
-package com.woowacamp.soolsool.core.liquor.repository;
+package com.woowacamp.soolsool.core.liquor.domain.liquorCtr;
 
-import com.woowacamp.soolsool.core.liquor.domain.LiquorCtr;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

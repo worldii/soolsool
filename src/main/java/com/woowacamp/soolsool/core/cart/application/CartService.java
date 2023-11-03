@@ -11,7 +11,7 @@ import com.woowacamp.soolsool.core.cart.dto.request.CartItemModifyRequest;
 import com.woowacamp.soolsool.core.cart.dto.request.CartItemSaveRequest;
 import com.woowacamp.soolsool.core.cart.dto.response.CartItemResponse;
 import com.woowacamp.soolsool.core.liquor.domain.liquor.Liquor;
-import com.woowacamp.soolsool.core.liquor.repository.LiquorRepository;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorRepository;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.util.List;
 import java.util.Objects;

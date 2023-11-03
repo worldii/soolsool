@@ -1,6 +1,6 @@
 package com.woowacamp.soolsool.core.liquor.event;
 
-import com.woowacamp.soolsool.core.liquor.domain.LiquorCtr;
+import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtr;
 import com.woowacamp.soolsool.core.liquor.infra.RedisLiquorCtr;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
