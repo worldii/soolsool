@@ -3,9 +3,13 @@ package com.woowacamp.soolsool.core.liquor.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorBrewType;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorRegionType;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorStatusType;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.Liquor;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorBrew;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorRegion;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorStatus;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorBrewType;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorRegionType;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorStatusType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

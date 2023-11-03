@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.liquor.domain;
+package com.woowacamp.soolsool.core.liquor.domain.liquor;
 
 import com.woowacamp.soolsool.core.liquor.domain.converter.LiquorAlcoholConverter;
 import com.woowacamp.soolsool.core.liquor.domain.converter.LiquorBrandConverter;
@@ -7,14 +7,14 @@ import com.woowacamp.soolsool.core.liquor.domain.converter.LiquorNameConverter;
 import com.woowacamp.soolsool.core.liquor.domain.converter.LiquorPriceConverter;
 import com.woowacamp.soolsool.core.liquor.domain.converter.LiquorStockCountConverter;
 import com.woowacamp.soolsool.core.liquor.domain.converter.LiquorVolumeConverter;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorAlcohol;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorBrand;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorImageUrl;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorName;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorPrice;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorStatusType;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorStockCount;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorVolume;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorAlcohol;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorBrand;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorImageUrl;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorName;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorPrice;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorStatusType;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorVolume;
+import com.woowacamp.soolsool.core.liquor.domain.stock.LiquorStockCount;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorModifyRequest;
 import com.woowacamp.soolsool.global.common.BaseEntity;
 import java.math.BigInteger;

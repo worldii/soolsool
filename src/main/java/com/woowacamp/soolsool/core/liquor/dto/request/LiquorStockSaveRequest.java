@@ -1,7 +1,7 @@
 package com.woowacamp.soolsool.core.liquor.dto.request;
 
-import com.woowacamp.soolsool.core.liquor.domain.LiquorStock;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorStockCount;
+import com.woowacamp.soolsool.core.liquor.domain.stock.LiquorStock;
+import com.woowacamp.soolsool.core.liquor.domain.stock.LiquorStockCount;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

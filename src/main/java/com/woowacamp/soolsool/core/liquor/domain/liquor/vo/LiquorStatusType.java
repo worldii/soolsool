@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.liquor.domain.vo;
+package com.woowacamp.soolsool.core.liquor.domain.liquor.vo;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,7 @@
-package com.woowacamp.soolsool.core.liquor.domain;
+package com.woowacamp.soolsool.core.liquor.domain.liquor;
 
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorStatusType;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorRegionType;
+import com.woowacamp.soolsool.global.common.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,10 +15,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "liquor_status")
+@Table(name = "liquor_regions")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class LiquorStatus {
+public class LiquorRegion extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,9 +27,9 @@ public class LiquorStatus {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "name", nullable = false, length = 20)
-    private LiquorStatusType type;
+    private LiquorRegionType type;
 
-    public LiquorStatus(final LiquorStatusType type) {
+    public LiquorRegion(final LiquorRegionType type) {
         this.type = type;
     }
 }

@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.liquor.controller;
+package com.woowacamp.soolsool.core.liquor.api;
 
 import com.woowacamp.soolsool.core.liquor.code.LiquorCtrResultCode;
 import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorClickAddRequest;

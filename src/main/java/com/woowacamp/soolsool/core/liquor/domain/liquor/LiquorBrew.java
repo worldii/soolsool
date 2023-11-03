@@ -1,6 +1,6 @@
-package com.woowacamp.soolsool.core.liquor.domain;
+package com.woowacamp.soolsool.core.liquor.domain.liquor;
 
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorBrewType;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorBrewType;
 import com.woowacamp.soolsool.global.common.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;

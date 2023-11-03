@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.liquor.domain.vo;
+package com.woowacamp.soolsool.core.liquor.domain.liquor.vo;
 
 import static com.woowacamp.soolsool.core.liquor.code.LiquorErrorCode.INVALID_SIZE_PRICE;
 import static com.woowacamp.soolsool.core.liquor.code.LiquorErrorCode.NO_CONTENT_PRICE;

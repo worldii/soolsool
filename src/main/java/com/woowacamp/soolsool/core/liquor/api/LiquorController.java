@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.liquor.controller;
+package com.woowacamp.soolsool.core.liquor.api;
 
 import static com.woowacamp.soolsool.core.liquor.code.LiquorResultCode.LIQUOR_CREATED;
 import static com.woowacamp.soolsool.core.liquor.code.LiquorResultCode.LIQUOR_DELETED;

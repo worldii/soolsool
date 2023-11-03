@@ -1,6 +1,6 @@
 package com.woowacamp.soolsool.core.liquor.domain.converter;
 
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorImageUrl;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorImageUrl;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 

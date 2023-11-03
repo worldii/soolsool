@@ -1,7 +1,7 @@
 package com.woowacamp.soolsool.core.liquor.repository;
 
-import com.woowacamp.soolsool.core.liquor.domain.LiquorStatus;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorStatusType;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorStatus;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorStatusType;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

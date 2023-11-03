@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.liquor.domain.vo;
+package com.woowacamp.soolsool.core.liquor.domain.liquor.vo;
 
 import com.woowacamp.soolsool.core.liquor.code.LiquorErrorCode;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;

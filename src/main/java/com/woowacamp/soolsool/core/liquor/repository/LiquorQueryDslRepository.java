@@ -1,16 +1,16 @@
 package com.woowacamp.soolsool.core.liquor.repository;
 
-import static com.woowacamp.soolsool.core.liquor.domain.QLiquor.liquor;
+import static com.woowacamp.soolsool.core.liquor.domain.liquor.QLiquor.liquor;
 import static com.woowacamp.soolsool.core.statistics.domain.QStatistic.statistic;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.woowacamp.soolsool.core.liquor.domain.Liquor;
-import com.woowacamp.soolsool.core.liquor.domain.LiquorBrew;
-import com.woowacamp.soolsool.core.liquor.domain.LiquorRegion;
-import com.woowacamp.soolsool.core.liquor.domain.LiquorStatus;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorBrand;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.Liquor;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorBrew;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorRegion;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorStatus;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorBrand;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorSearchCondition;
 import com.woowacamp.soolsool.core.liquor.dto.response.LiquorClickElementDto;
 import com.woowacamp.soolsool.core.statistics.domain.vo.Click;

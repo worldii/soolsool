@@ -1,8 +1,8 @@
 package com.woowacamp.soolsool.core.liquor.dto.request;
 
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorBrewType;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorRegionType;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorStatusType;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorBrewType;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorRegionType;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorStatusType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.Nullable;
@@ -11,6 +11,7 @@ import org.springframework.lang.Nullable;
 @Getter
 @RequiredArgsConstructor
 public class LiquorListRequest {
+
     @Nullable
     private final LiquorBrewType brew;
     @Nullable

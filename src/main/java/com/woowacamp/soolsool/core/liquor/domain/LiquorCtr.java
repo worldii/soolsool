@@ -4,8 +4,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import com.woowacamp.soolsool.core.liquor.code.LiquorCtrErrorCode;
 import com.woowacamp.soolsool.core.liquor.domain.converter.LiquorCtrImpressionConverter;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorCtrClick;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorCtrImpression;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorCtrClick;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorCtrImpression;
 import com.woowacamp.soolsool.global.common.BaseEntity;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import javax.persistence.Column;

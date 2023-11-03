@@ -1,6 +1,6 @@
 package com.woowacamp.soolsool.core.liquor.config;
 
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorRegionType;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorRegionType;
 import java.util.Arrays;
 import java.util.Objects;
 import org.springframework.core.convert.converter.Converter;

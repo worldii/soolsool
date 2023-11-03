@@ -1,7 +1,7 @@
-package com.woowacamp.soolsool.core.liquor.controller;
+package com.woowacamp.soolsool.core.liquor.api;
 
+import com.woowacamp.soolsool.core.liquor.application.LiquorStockService;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorStockSaveRequest;
-import com.woowacamp.soolsool.core.liquor.service.LiquorStockService;
 import com.woowacamp.soolsool.global.aop.RequestLogging;
 import com.woowacamp.soolsool.global.auth.dto.Vendor;
 import com.woowacamp.soolsool.global.common.ApiResponse;

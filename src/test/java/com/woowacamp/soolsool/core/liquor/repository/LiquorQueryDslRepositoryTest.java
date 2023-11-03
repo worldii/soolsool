@@ -2,10 +2,10 @@ package com.woowacamp.soolsool.core.liquor.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.woowacamp.soolsool.core.liquor.domain.Liquor;
-import com.woowacamp.soolsool.core.liquor.domain.LiquorBrew;
-import com.woowacamp.soolsool.core.liquor.domain.LiquorRegion;
-import com.woowacamp.soolsool.core.liquor.domain.LiquorStatus;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.Liquor;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorBrew;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorRegion;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorStatus;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorSearchCondition;
 import com.woowacamp.soolsool.core.liquor.dto.response.LiquorClickElementDto;
 import com.woowacamp.soolsool.global.config.QuerydslConfig;
@@ -139,7 +139,7 @@ class LiquorQueryDslRepositoryTest {
         // when
         List<LiquorClickElementDto> 커서첫번째 = liquorQueryDslRepository.getListByClick(
             new LiquorSearchCondition(region, brew, status, brand),
-                Pageable.ofSize(1), liquorId, clickCount, localDateTime);
+            Pageable.ofSize(1), liquorId, clickCount, localDateTime);
         Long 커서첫번째_liquorId = 커서첫번째.get(커서첫번째.size() - 1).getClickCount();
         Long 커서첫번째_clickCount = 커서첫번째.get(커서첫번째.size() - 1).getClickCount();
 

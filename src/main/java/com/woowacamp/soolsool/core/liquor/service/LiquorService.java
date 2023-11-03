@@ -5,14 +5,14 @@ import static com.woowacamp.soolsool.core.liquor.code.LiquorErrorCode.NOT_LIQUOR
 import static com.woowacamp.soolsool.core.liquor.code.LiquorErrorCode.NOT_LIQUOR_REGION_FOUND;
 import static com.woowacamp.soolsool.core.liquor.code.LiquorErrorCode.NOT_LIQUOR_STATUS_FOUND;
 
-import com.woowacamp.soolsool.core.liquor.domain.Liquor;
-import com.woowacamp.soolsool.core.liquor.domain.LiquorBrew;
 import com.woowacamp.soolsool.core.liquor.domain.LiquorCtr;
-import com.woowacamp.soolsool.core.liquor.domain.LiquorRegion;
-import com.woowacamp.soolsool.core.liquor.domain.LiquorStatus;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorBrewType;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorRegionType;
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorStatusType;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.Liquor;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorBrew;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorRegion;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorStatus;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorBrewType;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorRegionType;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorStatusType;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorListRequest;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorModifyRequest;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorSaveRequest;

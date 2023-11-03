@@ -1,6 +1,6 @@
 package com.woowacamp.soolsool.core.receipt.domain;
 
-import com.woowacamp.soolsool.core.liquor.domain.Liquor;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.Liquor;
 import com.woowacamp.soolsool.core.receipt.domain.converter.ReceiptItemAlcoholConverter;
 import com.woowacamp.soolsool.core.receipt.domain.converter.ReceiptItemBrandConverter;
 import com.woowacamp.soolsool.core.receipt.domain.converter.ReceiptItemBrewConverter;

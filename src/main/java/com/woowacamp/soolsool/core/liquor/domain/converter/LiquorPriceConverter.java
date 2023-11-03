@@ -1,6 +1,6 @@
 package com.woowacamp.soolsool.core.liquor.domain.converter;
 
-import com.woowacamp.soolsool.core.liquor.domain.vo.LiquorPrice;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorPrice;
 import java.math.BigInteger;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
