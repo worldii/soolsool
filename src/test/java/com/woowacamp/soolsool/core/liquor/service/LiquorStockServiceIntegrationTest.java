@@ -3,6 +3,7 @@ package com.woowacamp.soolsool.core.liquor.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.woowacamp.soolsool.core.liquor.application.LiquorStockService;
+import com.woowacamp.soolsool.core.liquor.domain.stock.DecreaseStocksService;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorStockSaveRequest;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +14,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
-@Import(LiquorStockService.class)
+@Import({LiquorStockService.class, DecreaseStocksService.class})
 @DisplayName("통합테스트: LiquorStockService")
 class LiquorStockServiceIntegrationTest {
 

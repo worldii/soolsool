@@ -9,9 +9,11 @@ import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.STOPPED_LIQUOR
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 @Service
+@Getter
 public class AddCartItemService {
 
     private static final int MAX_CART_SIZE = 100;

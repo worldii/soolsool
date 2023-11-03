@@ -9,6 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 import com.woowacamp.soolsool.core.cart.application.CartService;
+import com.woowacamp.soolsool.core.cart.domain.AddCartItemService;
 import com.woowacamp.soolsool.core.liquor.repository.LiquorBrewCache;
 import com.woowacamp.soolsool.core.liquor.repository.LiquorQueryDslRepository;
 import com.woowacamp.soolsool.core.liquor.repository.LiquorRegionCache;
@@ -32,7 +33,7 @@ import org.springframework.test.context.jdbc.Sql;
 @DataJpaTest
 @Import({ReceiptService.class, CartService.class, LiquorService.class,
     ReceiptMapper.class, LiquorBrewCache.class, LiquorStatusCache.class,
-    LiquorRegionCache.class, ReceiptStatusCache.class,
+    LiquorRegionCache.class, ReceiptStatusCache.class, AddCartItemService.class,
     LiquorQueryDslRepository.class, QuerydslConfig.class, MultipleCacheManagerConfig.class,
     RedissonConfig.class, ReceiptRedisRepository.class, LiquorCtrRedisRepository.class})
 @DisplayName("통합 테스트: ReceiptService")
