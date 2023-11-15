@@ -27,7 +27,9 @@ import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
 @Import({RedisTestConfig.class, AspectProxyConfig.class,
-    LiquorCtrService.class, IncreaseRedisLiquorCtrService.class})
+    LiquorCtrService.class, IncreaseRedisLiquorCtrService.class,
+    DistributedLockAspect.class
+})
 @DisplayName("통합 테스트 : LiquorCtrRedisRepository")
 class IncreaseRedisLiquorCtrServiceTest {
 
@@ -42,13 +44,11 @@ class IncreaseRedisLiquorCtrServiceTest {
     LiquorCtrService liquorCtrService;
     @Autowired
     LiquorCtrRepository liquorCtrRepository;
-    DistributedLockAspect distributedLockAspect;
 
     @BeforeEach
     @AfterEach
     void setRedisLiquorCtr() {
         redissonClient.getMapCache(LIQUOR_CTR_KEY).clear();
-        distributedLockAspect = new DistributedLockAspect(redissonClient);
     }
 
     @Test
