@@ -42,12 +42,6 @@ public class DistributedLockAspect {
             Thread.currentThread().interrupt();
             throw new InterruptedException();
         } finally {
-            unlock(rLock);
-        }
-    }
-
-    private void unlock(final RLock rLock) {
-        if (rLock.isLocked() && rLock.isHeldByCurrentThread()) {
             rLock.unlock();
         }
     }
