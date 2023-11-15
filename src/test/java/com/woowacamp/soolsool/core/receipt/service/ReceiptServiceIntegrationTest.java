@@ -8,13 +8,12 @@ import static com.woowacamp.soolsool.core.receipt.domain.vo.ReceiptStatusType.CO
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-import com.woowacamp.soolsool.core.cart.service.CartService;
-import com.woowacamp.soolsool.core.liquor.repository.LiquorBrewCache;
-import com.woowacamp.soolsool.core.liquor.repository.LiquorQueryDslRepository;
-import com.woowacamp.soolsool.core.liquor.repository.LiquorRegionCache;
-import com.woowacamp.soolsool.core.liquor.repository.LiquorStatusCache;
-import com.woowacamp.soolsool.core.liquor.repository.redisson.LiquorCtrRedisRepository;
-import com.woowacamp.soolsool.core.liquor.service.LiquorService;
+import com.woowacamp.soolsool.core.cart.application.CartService;
+import com.woowacamp.soolsool.core.cart.domain.AddCartItemService;
+import com.woowacamp.soolsool.core.liquor.application.LiquorCommandService;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorCategoryCache;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorQueryDslRepository;
+import com.woowacamp.soolsool.core.liquor.infra.IncreaseRedisLiquorCtrService;
 import com.woowacamp.soolsool.core.receipt.dto.response.ReceiptDetailResponse;
 import com.woowacamp.soolsool.core.receipt.repository.ReceiptStatusCache;
 import com.woowacamp.soolsool.core.receipt.repository.redisson.ReceiptRedisRepository;
@@ -30,11 +29,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
-@Import({ReceiptService.class, CartService.class, LiquorService.class,
-    ReceiptMapper.class, LiquorBrewCache.class, LiquorStatusCache.class,
-    LiquorRegionCache.class, ReceiptStatusCache.class,
-    LiquorQueryDslRepository.class, QuerydslConfig.class, MultipleCacheManagerConfig.class,
-    RedissonConfig.class, ReceiptRedisRepository.class, LiquorCtrRedisRepository.class})
+@Import({ReceiptService.class, CartService.class, LiquorCommandService.class,
+    ReceiptMapper.class, LiquorCategoryCache.class, ReceiptStatusCache.class,
+    AddCartItemService.class, LiquorQueryDslRepository.class,
+    QuerydslConfig.class, MultipleCacheManagerConfig.class,
+    RedissonConfig.class, ReceiptRedisRepository.class, IncreaseRedisLiquorCtrService.class})
 @DisplayName("통합 테스트: ReceiptService")
 class ReceiptServiceIntegrationTest {
 

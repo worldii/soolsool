@@ -2,7 +2,8 @@ package com.woowacamp.soolsool.core.liquor.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.woowacamp.soolsool.core.liquor.domain.LiquorCtr;
+import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtr;
+import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrRepository;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

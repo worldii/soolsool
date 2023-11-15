@@ -1,10 +1,11 @@
 package com.woowacamp.soolsool.core.liquor.repository;
 
 import static com.woowacamp.soolsool.core.liquor.code.LiquorErrorCode.NOT_LIQUOR_BREW_FOUND;
-import static com.woowacamp.soolsool.core.liquor.domain.vo.LiquorBrewType.BERRY;
+import static com.woowacamp.soolsool.core.liquor.domain.liquor.vo.LiquorBrewType.BERRY;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.woowacamp.soolsool.core.liquor.domain.LiquorBrew;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorBrew;
+import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorBrewRepository;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

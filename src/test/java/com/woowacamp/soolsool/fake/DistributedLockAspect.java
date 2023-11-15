@@ -11,43 +11,38 @@ import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 @Aspect
-@Component
 @Order(value = 1)
 @Profile("test")
 public class DistributedLockAspect {
 
     private final RedissonClient redissonClient;
+    private static final long DEFAULT_WAIT_TIME = 100L;
 
     @Autowired
-    public DistributedLockAspect(RedissonClient redissonClient) {
+    public DistributedLockAspect(final RedissonClient redissonClient) {
         this.redissonClient = redissonClient;
     }
 
     @Around("@annotation(com.woowacamp.soolsool.global.aop.DistributedLock)")
     public Object lock(final ProceedingJoinPoint joinPoint) throws Throwable {
-        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        Method method = signature.getMethod();
-        long waitTime = 100L;
-        DistributedLock lock = method.getAnnotation(DistributedLock.class);
-
-        RLock rLock = redissonClient.getLock(lock.lockName() + lock.entityId());
+        final MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        final Method method = signature.getMethod();
+        final DistributedLock lock = method.getAnnotation(DistributedLock.class);
+        final RLock rLock = redissonClient.getLock(lock.lockName() + lock.entityId());
 
         try {
-            if (!rLock.tryLock(waitTime, lock.leaseTime(), lock.timeUnit())) {
+            if (!rLock.tryLock(DEFAULT_WAIT_TIME, lock.leaseTime(), lock.timeUnit())) {
                 return false;
             }
-            Object returnValue = joinPoint.proceed();
-            return returnValue;
+            return joinPoint.proceed();
+
         } catch (final Exception e) {
             Thread.currentThread().interrupt();
             throw new InterruptedException();
         } finally {
-            if (rLock.isLocked() && rLock.isHeldByCurrentThread()) {
-                rLock.unlock();
-            }
+            rLock.unlock();
         }
     }
 }

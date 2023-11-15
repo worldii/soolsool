@@ -4,7 +4,6 @@ import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_FOUND_CART
 import static com.woowacamp.soolsool.core.receipt.code.ReceiptErrorCode.NOT_RECEIPT_TYPE_FOUND;
 import static com.woowacamp.soolsool.core.receipt.domain.vo.ReceiptStatusType.INPROGRESS;
 
-import com.woowacamp.soolsool.core.cart.domain.Cart;
 import com.woowacamp.soolsool.core.cart.domain.CartItem;
 import com.woowacamp.soolsool.core.receipt.domain.Receipt;
 import com.woowacamp.soolsool.core.receipt.domain.ReceiptItem;
@@ -28,22 +27,23 @@ public class ReceiptMapper {
 
     private final ReceiptStatusCache receiptStatusRepository;
 
-    public Receipt mapFrom(final Cart cart, final BigInteger mileage) {
-        if (cart.isEmpty()) {
+    public Receipt mapFrom(final Long memberId, final List<CartItem> cartItems,
+        final BigInteger mileage) {
+        if (cartItems.isEmpty()) {
             throw new SoolSoolException(NOT_FOUND_CART_ITEM);
         }
 
-        final ReceiptItemPrice totalPrice = computeTotalPrice(cart);
+        final ReceiptItemPrice totalPrice = computeTotalPrice(cartItems);
         final ReceiptItemPrice mileageUsage = computeMileageUsage(mileage);
 
         return Receipt.builder()
-            .memberId(cart.getMemberId())
+            .memberId(memberId)
             .receiptStatus(getReceiptStatusByType(INPROGRESS))
             .originalTotalPrice(totalPrice)
             .mileageUsage(mileageUsage)
             .purchasedTotalPrice(totalPrice.subtract(mileageUsage))
-            .totalQuantity(new ReceiptItemQuantity(cart.getCartItemSize()))
-            .receiptItems(mapToReceiptItems(cart))
+            .totalQuantity(new ReceiptItemQuantity(cartItems.size()))
+            .receiptItems(mapToReceiptItems(cartItems))
             .build();
     }
 
@@ -51,16 +51,16 @@ public class ReceiptMapper {
         return new ReceiptItemPrice(mileage.divide(MILEAGE_USAGE_PERCENT));
     }
 
-    private List<ReceiptItem> mapToReceiptItems(final Cart cart) {
-        return cart.getCartItems().stream()
+    private List<ReceiptItem> mapToReceiptItems(final List<CartItem> cartItems) {
+        return cartItems.stream()
             .map(cartItem -> ReceiptItem.of(cartItem.getLiquor(), cartItem.getQuantity()))
             .collect(Collectors.toList());
     }
 
-    private ReceiptItemPrice computeTotalPrice(final Cart cart) {
+    private ReceiptItemPrice computeTotalPrice(final List<CartItem> cartItems) {
         BigInteger totalPrice = BigInteger.ZERO;
 
-        for (CartItem cartItem : cart.getCartItems()) {
+        for (CartItem cartItem : cartItems) {
             totalPrice = totalPrice.add(cartItem.getLiquorPrice());
         }
 

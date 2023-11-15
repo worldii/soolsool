@@ -10,11 +10,9 @@ import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 @Aspect
 @RequiredArgsConstructor
-@Component
 @Order(value = 1)
 @Profile("!test")
 public class DistributedLockAspect {
@@ -39,9 +37,7 @@ public class DistributedLockAspect {
             Thread.currentThread().interrupt();
             throw new InterruptedException();
         } finally {
-            if (rLock.isLocked() && rLock.isHeldByCurrentThread()) {
-                rLock.unlock();
-            }
+            rLock.unlock();
         }
     }
 }
