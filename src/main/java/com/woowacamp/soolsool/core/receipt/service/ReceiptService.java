@@ -96,7 +96,7 @@ public class ReceiptService {
             receipt.updateStatus(
                 getReceiptStatus(receiptStatusType)
             );
-        } catch (final InterruptedException e) {
+        } catch (InterruptedException | ThreadDeath e) {
             throw new SoolSoolException(ReceiptErrorCode.INTERRUPTED_THREAD);
         } finally {
             unlock(receiptLock);
@@ -118,9 +118,7 @@ public class ReceiptService {
     }
 
     private void unlock(final RLock lock) {
-        if (lock.isLocked() && lock.isHeldByCurrentThread()) {
-            lock.unlock();
-        }
+        lock.unlock();
     }
 
     @Transactional(readOnly = true)

@@ -6,13 +6,18 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.concurrent.TimeUnit;
 import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Order(value = 1)
+@Component
 public @interface DistributedLock {
+
     String entityId() default "";
+
     String lockName() default "";
+
     TimeUnit timeUnit() default TimeUnit.SECONDS;
 
     long waitTime() default 10L;
