@@ -1,14 +1,17 @@
-package com.woowacamp.soolsool.core.liquor.repository.redisson;
+package com.woowacamp.soolsool.core.liquor.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.woowacamp.soolsool.config.RedisTestConfig;
-import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.IncreaseLiquorCtrService;
+import com.woowacamp.soolsool.core.liquor.application.LiquorCtrService;
 import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrRepository;
+import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorClickAddRequest;
+import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorImpressionAddRequest;
 import com.woowacamp.soolsool.core.liquor.infra.IncreaseRedisLiquorCtrService;
 import com.woowacamp.soolsool.core.liquor.infra.RedisLiquorCtr;
 import com.woowacamp.soolsool.fake.DistributedLockAspect;
 import com.woowacamp.soolsool.global.config.AspectProxyConfig;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,10 +26,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
-@Import({
-    IncreaseRedisLiquorCtrService.class, RedisTestConfig.class,
-    LiquorCtrRepository.class,
-    DistributedLockAspect.class, AspectProxyConfig.class})
+@Import({RedisTestConfig.class, AspectProxyConfig.class,
+    LiquorCtrService.class, IncreaseRedisLiquorCtrService.class})
 @DisplayName("통합 테스트 : LiquorCtrRedisRepository")
 class IncreaseRedisLiquorCtrServiceTest {
 
@@ -34,21 +35,20 @@ class IncreaseRedisLiquorCtrServiceTest {
     private static final Long TARGET_LIQUOR = 1L;
 
     @Autowired
-    IncreaseLiquorCtrService increaseRedisLiquorCtrService;
-
-    @Autowired
     RedissonClient redissonClient;
-
     @Autowired
-    DistributedLockAspect distributedLockAspect;
-
+    IncreaseRedisLiquorCtrService increaseRedisLiquorCtrService;
+    @Autowired
+    LiquorCtrService liquorCtrService;
     @Autowired
     LiquorCtrRepository liquorCtrRepository;
+    DistributedLockAspect distributedLockAspect;
 
     @BeforeEach
     @AfterEach
     void setRedisLiquorCtr() {
         redissonClient.getMapCache(LIQUOR_CTR_KEY).clear();
+        distributedLockAspect = new DistributedLockAspect(redissonClient);
     }
 
     @Test
@@ -100,15 +100,15 @@ class IncreaseRedisLiquorCtrServiceTest {
         // given
         redissonClient.getMapCache(LIQUOR_CTR_KEY)
             .put(TARGET_LIQUOR, new RedisLiquorCtr(50L, 50L));
-
         int threadCount = 50;
+        LiquorImpressionAddRequest request = new LiquorImpressionAddRequest(List.of(TARGET_LIQUOR));
         ExecutorService executor = Executors.newFixedThreadPool(threadCount);
         CountDownLatch latch = new CountDownLatch(threadCount);
 
         // when
         for (int i = 0; i < threadCount; i++) {
             executor.submit(() -> {
-                increaseRedisLiquorCtrService.increaseImpression(TARGET_LIQUOR);
+                liquorCtrService.increaseImpression(request);
                 latch.countDown();
             });
         }
@@ -127,7 +127,7 @@ class IncreaseRedisLiquorCtrServiceTest {
             .put(TARGET_LIQUOR, new RedisLiquorCtr(1L, 0L));
 
         // when
-        increaseRedisLiquorCtrService.increaseClick(TARGET_LIQUOR);
+        liquorCtrService.increaseClick(new LiquorClickAddRequest(TARGET_LIQUOR));
 
         // then
         double ctr = increaseRedisLiquorCtrService.getCtr(TARGET_LIQUOR);

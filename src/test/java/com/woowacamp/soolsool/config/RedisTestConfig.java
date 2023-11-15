@@ -1,17 +1,16 @@
 package com.woowacamp.soolsool.config;
 
+import com.woowacamp.soolsool.fake.DistributedLockAspect;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.utility.DockerImageName;
 
 @TestConfiguration
-@Profile("test")
 public class RedisTestConfig {
 
     static {
@@ -46,5 +45,10 @@ public class RedisTestConfig {
             .setAddress("redis://" + host + ":" + port);
 
         return Redisson.create(config);
+    }
+
+    @Bean
+    public DistributedLockAspect distributedLockAspect(final RedissonClient redissonClient) {
+        return new DistributedLockAspect(redissonClient);
     }
 }

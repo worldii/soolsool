@@ -4,10 +4,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.woowacamp.soolsool.config.RedisTestConfig;
 import com.woowacamp.soolsool.core.liquor.application.LiquorCtrService;
+import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.IncreaseLiquorCtrService;
+import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrRepository;
 import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorClickAddRequest;
 import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorImpressionAddRequest;
 import com.woowacamp.soolsool.core.liquor.infra.IncreaseRedisLiquorCtrService;
 import com.woowacamp.soolsool.core.liquor.infra.RedisLiquorCtr;
+import com.woowacamp.soolsool.global.config.AspectProxyConfig;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,17 +23,24 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
-@Import({LiquorCtrService.class, RedisTestConfig.class, IncreaseRedisLiquorCtrService.class})
+@Import({
+    LiquorCtrService.class, RedisTestConfig.class,
+    IncreaseRedisLiquorCtrService.class,
+    AspectProxyConfig.class
+})
 @DisplayName("통합 테스트: LiquorCtrService")
 class LiquorCtrServiceIntegrationTest {
 
     private static final String LIQUOR_CTR_KEY = "LIQUOR_CTR";
 
     @Autowired
-    LiquorCtrService liquorCtrService;
-
-    @Autowired
     RedissonClient redissonClient;
+    @Autowired
+    IncreaseLiquorCtrService increaseLiquorCtrService;
+    @Autowired
+    LiquorCtrService liquorCtrService;
+    @Autowired
+    LiquorCtrRepository liquorCtrRepository;
 
     @BeforeEach
     @AfterEach
@@ -44,7 +54,6 @@ class LiquorCtrServiceIntegrationTest {
     void getLiquorCtrByByLiquorId() {
         // given
         long liquorId = 1L;
-
         long impression = 1L;
         long click = 1L;
         redissonClient.getMapCache(LIQUOR_CTR_KEY)

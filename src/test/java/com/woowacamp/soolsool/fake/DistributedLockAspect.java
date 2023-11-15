@@ -9,14 +9,10 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 @Aspect
-@Component
 @Order(value = 1)
-@Profile("test")
 public class DistributedLockAspect {
 
     private final RedissonClient redissonClient;
