@@ -36,9 +36,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class LiquorQueryService {
 
     private static final PageRequest TOP_RANK_PAGEABLE = PageRequest.of(0, 5);
+
     private final LiquorRepository liquorRepository;
-    private final LiquorCategoryCache liquorCategoryCache;
     private final LiquorQueryDslRepository liquorQueryDslRepository;
+    private final LiquorCategoryCache liquorCategoryCache;
 
     public LiquorDetailResponse liquorDetail(final Long liquorId) {
         return LiquorDetailResponse.of(findLiquor(liquorId));
@@ -73,7 +74,9 @@ public class LiquorQueryService {
     private List<LiquorClickElementResponse> getLiquorElementResponseFromClick(
         final List<LiquorClickElementDto> liquors
     ) {
-        return liquors.stream().map(LiquorClickElementResponse::from).collect(Collectors.toList());
+        return liquors.stream()
+            .map(LiquorClickElementResponse::from)
+            .collect(Collectors.toList());
     }
 
     public PageLiquorResponse liquorListByLatest(
@@ -92,7 +95,7 @@ public class LiquorQueryService {
 
     @Cacheable(value = "liquorsFirstPage")
     public PageLiquorResponse getFirstPage(final Pageable pageable) {
-        log.info("LiquorQueryDslRepository getCachedList");
+        log.info("LiquorQueryDslRepository 캐쉬 적용 확인");
         final List<Liquor> liquors = liquorQueryDslRepository.getCachedList(pageable);
 
         return PageLiquorResponse.of(pageable, getLiquorElementsFromLiquor(liquors));

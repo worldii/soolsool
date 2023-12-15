@@ -1,21 +1,13 @@
 package com.woowacamp.soolsool.global.config;
 
-import static com.woowacamp.soolsool.global.infra.RedisCacheType.LIQUOR_FIRST_PAGE;
+import static java.time.Duration.ofSeconds;
 
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.woowacamp.soolsool.global.infra.CaffeineCacheType;
-import java.time.Duration;
-import java.util.Arrays;
+import com.woowacamp.soolsool.global.infra.RedisCacheType;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.caffeine.CaffeineCache;
-import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
@@ -29,12 +21,12 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 @EnableCaching
-public class MultipleCacheManagerConfig extends CachingConfigurerSupport {
+public class CacheManagerConfig {
 
     private final String host;
     private final int port;
 
-    public MultipleCacheManagerConfig(
+    public CacheManagerConfig(
         @Value("${spring.redis.host}") final String host,
         @Value("${spring.redis.port}") final int port
     ) {
@@ -48,7 +40,7 @@ public class MultipleCacheManagerConfig extends CachingConfigurerSupport {
     }
 
     @Bean
-    public CacheManager redisCacheManager(final RedisConnectionFactory redisConnectionFactory) {
+    public CacheManager cacheManager(final RedisConnectionFactory redisConnectionFactory) {
         final RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration
             .defaultCacheConfig()
             .serializeKeysWith(RedisSerializationContext
@@ -59,44 +51,17 @@ public class MultipleCacheManagerConfig extends CachingConfigurerSupport {
                 .fromSerializer(new GenericJackson2JsonRedisSerializer()));
 
         final Map<String, RedisCacheConfiguration> cacheConfiguration = new HashMap<>();
-        cacheConfiguration.put(
-            LIQUOR_FIRST_PAGE.getCacheName(),
-            redisCacheConfiguration.entryTtl(
-                Duration.ofSeconds(LIQUOR_FIRST_PAGE.getExpireSeconds()
+        for (RedisCacheType cacheName : RedisCacheType.values()) {
+            cacheConfiguration.put(cacheName.getCacheName(),
+                redisCacheConfiguration.entryTtl(ofSeconds(cacheName.getExpireSeconds())
                 )
-            )
-        );
+            );
+        }
 
         return RedisCacheManager.RedisCacheManagerBuilder
             .fromConnectionFactory(redisConnectionFactory)
             .cacheDefaults(RedisCacheConfiguration.defaultCacheConfig())
             .withInitialCacheConfigurations(cacheConfiguration)
             .build();
-    }
-
-
-    @Bean
-    public CacheManager caffeineCacheManager() {
-        final List<CaffeineCache> caches = Arrays.stream(CaffeineCacheType.values()).map(
-            cache -> new CaffeineCache(
-                cache.getCacheName(),
-                Caffeine.newBuilder()
-                    .recordStats()
-                    .expireAfterWrite(cache.getExpiredSecondAfterWrite(), TimeUnit.SECONDS)
-                    .maximumSize(cache.getMaximumSize())
-                    .build()
-            )
-        ).collect(Collectors.toList());
-
-        final SimpleCacheManager cacheManager = new SimpleCacheManager();
-        cacheManager.setCaches(caches);
-
-        return cacheManager;
-    }
-
-    @Override
-    @Bean
-    public CacheManager cacheManager(){
-        return redisCacheManager(redisConnectionFactory());
     }
 }
