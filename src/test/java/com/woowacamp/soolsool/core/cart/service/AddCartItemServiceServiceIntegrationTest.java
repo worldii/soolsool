@@ -1,9 +1,9 @@
 package com.woowacamp.soolsool.core.cart.service;
 
-import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.INVALID_QUANTITY_SIZE;
-import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_EQUALS_MEMBER;
-import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_FOUND_CART_ITEM;
-import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_FOUND_LIQUOR;
+import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.INVALID_QUANTITY_SIZE;
+import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.NOT_EQUALS_MEMBER;
+import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.NOT_FOUND_CART_ITEM;
+import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.NOT_FOUND_LIQUOR;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 

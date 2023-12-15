@@ -3,7 +3,6 @@ package com.woowacamp.soolsool.core.order.service;
 import static com.woowacamp.soolsool.core.order.domain.vo.OrderStatusType.CANCELED;
 import static com.woowacamp.soolsool.core.order.domain.vo.OrderStatusType.COMPLETED;
 
-import com.woowacamp.soolsool.core.order.code.OrderErrorCode;
 import com.woowacamp.soolsool.core.order.domain.Order;
 import com.woowacamp.soolsool.core.order.domain.OrderPaymentInfo;
 import com.woowacamp.soolsool.core.order.domain.OrderStatus;
@@ -11,6 +10,7 @@ import com.woowacamp.soolsool.core.order.domain.vo.OrderStatusType;
 import com.woowacamp.soolsool.core.order.dto.response.OrderDetailResponse;
 import com.woowacamp.soolsool.core.order.dto.response.OrderListResponse;
 import com.woowacamp.soolsool.core.order.dto.response.PageOrderListResponse;
+import com.woowacamp.soolsool.core.order.exception.OrderErrorCode;
 import com.woowacamp.soolsool.core.order.repository.OrderPaymentInfoRepository;
 import com.woowacamp.soolsool.core.order.repository.OrderQueryRepository;
 import com.woowacamp.soolsool.core.order.repository.OrderRepository;

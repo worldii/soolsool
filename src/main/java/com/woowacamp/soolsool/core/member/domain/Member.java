@@ -1,6 +1,5 @@
 package com.woowacamp.soolsool.core.member.domain;
 
-import com.woowacamp.soolsool.core.member.code.MemberErrorCode;
 import com.woowacamp.soolsool.core.member.domain.converter.MemberAddressConverter;
 import com.woowacamp.soolsool.core.member.domain.converter.MemberEmailConverter;
 import com.woowacamp.soolsool.core.member.domain.converter.MemberMileageConverter;
@@ -14,6 +13,7 @@ import com.woowacamp.soolsool.core.member.domain.vo.MemberName;
 import com.woowacamp.soolsool.core.member.domain.vo.MemberPassword;
 import com.woowacamp.soolsool.core.member.domain.vo.MemberPhoneNumber;
 import com.woowacamp.soolsool.core.member.dto.request.MemberModifyRequest;
+import com.woowacamp.soolsool.core.member.exception.MemberErrorCode;
 import com.woowacamp.soolsool.global.common.BaseEntity;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.math.BigInteger;

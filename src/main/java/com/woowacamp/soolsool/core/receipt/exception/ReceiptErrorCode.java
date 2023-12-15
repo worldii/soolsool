@@ -1,9 +1,9 @@
-package com.woowacamp.soolsool.core.receipt.code;
+package com.woowacamp.soolsool.core.receipt.exception;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
-import com.woowacamp.soolsool.global.code.ErrorCode;
+import com.woowacamp.soolsool.global.exception.ErrorCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

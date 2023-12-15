@@ -1,8 +1,8 @@
-package com.woowacamp.soolsool.core.liquor.code;
+package com.woowacamp.soolsool.core.liquor.exception;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
-import com.woowacamp.soolsool.global.code.ErrorCode;
+import com.woowacamp.soolsool.global.exception.ErrorCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

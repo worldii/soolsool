@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.payment.code;
+package com.woowacamp.soolsool.core.payment.exception;
 
 import static org.springframework.http.HttpStatus.OK;
 

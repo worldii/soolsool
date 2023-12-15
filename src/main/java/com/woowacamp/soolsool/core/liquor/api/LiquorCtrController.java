@@ -1,10 +1,10 @@
 package com.woowacamp.soolsool.core.liquor.api;
 
 import com.woowacamp.soolsool.core.liquor.application.LiquorCtrService;
-import com.woowacamp.soolsool.core.liquor.code.LiquorCtrResultCode;
 import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorClickAddRequest;
 import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorCtrDetailResponse;
 import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorImpressionAddRequest;
+import com.woowacamp.soolsool.core.liquor.exception.LiquorCtrResultCode;
 import com.woowacamp.soolsool.global.aop.RequestLogging;
 import com.woowacamp.soolsool.global.auth.dto.NoAuth;
 import com.woowacamp.soolsool.global.common.ApiResponse;

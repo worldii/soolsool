@@ -1,8 +1,8 @@
 package com.woowacamp.soolsool.core.receipt.service;
 
-import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_FOUND_CART_ITEM;
-import static com.woowacamp.soolsool.core.receipt.code.ReceiptErrorCode.NOT_RECEIPT_TYPE_FOUND;
+import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.NOT_FOUND_CART_ITEM;
 import static com.woowacamp.soolsool.core.receipt.domain.vo.ReceiptStatusType.INPROGRESS;
+import static com.woowacamp.soolsool.core.receipt.exception.ReceiptErrorCode.NOT_RECEIPT_TYPE_FOUND;
 
 import com.woowacamp.soolsool.core.cart.domain.CartItem;
 import com.woowacamp.soolsool.core.receipt.domain.Receipt;

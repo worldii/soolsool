@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.member.code;
+package com.woowacamp.soolsool.core.member.exception;
 
 import com.woowacamp.soolsool.global.common.ResultCode;
 import lombok.Getter;

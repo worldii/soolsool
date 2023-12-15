@@ -1,7 +1,7 @@
 package com.woowacamp.soolsool.core.receipt.controller;
 
-import static com.woowacamp.soolsool.core.receipt.code.ReceiptResultCode.RECEIPT_ADD_SUCCESS;
-import static com.woowacamp.soolsool.core.receipt.code.ReceiptResultCode.RECEIPT_FOUND;
+import static com.woowacamp.soolsool.core.receipt.exception.ReceiptResultCode.RECEIPT_ADD_SUCCESS;
+import static com.woowacamp.soolsool.core.receipt.exception.ReceiptResultCode.RECEIPT_FOUND;
 
 import com.woowacamp.soolsool.core.receipt.dto.response.ReceiptDetailResponse;
 import com.woowacamp.soolsool.core.receipt.service.ReceiptService;

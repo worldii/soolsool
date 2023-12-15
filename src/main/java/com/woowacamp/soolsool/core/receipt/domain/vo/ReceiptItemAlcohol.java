@@ -1,6 +1,6 @@
 package com.woowacamp.soolsool.core.receipt.domain.vo;
 
-import static com.woowacamp.soolsool.core.receipt.code.ReceiptErrorCode.INVALID_SIZE_ALCOHOL;
+import static com.woowacamp.soolsool.core.receipt.exception.ReceiptErrorCode.INVALID_SIZE_ALCOHOL;
 
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import lombok.EqualsAndHashCode;

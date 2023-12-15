@@ -1,10 +1,10 @@
 package com.woowacamp.soolsool.core.member.controller;
 
-import com.woowacamp.soolsool.core.member.code.MemberResultCode;
 import com.woowacamp.soolsool.core.member.dto.request.MemberAddRequest;
 import com.woowacamp.soolsool.core.member.dto.request.MemberMileageChargeRequest;
 import com.woowacamp.soolsool.core.member.dto.request.MemberModifyRequest;
 import com.woowacamp.soolsool.core.member.dto.response.MemberDetailResponse;
+import com.woowacamp.soolsool.core.member.exception.MemberResultCode;
 import com.woowacamp.soolsool.core.member.service.MemberService;
 import com.woowacamp.soolsool.global.aop.RequestLogging;
 import com.woowacamp.soolsool.global.auth.dto.LoginUser;

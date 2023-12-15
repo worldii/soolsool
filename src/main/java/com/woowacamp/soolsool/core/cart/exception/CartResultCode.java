@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.cart.code;
+package com.woowacamp.soolsool.core.cart.exception;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;

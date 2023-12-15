@@ -1,6 +1,6 @@
 package com.woowacamp.soolsool.core.liquor.domain.liquorCtr;
 
-import com.woowacamp.soolsool.core.liquor.code.LiquorCtrErrorCode;
+import com.woowacamp.soolsool.core.liquor.exception.LiquorCtrErrorCode;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.util.Objects;
 import javax.persistence.Column;

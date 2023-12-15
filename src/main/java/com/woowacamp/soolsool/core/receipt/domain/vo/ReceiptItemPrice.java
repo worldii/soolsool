@@ -1,7 +1,7 @@
 package com.woowacamp.soolsool.core.receipt.domain.vo;
 
 
-import com.woowacamp.soolsool.core.receipt.code.ReceiptErrorCode;
+import com.woowacamp.soolsool.core.receipt.exception.ReceiptErrorCode;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.math.BigInteger;
 import java.util.Objects;

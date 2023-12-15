@@ -1,10 +1,10 @@
 package com.woowacamp.soolsool.core.liquor.infra;
 
-import com.woowacamp.soolsool.core.liquor.code.LiquorCtrErrorCode;
 import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.IncreaseLiquorCtrService;
 import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtr;
 import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrExpiredEvent;
 import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrRepository;
+import com.woowacamp.soolsool.core.liquor.exception.LiquorCtrErrorCode;
 import com.woowacamp.soolsool.global.aop.DistributedLock;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.util.concurrent.TimeUnit;

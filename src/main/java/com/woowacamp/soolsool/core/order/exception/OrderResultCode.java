@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.order.code;
+package com.woowacamp.soolsool.core.order.exception;
 
 import static org.springframework.http.HttpStatus.OK;
 

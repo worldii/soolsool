@@ -1,7 +1,7 @@
 package com.woowacamp.soolsool.core.liquor.domain.liquor.vo;
 
-import static com.woowacamp.soolsool.core.liquor.code.LiquorErrorCode.INVALID_SIZE_PRICE;
-import static com.woowacamp.soolsool.core.liquor.code.LiquorErrorCode.NO_CONTENT_PRICE;
+import static com.woowacamp.soolsool.core.liquor.exception.LiquorErrorCode.INVALID_SIZE_PRICE;
+import static com.woowacamp.soolsool.core.liquor.exception.LiquorErrorCode.NO_CONTENT_PRICE;
 
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.math.BigInteger;

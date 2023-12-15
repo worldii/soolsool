@@ -1,6 +1,6 @@
 package com.woowacamp.soolsool.core.liquor.domain.stock;
 
-import com.woowacamp.soolsool.core.liquor.code.LiquorStockErrorCode;
+import com.woowacamp.soolsool.core.liquor.exception.LiquorStockErrorCode;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.util.List;
 import lombok.Getter;

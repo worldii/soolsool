@@ -1,10 +1,10 @@
 package com.woowacamp.soolsool.core.receipt.service;
 
-import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_FOUND_CART_ITEM;
-import static com.woowacamp.soolsool.core.member.code.MemberErrorCode.MEMBER_NO_INFORMATION;
-import static com.woowacamp.soolsool.core.receipt.code.ReceiptErrorCode.NOT_EQUALS_MEMBER;
-import static com.woowacamp.soolsool.core.receipt.code.ReceiptErrorCode.NOT_RECEIPT_FOUND;
+import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.NOT_FOUND_CART_ITEM;
+import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.MEMBER_NO_INFORMATION;
 import static com.woowacamp.soolsool.core.receipt.domain.vo.ReceiptStatusType.COMPLETED;
+import static com.woowacamp.soolsool.core.receipt.exception.ReceiptErrorCode.NOT_EQUALS_MEMBER;
+import static com.woowacamp.soolsool.core.receipt.exception.ReceiptErrorCode.NOT_RECEIPT_FOUND;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 

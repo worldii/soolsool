@@ -1,10 +1,10 @@
 package com.woowacamp.soolsool.core.cart.domain;
 
-import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.EXCEED_MAX_CART_SIZE;
-import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.EXISTS_CART_ITEM;
-import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_EQUALS_MEMBER;
-import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NULL_LIQUOR;
-import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.STOPPED_LIQUOR;
+import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.EXCEED_MAX_CART_SIZE;
+import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.EXISTS_CART_ITEM;
+import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.NOT_EQUALS_MEMBER;
+import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.NULL_LIQUOR;
+import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.STOPPED_LIQUOR;
 
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.util.List;

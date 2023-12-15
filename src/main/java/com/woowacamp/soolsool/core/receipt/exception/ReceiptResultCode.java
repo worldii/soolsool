@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.receipt.code;
+package com.woowacamp.soolsool.core.receipt.exception;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;

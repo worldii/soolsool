@@ -1,6 +1,6 @@
 package com.woowacamp.soolsool.acceptance;
 
-import static com.woowacamp.soolsool.core.receipt.code.ReceiptResultCode.RECEIPT_FOUND;
+import static com.woowacamp.soolsool.core.receipt.exception.ReceiptResultCode.RECEIPT_FOUND;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.CREATED;

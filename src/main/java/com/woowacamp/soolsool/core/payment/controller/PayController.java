@@ -1,8 +1,8 @@
 package com.woowacamp.soolsool.core.payment.controller;
 
-import static com.woowacamp.soolsool.core.payment.code.PayResultCode.PAY_READY_CANCEL;
-import static com.woowacamp.soolsool.core.payment.code.PayResultCode.PAY_READY_FAIL;
-import static com.woowacamp.soolsool.core.payment.code.PayResultCode.PAY_READY_SUCCESS;
+import static com.woowacamp.soolsool.core.payment.exception.PayResultCode.PAY_READY_CANCEL;
+import static com.woowacamp.soolsool.core.payment.exception.PayResultCode.PAY_READY_FAIL;
+import static com.woowacamp.soolsool.core.payment.exception.PayResultCode.PAY_READY_SUCCESS;
 
 import com.woowacamp.soolsool.core.order.domain.Order;
 import com.woowacamp.soolsool.core.payment.dto.request.PayOrderRequest;

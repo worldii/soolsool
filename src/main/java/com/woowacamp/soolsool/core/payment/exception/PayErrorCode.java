@@ -1,6 +1,6 @@
-package com.woowacamp.soolsool.core.payment.code;
+package com.woowacamp.soolsool.core.payment.exception;
 
-import com.woowacamp.soolsool.global.code.ErrorCode;
+import com.woowacamp.soolsool.global.exception.ErrorCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

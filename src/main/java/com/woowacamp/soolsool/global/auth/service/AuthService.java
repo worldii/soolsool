@@ -1,7 +1,7 @@
 package com.woowacamp.soolsool.global.auth.service;
 
-import static com.woowacamp.soolsool.core.member.code.MemberErrorCode.MEMBER_NO_INFORMATION;
-import static com.woowacamp.soolsool.core.member.code.MemberErrorCode.MEMBER_NO_MATCH_PASSWORD;
+import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.MEMBER_NO_INFORMATION;
+import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.MEMBER_NO_MATCH_PASSWORD;
 
 import com.woowacamp.soolsool.core.member.domain.Member;
 import com.woowacamp.soolsool.core.member.domain.vo.MemberEmail;

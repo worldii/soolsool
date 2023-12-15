@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.global.code;
+package com.woowacamp.soolsool.global.exception;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 

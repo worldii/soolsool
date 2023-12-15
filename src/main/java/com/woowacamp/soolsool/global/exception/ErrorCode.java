@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.global.code;
+package com.woowacamp.soolsool.global.exception;
 
 public interface ErrorCode {
 

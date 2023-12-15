@@ -1,6 +1,6 @@
 package com.woowacamp.soolsool.core.member.domain.vo;
 
-import com.woowacamp.soolsool.core.member.code.MemberErrorCode;
+import com.woowacamp.soolsool.core.member.exception.MemberErrorCode;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.util.regex.Pattern;
 import lombok.EqualsAndHashCode;

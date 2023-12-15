@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.liquor.code;
+package com.woowacamp.soolsool.core.liquor.exception;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;

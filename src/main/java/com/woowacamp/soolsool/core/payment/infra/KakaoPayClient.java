@@ -6,10 +6,10 @@ import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import com.woowacamp.soolsool.core.payment.code.PayErrorCode;
 import com.woowacamp.soolsool.core.payment.domain.KakaoPayReceipt;
 import com.woowacamp.soolsool.core.payment.dto.response.PayApproveResponse;
 import com.woowacamp.soolsool.core.payment.dto.response.PayReadyResponse;
+import com.woowacamp.soolsool.core.payment.exception.PayErrorCode;
 import com.woowacamp.soolsool.core.payment.infra.dto.response.KakaoPayApproveResponse;
 import com.woowacamp.soolsool.core.payment.infra.dto.response.KakaoPayReadyResponse;
 import com.woowacamp.soolsool.core.payment.repository.KakaoPayReceiptRepository;

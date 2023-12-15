@@ -1,11 +1,10 @@
 package com.woowacamp.soolsool.core.member.service;
 
-import static com.woowacamp.soolsool.core.member.code.MemberErrorCode.MEMBER_DUPLICATED_EMAIL;
-import static com.woowacamp.soolsool.core.member.code.MemberErrorCode.MEMBER_NO_INFORMATION;
-import static com.woowacamp.soolsool.core.member.code.MemberErrorCode.MEMBER_NO_ROLE_TYPE;
-import static com.woowacamp.soolsool.core.member.code.MemberErrorCode.NOT_FOUND_RECEIPT;
+import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.MEMBER_DUPLICATED_EMAIL;
+import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.MEMBER_NO_INFORMATION;
+import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.MEMBER_NO_ROLE_TYPE;
+import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.NOT_FOUND_RECEIPT;
 
-import com.woowacamp.soolsool.core.member.code.MemberErrorCode;
 import com.woowacamp.soolsool.core.member.domain.Member;
 import com.woowacamp.soolsool.core.member.domain.MemberMileageCharge;
 import com.woowacamp.soolsool.core.member.domain.MemberMileageUsage;
@@ -16,6 +15,7 @@ import com.woowacamp.soolsool.core.member.dto.request.MemberAddRequest;
 import com.woowacamp.soolsool.core.member.dto.request.MemberMileageChargeRequest;
 import com.woowacamp.soolsool.core.member.dto.request.MemberModifyRequest;
 import com.woowacamp.soolsool.core.member.dto.response.MemberDetailResponse;
+import com.woowacamp.soolsool.core.member.exception.MemberErrorCode;
 import com.woowacamp.soolsool.core.member.repository.MemberMileageChargeRepository;
 import com.woowacamp.soolsool.core.member.repository.MemberMileageUsageRepository;
 import com.woowacamp.soolsool.core.member.repository.MemberRepository;

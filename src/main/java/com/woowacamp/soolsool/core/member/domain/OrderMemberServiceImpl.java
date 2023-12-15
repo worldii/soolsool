@@ -1,6 +1,6 @@
 package com.woowacamp.soolsool.core.member.domain;
 
-import com.woowacamp.soolsool.core.member.code.MemberErrorCode;
+import com.woowacamp.soolsool.core.member.exception.MemberErrorCode;
 import com.woowacamp.soolsool.core.member.repository.MemberRepository;
 import com.woowacamp.soolsool.core.order.service.OrderMemberService;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;

@@ -1,8 +1,8 @@
 package com.woowacamp.soolsool.core.cart.application;
 
-import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_EQUALS_MEMBER;
-import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_FOUND_CART_ITEM;
-import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.NOT_FOUND_LIQUOR;
+import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.NOT_EQUALS_MEMBER;
+import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.NOT_FOUND_CART_ITEM;
+import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.NOT_FOUND_LIQUOR;
 
 import com.woowacamp.soolsool.core.cart.domain.AddCartItemService;
 import com.woowacamp.soolsool.core.cart.domain.CartItem;

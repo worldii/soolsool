@@ -1,6 +1,6 @@
-package com.woowacamp.soolsool.core.member.code;
+package com.woowacamp.soolsool.core.member.exception;
 
-import com.woowacamp.soolsool.global.code.ErrorCode;
+import com.woowacamp.soolsool.global.exception.ErrorCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

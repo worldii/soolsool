@@ -1,9 +1,9 @@
 package com.woowacamp.soolsool.core.order.controller;
 
-import com.woowacamp.soolsool.core.order.code.OrderResultCode;
 import com.woowacamp.soolsool.core.order.dto.response.OrderDetailResponse;
 import com.woowacamp.soolsool.core.order.dto.response.OrderRatioResponse;
 import com.woowacamp.soolsool.core.order.dto.response.PageOrderListResponse;
+import com.woowacamp.soolsool.core.order.exception.OrderResultCode;
 import com.woowacamp.soolsool.core.order.service.OrderService;
 import com.woowacamp.soolsool.global.aop.RequestLogging;
 import com.woowacamp.soolsool.global.auth.dto.LoginUser;

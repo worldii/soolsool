@@ -1,6 +1,6 @@
 package com.woowacamp.soolsool.core.cart.domain.vo;
 
-import static com.woowacamp.soolsool.core.cart.code.CartErrorCode.INVALID_QUANTITY_SIZE;
+import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.INVALID_QUANTITY_SIZE;
 
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import lombok.EqualsAndHashCode;

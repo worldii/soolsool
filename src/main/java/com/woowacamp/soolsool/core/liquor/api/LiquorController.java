@@ -1,13 +1,12 @@
 package com.woowacamp.soolsool.core.liquor.api;
 
-import static com.woowacamp.soolsool.core.liquor.code.LiquorResultCode.LIQUOR_CREATED;
-import static com.woowacamp.soolsool.core.liquor.code.LiquorResultCode.LIQUOR_DELETED;
-import static com.woowacamp.soolsool.core.liquor.code.LiquorResultCode.LIQUOR_LIST_FOUND;
-import static com.woowacamp.soolsool.core.liquor.code.LiquorResultCode.LIQUOR_UPDATED;
+import static com.woowacamp.soolsool.core.liquor.exception.LiquorResultCode.LIQUOR_CREATED;
+import static com.woowacamp.soolsool.core.liquor.exception.LiquorResultCode.LIQUOR_DELETED;
+import static com.woowacamp.soolsool.core.liquor.exception.LiquorResultCode.LIQUOR_LIST_FOUND;
+import static com.woowacamp.soolsool.core.liquor.exception.LiquorResultCode.LIQUOR_UPDATED;
 
 import com.woowacamp.soolsool.core.liquor.application.LiquorCommandService;
 import com.woowacamp.soolsool.core.liquor.application.LiquorQueryService;
-import com.woowacamp.soolsool.core.liquor.code.LiquorResultCode;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorListRequest;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorModifyRequest;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorSaveRequest;
@@ -15,6 +14,7 @@ import com.woowacamp.soolsool.core.liquor.dto.response.LiquorDetailResponse;
 import com.woowacamp.soolsool.core.liquor.dto.response.LiquorElementResponse;
 import com.woowacamp.soolsool.core.liquor.dto.response.PageLiquorResponse;
 import com.woowacamp.soolsool.core.liquor.dto.response.PageLiquorWithClickResponse;
+import com.woowacamp.soolsool.core.liquor.exception.LiquorResultCode;
 import com.woowacamp.soolsool.global.aop.RequestLogging;
 import com.woowacamp.soolsool.global.auth.dto.NoAuth;
 import com.woowacamp.soolsool.global.auth.dto.Vendor;
