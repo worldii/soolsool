@@ -18,22 +18,19 @@ public class LiquorCategoryCache {
     private final LiquorStatusRepository liquorStatusRepository;
     private final LiquorBrewRepository liquorBrewRepository;
 
-    @Cacheable(value = "liquorRegion", key = "#type", condition = "#type!=null",
-        unless = "#result==null", cacheManager = "caffeineCacheManager")
+    @Cacheable(value = "liquorRegion", key = "#type", condition = "#type!=null", unless = "#result==null")
     public Optional<LiquorRegion> findByType(final LiquorRegionType type) {
         log.info("LiquorRegionCache {}", type);
         return liquorRegionRepository.findByType(type);
     }
 
-    @Cacheable(value = "liquorStatus", key = "#type", condition = "#type!=null",
-        unless = "#result==null", cacheManager = "caffeineCacheManager")
+    @Cacheable(value = "liquorStatus", key = "#type", condition = "#type!=null", unless = "#result==null")
     public Optional<LiquorStatus> findByType(final LiquorStatusType type) {
         log.info("LiquorStatusCache {}", type);
         return liquorStatusRepository.findByType(type);
     }
 
-    @Cacheable(value = "liquorBrew", key = "#type", condition = "#type!=null",
-        unless = "#result==null", cacheManager = "caffeineCacheManager")
+    @Cacheable(value = "liquorBrew", key = "#type", condition = "#type!=null", unless = "#result==null")
     public Optional<LiquorBrew> findByType(final LiquorBrewType type) {
         log.info("LiquorBrewCache {}", type);
         return liquorBrewRepository.findByType(type);

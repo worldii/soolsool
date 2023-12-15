@@ -13,7 +13,7 @@ import com.woowacamp.soolsool.core.liquor.dto.request.LiquorModifyRequest;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorSaveRequest;
 import com.woowacamp.soolsool.core.liquor.dto.response.LiquorDetailResponse;
 import com.woowacamp.soolsool.core.liquor.dto.response.LiquorElementResponse;
-import com.woowacamp.soolsool.global.config.MultipleCacheManagerConfig;
+import com.woowacamp.soolsool.global.config.CacheManagerConfig;
 import com.woowacamp.soolsool.global.config.QuerydslConfig;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.time.LocalDateTime;
@@ -27,7 +27,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
 @Import({LiquorCommandService.class, LiquorCategoryCache.class, LiquorQueryDslRepository.class,
-    LiquorQueryService.class, QuerydslConfig.class, MultipleCacheManagerConfig.class})
+    LiquorQueryService.class, QuerydslConfig.class, CacheManagerConfig.class})
 @DisplayName("통합 테스트: LiquorService")
 class LiquorCommandServiceIntegrationTest {
 

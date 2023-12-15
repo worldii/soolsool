@@ -8,7 +8,7 @@ import com.woowacamp.soolsool.core.order.domain.Order;
 import com.woowacamp.soolsool.core.order.domain.vo.OrderStatusType;
 import com.woowacamp.soolsool.core.order.repository.OrderQueryRepository;
 import com.woowacamp.soolsool.core.order.repository.OrderStatusCache;
-import com.woowacamp.soolsool.global.config.MultipleCacheManagerConfig;
+import com.woowacamp.soolsool.global.config.CacheManagerConfig;
 import com.woowacamp.soolsool.global.config.QuerydslConfig;
 import com.woowacamp.soolsool.global.config.RedissonConfig;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
@@ -24,7 +24,7 @@ import org.springframework.test.context.jdbc.Sql;
     {
         OrderService.class, OrderStatusCache.class, OrderMemberServiceImpl.class,
         OrderQueryRepository.class, QuerydslConfig.class, RedissonConfig.class,
-        MultipleCacheManagerConfig.class}
+        CacheManagerConfig.class}
 )
 @DisplayName("통합 테스트: OrderService")
 class OrderServiceIntegrationTest {
