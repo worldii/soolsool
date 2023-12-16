@@ -3,7 +3,7 @@ package com.woowacamp.soolsool.core.payment.service;
 import com.woowacamp.soolsool.core.cart.application.CartService;
 import com.woowacamp.soolsool.core.liquor.application.LiquorCommandService;
 import com.woowacamp.soolsool.core.liquor.application.LiquorStockService;
-import com.woowacamp.soolsool.core.member.service.MemberService;
+import com.woowacamp.soolsool.core.member.application.MemberService;
 import com.woowacamp.soolsool.core.order.domain.Order;
 import com.woowacamp.soolsool.core.order.domain.OrderPaymentInfo;
 import com.woowacamp.soolsool.core.order.service.OrderService;

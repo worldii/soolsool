@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.member.service;
+package com.woowacamp.soolsool.core.member.application;
 
 import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.MEMBER_DUPLICATED_EMAIL;
 import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.MEMBER_NO_INFORMATION;
@@ -19,7 +19,7 @@ import com.woowacamp.soolsool.core.member.exception.MemberErrorCode;
 import com.woowacamp.soolsool.core.member.repository.MemberMileageChargeRepository;
 import com.woowacamp.soolsool.core.member.repository.MemberMileageUsageRepository;
 import com.woowacamp.soolsool.core.member.repository.MemberRepository;
-import com.woowacamp.soolsool.core.member.repository.MemberRoleRepository;
+import com.woowacamp.soolsool.core.member.repository.MemberRoleCache;
 import com.woowacamp.soolsool.core.order.domain.Order;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import com.woowacamp.soolsool.global.infra.LockType;
@@ -44,10 +44,9 @@ public class MemberService {
     private static final long LOCK_LEASE_TIME = 3L;
 
     private final MemberRepository memberRepository;
-    private final MemberRoleRepository memberRoleRepository;
+    private final MemberRoleCache memberRoleRepository;
     private final MemberMileageChargeRepository memberMileageChargeRepository;
     private final MemberMileageUsageRepository memberMileageUsageRepository;
-
     private final RedissonClient redissonClient;
 
     @Transactional
@@ -56,12 +55,13 @@ public class MemberService {
 
         final MemberRole memberRole = getMemberRole(memberAddRequest.getMemberRoleType());
         final Member member = memberAddRequest.toMember(memberRole);
+
         memberRepository.save(member);
     }
 
     private void checkDuplicatedEmail(final String email) {
-        final Optional<Member> duplicatedEmil = memberRepository
-            .findByEmail(new MemberEmail(email));
+        final Optional<Member> duplicatedEmil = memberRepository.findByEmail(
+            new MemberEmail(email));
 
         if (duplicatedEmil.isPresent()) {
             throw new SoolSoolException(MEMBER_DUPLICATED_EMAIL);
@@ -130,7 +130,7 @@ public class MemberService {
         }
     }
 
-    private RLock getMemberLock(Long memberId) {
+    private RLock getMemberLock(final Long memberId) {
         return redissonClient.getLock(LockType.MEMBER.getPrefix() + memberId);
     }
 
