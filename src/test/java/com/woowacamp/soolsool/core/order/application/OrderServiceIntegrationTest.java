@@ -1,13 +1,13 @@
-package com.woowacamp.soolsool.core.order.service;
+package com.woowacamp.soolsool.core.order.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.woowacamp.soolsool.core.member.domain.OrderMemberServiceImpl;
 import com.woowacamp.soolsool.core.order.domain.Order;
+import com.woowacamp.soolsool.core.order.domain.OrderQueryRepository;
+import com.woowacamp.soolsool.core.order.domain.OrderStatusCache;
 import com.woowacamp.soolsool.core.order.domain.vo.OrderStatusType;
-import com.woowacamp.soolsool.core.order.repository.OrderQueryRepository;
-import com.woowacamp.soolsool.core.order.repository.OrderStatusCache;
 import com.woowacamp.soolsool.global.config.CacheManagerConfig;
 import com.woowacamp.soolsool.global.config.QuerydslConfig;
 import com.woowacamp.soolsool.global.config.RedissonConfig;

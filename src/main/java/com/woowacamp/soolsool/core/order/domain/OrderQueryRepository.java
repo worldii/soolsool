@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.order.repository;
+package com.woowacamp.soolsool.core.order.domain;
 
 
 import static com.woowacamp.soolsool.core.order.domain.QOrder.order;

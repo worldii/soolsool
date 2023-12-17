@@ -1,6 +1,5 @@
-package com.woowacamp.soolsool.core.order.repository;
+package com.woowacamp.soolsool.core.order.domain;
 
-import com.woowacamp.soolsool.core.order.domain.Order;
 import java.util.Optional;
 import org.hibernate.annotations.BatchSize;
 import org.springframework.data.domain.Page;

@@ -1,6 +1,5 @@
-package com.woowacamp.soolsool.core.order.repository;
+package com.woowacamp.soolsool.core.order.domain;
 
-import com.woowacamp.soolsool.core.order.domain.OrderStatus;
 import com.woowacamp.soolsool.core.order.domain.vo.OrderStatusType;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;

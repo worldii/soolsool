@@ -1,10 +1,12 @@
-package com.woowacamp.soolsool.core.order.controller;
+package com.woowacamp.soolsool.core.order.api;
 
+import static com.woowacamp.soolsool.core.order.exception.OrderResultCode.ORDER_DETAIL_SUCCESS;
+
+import com.woowacamp.soolsool.core.order.application.OrderService;
 import com.woowacamp.soolsool.core.order.dto.response.OrderDetailResponse;
 import com.woowacamp.soolsool.core.order.dto.response.OrderRatioResponse;
 import com.woowacamp.soolsool.core.order.dto.response.PageOrderListResponse;
 import com.woowacamp.soolsool.core.order.exception.OrderResultCode;
-import com.woowacamp.soolsool.core.order.service.OrderService;
 import com.woowacamp.soolsool.global.aop.RequestLogging;
 import com.woowacamp.soolsool.global.auth.dto.LoginUser;
 import com.woowacamp.soolsool.global.auth.dto.NoAuth;
@@ -37,7 +39,7 @@ public class OrderController {
     ) {
         final OrderDetailResponse response = orderService.orderDetail(memberId, orderId);
 
-        return ResponseEntity.ok(ApiResponse.of(OrderResultCode.ORDER_DETAIL_SUCCESS, response));
+        return ResponseEntity.ok(ApiResponse.of(ORDER_DETAIL_SUCCESS, response));
     }
 
     @RequestLogging
@@ -49,7 +51,7 @@ public class OrderController {
     ) {
         final PageOrderListResponse response = orderService.orderList(memberId, pageable, cursorId);
 
-        return ResponseEntity.ok(ApiResponse.of(OrderResultCode.ORDER_DETAIL_SUCCESS, response));
+        return ResponseEntity.ok(ApiResponse.of(ORDER_DETAIL_SUCCESS, response));
     }
 
     @NoAuth

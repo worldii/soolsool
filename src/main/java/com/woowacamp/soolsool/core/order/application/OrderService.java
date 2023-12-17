@@ -1,20 +1,21 @@
-package com.woowacamp.soolsool.core.order.service;
+package com.woowacamp.soolsool.core.order.application;
 
 import static com.woowacamp.soolsool.core.order.domain.vo.OrderStatusType.CANCELED;
 import static com.woowacamp.soolsool.core.order.domain.vo.OrderStatusType.COMPLETED;
 
 import com.woowacamp.soolsool.core.order.domain.Order;
+import com.woowacamp.soolsool.core.order.domain.OrderMemberService;
 import com.woowacamp.soolsool.core.order.domain.OrderPaymentInfo;
+import com.woowacamp.soolsool.core.order.domain.OrderPaymentInfoRepository;
+import com.woowacamp.soolsool.core.order.domain.OrderQueryRepository;
+import com.woowacamp.soolsool.core.order.domain.OrderRepository;
 import com.woowacamp.soolsool.core.order.domain.OrderStatus;
+import com.woowacamp.soolsool.core.order.domain.OrderStatusCache;
 import com.woowacamp.soolsool.core.order.domain.vo.OrderStatusType;
 import com.woowacamp.soolsool.core.order.dto.response.OrderDetailResponse;
 import com.woowacamp.soolsool.core.order.dto.response.OrderListResponse;
 import com.woowacamp.soolsool.core.order.dto.response.PageOrderListResponse;
 import com.woowacamp.soolsool.core.order.exception.OrderErrorCode;
-import com.woowacamp.soolsool.core.order.repository.OrderPaymentInfoRepository;
-import com.woowacamp.soolsool.core.order.repository.OrderQueryRepository;
-import com.woowacamp.soolsool.core.order.repository.OrderRepository;
-import com.woowacamp.soolsool.core.order.repository.OrderStatusCache;
 import com.woowacamp.soolsool.core.receipt.domain.Receipt;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import com.woowacamp.soolsool.global.infra.LockType;

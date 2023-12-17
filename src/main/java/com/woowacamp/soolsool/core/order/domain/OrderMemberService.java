@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.order.service;
+package com.woowacamp.soolsool.core.order.domain;
 
 import java.math.BigInteger;
 

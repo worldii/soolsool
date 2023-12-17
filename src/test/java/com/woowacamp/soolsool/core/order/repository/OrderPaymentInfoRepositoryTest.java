@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import com.woowacamp.soolsool.core.order.domain.OrderPaymentInfo;
+import com.woowacamp.soolsool.core.order.domain.OrderPaymentInfoRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,6 +2,7 @@ package com.woowacamp.soolsool.core.order.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.woowacamp.soolsool.core.order.domain.OrderRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
