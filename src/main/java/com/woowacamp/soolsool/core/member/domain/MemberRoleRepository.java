@@ -1,6 +1,5 @@
-package com.woowacamp.soolsool.core.member.repository;
+package com.woowacamp.soolsool.core.member.domain;
 
-import com.woowacamp.soolsool.core.member.domain.MemberRole;
 import com.woowacamp.soolsool.core.member.domain.vo.MemberRoleType;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

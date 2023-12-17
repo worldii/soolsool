@@ -1,6 +1,5 @@
-package com.woowacamp.soolsool.core.member.repository;
+package com.woowacamp.soolsool.core.member.domain;
 
-import com.woowacamp.soolsool.core.member.domain.Member;
 import com.woowacamp.soolsool.core.member.domain.vo.MemberEmail;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

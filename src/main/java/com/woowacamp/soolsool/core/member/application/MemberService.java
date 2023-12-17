@@ -7,8 +7,12 @@ import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.NOT_F
 
 import com.woowacamp.soolsool.core.member.domain.Member;
 import com.woowacamp.soolsool.core.member.domain.MemberMileageCharge;
+import com.woowacamp.soolsool.core.member.domain.MemberMileageChargeRepository;
 import com.woowacamp.soolsool.core.member.domain.MemberMileageUsage;
+import com.woowacamp.soolsool.core.member.domain.MemberMileageUsageRepository;
+import com.woowacamp.soolsool.core.member.domain.MemberRepository;
 import com.woowacamp.soolsool.core.member.domain.MemberRole;
+import com.woowacamp.soolsool.core.member.domain.MemberRoleCache;
 import com.woowacamp.soolsool.core.member.domain.vo.MemberEmail;
 import com.woowacamp.soolsool.core.member.domain.vo.MemberRoleType;
 import com.woowacamp.soolsool.core.member.dto.request.MemberAddRequest;
@@ -16,10 +20,6 @@ import com.woowacamp.soolsool.core.member.dto.request.MemberMileageChargeRequest
 import com.woowacamp.soolsool.core.member.dto.request.MemberModifyRequest;
 import com.woowacamp.soolsool.core.member.dto.response.MemberDetailResponse;
 import com.woowacamp.soolsool.core.member.exception.MemberErrorCode;
-import com.woowacamp.soolsool.core.member.repository.MemberMileageChargeRepository;
-import com.woowacamp.soolsool.core.member.repository.MemberMileageUsageRepository;
-import com.woowacamp.soolsool.core.member.repository.MemberRepository;
-import com.woowacamp.soolsool.core.member.repository.MemberRoleCache;
 import com.woowacamp.soolsool.core.order.domain.Order;
 import com.woowacamp.soolsool.global.aop.DistributedLock;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;

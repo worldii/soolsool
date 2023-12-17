@@ -3,6 +3,7 @@ package com.woowacamp.soolsool.core.member.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.woowacamp.soolsool.core.member.domain.Member;
+import com.woowacamp.soolsool.core.member.domain.MemberRepository;
 import com.woowacamp.soolsool.core.member.domain.vo.MemberEmail;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;

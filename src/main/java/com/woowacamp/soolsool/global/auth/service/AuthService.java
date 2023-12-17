@@ -4,8 +4,8 @@ import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.MEMBE
 import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.MEMBER_NO_MATCH_PASSWORD;
 
 import com.woowacamp.soolsool.core.member.domain.Member;
+import com.woowacamp.soolsool.core.member.domain.MemberRepository;
 import com.woowacamp.soolsool.core.member.domain.vo.MemberEmail;
-import com.woowacamp.soolsool.core.member.repository.MemberRepository;
 import com.woowacamp.soolsool.global.auth.dto.LoginRequest;
 import com.woowacamp.soolsool.global.auth.dto.LoginResponse;
 import com.woowacamp.soolsool.global.auth.util.TokenProvider;
