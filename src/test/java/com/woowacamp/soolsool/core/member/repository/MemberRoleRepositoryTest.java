@@ -1,6 +1,7 @@
 package com.woowacamp.soolsool.core.member.repository;
 
 import com.woowacamp.soolsool.core.member.domain.MemberRole;
+import com.woowacamp.soolsool.core.member.domain.MemberRoleRepository;
 import com.woowacamp.soolsool.core.member.domain.vo.MemberRoleType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

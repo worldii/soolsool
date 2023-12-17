@@ -8,7 +8,7 @@ import static com.woowacamp.soolsool.core.receipt.exception.ReceiptErrorCode.NOT
 import com.woowacamp.soolsool.core.cart.domain.CartItem;
 import com.woowacamp.soolsool.core.cart.domain.CartItemRepository;
 import com.woowacamp.soolsool.core.member.domain.Member;
-import com.woowacamp.soolsool.core.member.repository.MemberRepository;
+import com.woowacamp.soolsool.core.member.domain.MemberRepository;
 import com.woowacamp.soolsool.core.receipt.domain.Receipt;
 import com.woowacamp.soolsool.core.receipt.domain.ReceiptStatus;
 import com.woowacamp.soolsool.core.receipt.domain.vo.ReceiptStatusType;

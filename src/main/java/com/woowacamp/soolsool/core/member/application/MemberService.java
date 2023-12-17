@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.member.service;
+package com.woowacamp.soolsool.core.member.application;
 
 import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.MEMBER_DUPLICATED_EMAIL;
 import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.MEMBER_NO_INFORMATION;
@@ -7,8 +7,12 @@ import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.NOT_F
 
 import com.woowacamp.soolsool.core.member.domain.Member;
 import com.woowacamp.soolsool.core.member.domain.MemberMileageCharge;
+import com.woowacamp.soolsool.core.member.domain.MemberMileageChargeRepository;
 import com.woowacamp.soolsool.core.member.domain.MemberMileageUsage;
+import com.woowacamp.soolsool.core.member.domain.MemberMileageUsageRepository;
+import com.woowacamp.soolsool.core.member.domain.MemberRepository;
 import com.woowacamp.soolsool.core.member.domain.MemberRole;
+import com.woowacamp.soolsool.core.member.domain.MemberRoleCache;
 import com.woowacamp.soolsool.core.member.domain.vo.MemberEmail;
 import com.woowacamp.soolsool.core.member.domain.vo.MemberRoleType;
 import com.woowacamp.soolsool.core.member.dto.request.MemberAddRequest;
@@ -16,22 +20,15 @@ import com.woowacamp.soolsool.core.member.dto.request.MemberMileageChargeRequest
 import com.woowacamp.soolsool.core.member.dto.request.MemberModifyRequest;
 import com.woowacamp.soolsool.core.member.dto.response.MemberDetailResponse;
 import com.woowacamp.soolsool.core.member.exception.MemberErrorCode;
-import com.woowacamp.soolsool.core.member.repository.MemberMileageChargeRepository;
-import com.woowacamp.soolsool.core.member.repository.MemberMileageUsageRepository;
-import com.woowacamp.soolsool.core.member.repository.MemberRepository;
-import com.woowacamp.soolsool.core.member.repository.MemberRoleRepository;
 import com.woowacamp.soolsool.core.order.domain.Order;
+import com.woowacamp.soolsool.global.aop.DistributedLock;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
-import com.woowacamp.soolsool.global.infra.LockType;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,15 +37,10 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberService {
 
-    private static final long LOCK_WAIT_TIME = 3L;
-    private static final long LOCK_LEASE_TIME = 3L;
-
     private final MemberRepository memberRepository;
-    private final MemberRoleRepository memberRoleRepository;
+    private final MemberRoleCache memberRoleRepository;
     private final MemberMileageChargeRepository memberMileageChargeRepository;
     private final MemberMileageUsageRepository memberMileageUsageRepository;
-
-    private final RedissonClient redissonClient;
 
     @Transactional
     public void addMember(final MemberAddRequest memberAddRequest) {
@@ -56,12 +48,13 @@ public class MemberService {
 
         final MemberRole memberRole = getMemberRole(memberAddRequest.getMemberRoleType());
         final Member member = memberAddRequest.toMember(memberRole);
+
         memberRepository.save(member);
     }
 
     private void checkDuplicatedEmail(final String email) {
-        final Optional<Member> duplicatedEmil = memberRepository
-            .findByEmail(new MemberEmail(email));
+        final Optional<Member> duplicatedEmil = memberRepository.findByEmail(
+            new MemberEmail(email));
 
         if (duplicatedEmil.isPresent()) {
             throw new SoolSoolException(MEMBER_DUPLICATED_EMAIL);
@@ -73,7 +66,7 @@ public class MemberService {
             .filter(type -> Objects.equals(type.getType(), memberRequestRoleType))
             .findFirst()
             .orElse(MemberRoleType.CUSTOMER);
-        log.info("memberRoleType : {}", memberRoleType);
+
         return memberRoleRepository.findByName(memberRoleType)
             .orElseThrow(() -> new SoolSoolException(MEMBER_NO_ROLE_TYPE));
     }
@@ -103,41 +96,20 @@ public class MemberService {
     }
 
     @Transactional
+    @DistributedLock(lockName = "memberMileageCharge", entityId = "#memberId", waitTime = 3L, leaseTime = 3L)
     public void addMemberMileage(
         final Long memberId,
         final MemberMileageChargeRequest memberMileageChargeRequest
     ) {
-        final RLock rLock = getMemberLock(memberId);
+        final Member member = memberRepository.findById(memberId)
+            .orElseThrow(() -> new SoolSoolException(MEMBER_NO_INFORMATION));
 
-        try {
-            rLock.tryLock(LOCK_WAIT_TIME, LOCK_LEASE_TIME, TimeUnit.SECONDS);
+        member.updateMileage(memberMileageChargeRequest.getAmount());
 
-            final Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new SoolSoolException(MEMBER_NO_INFORMATION));
+        final MemberMileageCharge memberMileageCharge = memberMileageChargeRequest.toMemberMileageCharge(
+            member);
 
-            member.updateMileage(memberMileageChargeRequest.getAmount());
-
-            final MemberMileageCharge memberMileageCharge =
-                memberMileageChargeRequest.toMemberMileageCharge(member);
-
-            memberMileageChargeRepository.save(memberMileageCharge);
-        } catch (final InterruptedException e) {
-            Thread.currentThread().interrupt();
-
-            throw new SoolSoolException(MemberErrorCode.INTERRUPTED_THREAD);
-        } finally {
-            unlock(rLock);
-        }
-    }
-
-    private RLock getMemberLock(Long memberId) {
-        return redissonClient.getLock(LockType.MEMBER.getPrefix() + memberId);
-    }
-
-    private void unlock(final RLock rLock) {
-        if (rLock.isLocked() && rLock.isHeldByCurrentThread()) {
-            rLock.unlock();
-        }
+        memberMileageChargeRepository.save(memberMileageCharge);
     }
 
     @Transactional
