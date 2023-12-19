@@ -2,6 +2,11 @@ package com.woowacamp.soolsool.core.order.application;
 
 import static com.woowacamp.soolsool.core.order.domain.vo.OrderStatusType.CANCELED;
 import static com.woowacamp.soolsool.core.order.domain.vo.OrderStatusType.COMPLETED;
+import static com.woowacamp.soolsool.core.order.exception.OrderErrorCode.ACCESS_DENIED_ORDER;
+import static com.woowacamp.soolsool.core.order.exception.OrderErrorCode.INTERRUPTED_THREAD;
+import static com.woowacamp.soolsool.core.order.exception.OrderErrorCode.NOT_EXISTS_ORDER;
+import static com.woowacamp.soolsool.core.order.exception.OrderErrorCode.NOT_EXISTS_ORDER_STATUS;
+import static com.woowacamp.soolsool.core.order.exception.OrderErrorCode.NOT_EXISTS_PAYMENT_INFO;
 
 import com.woowacamp.soolsool.core.order.domain.Order;
 import com.woowacamp.soolsool.core.order.domain.OrderMemberService;
@@ -15,7 +20,6 @@ import com.woowacamp.soolsool.core.order.domain.vo.OrderStatusType;
 import com.woowacamp.soolsool.core.order.dto.response.OrderDetailResponse;
 import com.woowacamp.soolsool.core.order.dto.response.OrderListResponse;
 import com.woowacamp.soolsool.core.order.dto.response.PageOrderListResponse;
-import com.woowacamp.soolsool.core.order.exception.OrderErrorCode;
 import com.woowacamp.soolsool.core.receipt.domain.Receipt;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import com.woowacamp.soolsool.global.infra.LockType;
@@ -61,13 +65,13 @@ public class OrderService {
     @Transactional(readOnly = true)
     public OrderDetailResponse orderDetail(final Long memberId, final Long orderId) {
         final Order order = orderRepository.findOrderById(orderId)
-            .orElseThrow(() -> new SoolSoolException(OrderErrorCode.NOT_EXISTS_ORDER));
+            .orElseThrow(() -> new SoolSoolException(NOT_EXISTS_ORDER));
 
         validateAccessible(memberId, order);
 
         final OrderPaymentInfo orderPaymentInfo = orderPaymentInfoRepository
             .findPaymentInfoByOrderId(orderId)
-            .orElseThrow(() -> new SoolSoolException(OrderErrorCode.NOT_EXISTS_PAYMENT_INFO));
+            .orElseThrow(() -> new SoolSoolException(NOT_EXISTS_PAYMENT_INFO));
 
         return OrderDetailResponse.of(order, orderPaymentInfo);
     }
@@ -90,6 +94,7 @@ public class OrderService {
         return PageOrderListResponse.of(true, lastReadOrderId, orders);
     }
 
+    // TODO : 멀티락 관리는 어떻게 해? AOP 로
     @Transactional
     public Order cancelOrder(final Long memberId, final Long orderId) {
         final RLock multiLock = redissonClient.getMultiLock(
@@ -101,12 +106,12 @@ public class OrderService {
             multiLock.tryLock(LOCK_WAIT_TIME, LOCK_LEASE_TIME, TimeUnit.SECONDS);
 
             final Order order = orderRepository.findOrderById(orderId)
-                .orElseThrow(() -> new SoolSoolException(OrderErrorCode.NOT_EXISTS_ORDER));
+                .orElseThrow(() -> new SoolSoolException(NOT_EXISTS_ORDER));
 
             validateAccessible(memberId, order);
 
             final OrderStatus cancelOrderStatus = orderStatusCache.findByType(CANCELED)
-                .orElseThrow(() -> new SoolSoolException(OrderErrorCode.NOT_EXISTS_ORDER_STATUS));
+                .orElseThrow(() -> new SoolSoolException(NOT_EXISTS_ORDER_STATUS));
 
             order.updateStatus(cancelOrderStatus);
             orderMemberService.refundMileage(memberId, order.getMileageUsage());
@@ -115,7 +120,8 @@ public class OrderService {
         } catch (final InterruptedException e) {
             Thread.currentThread().interrupt();
 
-            throw new SoolSoolException(OrderErrorCode.INTERRUPTED_THREAD);
+            throw new SoolSoolException(INTERRUPTED_THREAD);
+
         } finally {
             multiLock.unlock();
         }
@@ -137,13 +143,13 @@ public class OrderService {
 
     private void validateAccessible(final Long memberId, final Order order) {
         if (!Objects.equals(memberId, order.getMemberId())) {
-            throw new SoolSoolException(OrderErrorCode.ACCESS_DENIED_ORDER);
+            throw new SoolSoolException(ACCESS_DENIED_ORDER);
         }
     }
 
     private OrderStatus getOrderStatusByType(final OrderStatusType type) {
         return orderStatusCache.findByType(type)
-            .orElseThrow(() -> new SoolSoolException(OrderErrorCode.NOT_EXISTS_ORDER_STATUS));
+            .orElseThrow(() -> new SoolSoolException(NOT_EXISTS_ORDER_STATUS));
     }
 
     @Transactional
