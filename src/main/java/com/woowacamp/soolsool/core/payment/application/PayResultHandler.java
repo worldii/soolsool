@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.payment.service;
+package com.woowacamp.soolsool.core.payment.application;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;

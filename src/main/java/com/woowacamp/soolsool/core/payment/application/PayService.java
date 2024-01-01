@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.payment.service;
+package com.woowacamp.soolsool.core.payment.application;
 
 import com.woowacamp.soolsool.core.cart.application.CartService;
 import com.woowacamp.soolsool.core.liquor.application.LiquorCommandService;
@@ -50,6 +50,8 @@ public class PayService {
 
     private final RedissonClient redissonClient;
 
+
+    // TODO : 결제 로직 분리
     @Transactional
     public PayReadyResponse ready(final Long memberId, final PayOrderRequest payOrderRequest) {
         final Receipt receipt = receiptService
@@ -90,7 +92,7 @@ public class PayService {
             receiptService.modifyReceiptStatus(memberId, receiptId, ReceiptStatusType.COMPLETED);
 
             // 결제 정보를 받아 저장한다.(주문 서비스락 )
-            OrderPaymentInfo payInfo = payClient.payApprove(receipt, pgToken)
+            final OrderPaymentInfo payInfo = payClient.payApprove(receipt, pgToken)
                 .toEntity(order.getId());
             orderService.addPaymentInfo(payInfo);
 
@@ -98,6 +100,7 @@ public class PayService {
             publisher.publishEvent(new ReceiptRemoveEvent(receiptId));
 
             return order;
+
         } catch (final InterruptedException e) {
             Thread.currentThread().interrupt();
 

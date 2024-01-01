@@ -1,14 +1,14 @@
-package com.woowacamp.soolsool.core.payment.controller;
+package com.woowacamp.soolsool.core.payment.api;
 
 import static com.woowacamp.soolsool.core.payment.exception.PayResultCode.PAY_READY_CANCEL;
 import static com.woowacamp.soolsool.core.payment.exception.PayResultCode.PAY_READY_FAIL;
 import static com.woowacamp.soolsool.core.payment.exception.PayResultCode.PAY_READY_SUCCESS;
 
 import com.woowacamp.soolsool.core.order.domain.Order;
+import com.woowacamp.soolsool.core.payment.application.PayService;
 import com.woowacamp.soolsool.core.payment.dto.request.PayOrderRequest;
 import com.woowacamp.soolsool.core.payment.dto.response.PayReadyResponse;
 import com.woowacamp.soolsool.core.payment.dto.response.PaySuccessResponse;
-import com.woowacamp.soolsool.core.payment.service.PayService;
 import com.woowacamp.soolsool.global.aop.RequestLogging;
 import com.woowacamp.soolsool.global.auth.dto.LoginUser;
 import com.woowacamp.soolsool.global.auth.dto.NoAuth;

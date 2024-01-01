@@ -1,6 +1,5 @@
-package com.woowacamp.soolsool.core.payment.repository;
+package com.woowacamp.soolsool.core.payment.domain;
 
-import com.woowacamp.soolsool.core.payment.domain.KakaoPayReceipt;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
