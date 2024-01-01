@@ -4,6 +4,7 @@ import static com.woowacamp.soolsool.core.receipt.domain.vo.ReceiptStatusType.IN
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.woowacamp.soolsool.core.receipt.domain.ReceiptStatus;
+import com.woowacamp.soolsool.core.receipt.domain.repository.ReceiptStatusCache;
 import com.woowacamp.soolsool.global.config.CacheManagerConfig;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;

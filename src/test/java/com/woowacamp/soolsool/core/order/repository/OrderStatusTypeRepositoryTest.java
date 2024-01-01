@@ -3,6 +3,7 @@ package com.woowacamp.soolsool.core.order.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.woowacamp.soolsool.core.order.domain.OrderStatus;
+import com.woowacamp.soolsool.core.order.domain.OrderStatusRepository;
 import com.woowacamp.soolsool.core.order.domain.vo.OrderStatusType;
 import com.woowacamp.soolsool.core.order.exception.OrderErrorCode;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
