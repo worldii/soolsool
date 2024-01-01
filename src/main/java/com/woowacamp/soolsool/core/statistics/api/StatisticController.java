@@ -1,12 +1,12 @@
-package com.woowacamp.soolsool.core.statistics.controller;
+package com.woowacamp.soolsool.core.statistics.api;
 
-import static com.woowacamp.soolsool.core.statistics.code.StatisticsResultCode.STATISTIC_TOP5_SALE_PRICE;
-import static com.woowacamp.soolsool.core.statistics.code.StatisticsResultCode.STATISTIC_TOP5_SALE_QUANTITY;
+import static com.woowacamp.soolsool.core.statistics.exception.StatisticsResultCode.STATISTIC_TOP5_SALE_PRICE;
+import static com.woowacamp.soolsool.core.statistics.exception.StatisticsResultCode.STATISTIC_TOP5_SALE_QUANTITY;
 import static org.springframework.http.HttpStatus.OK;
 
+import com.woowacamp.soolsool.core.statistics.application.StatisticService;
 import com.woowacamp.soolsool.core.statistics.dto.response.LiquorSalePriceResponse;
 import com.woowacamp.soolsool.core.statistics.dto.response.LiquorSaleQuantityResponse;
-import com.woowacamp.soolsool.core.statistics.service.StatisticService;
 import com.woowacamp.soolsool.global.aop.RequestLogging;
 import com.woowacamp.soolsool.global.auth.dto.NoAuth;
 import com.woowacamp.soolsool.global.common.ApiResponse;

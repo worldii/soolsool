@@ -1,6 +1,5 @@
-package com.woowacamp.soolsool.core.statistics.repository;
+package com.woowacamp.soolsool.core.statistics.domain;
 
-import com.woowacamp.soolsool.core.statistics.domain.StatisticLiquors;
 import org.springframework.stereotype.Repository;
 
 @Repository

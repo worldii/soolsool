@@ -2,7 +2,7 @@ package com.woowacamp.soolsool.core.statistics.infra;
 
 import com.woowacamp.soolsool.core.statistics.domain.StatisticLiquorImpl;
 import com.woowacamp.soolsool.core.statistics.domain.StatisticLiquors;
-import com.woowacamp.soolsool.core.statistics.repository.StatisticRepository;
+import com.woowacamp.soolsool.core.statistics.domain.StatisticRepository;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;

@@ -1,9 +1,9 @@
-package com.woowacamp.soolsool.core.statistics.service;
+package com.woowacamp.soolsool.core.statistics.application;
 
 import com.woowacamp.soolsool.core.statistics.domain.StatisticLiquors;
+import com.woowacamp.soolsool.core.statistics.domain.StatisticRepository;
 import com.woowacamp.soolsool.core.statistics.dto.response.LiquorSalePriceResponse;
 import com.woowacamp.soolsool.core.statistics.dto.response.LiquorSaleQuantityResponse;
-import com.woowacamp.soolsool.core.statistics.repository.StatisticRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
