@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.receipt.repository;
+package com.woowacamp.soolsool.core.receipt.domain.repository;
 
 import com.woowacamp.soolsool.core.receipt.domain.ReceiptStatus;
 import com.woowacamp.soolsool.core.receipt.domain.vo.ReceiptStatusType;

@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.receipt.event;
+package com.woowacamp.soolsool.core.receipt.domain.event;
 
 import lombok.Getter;
 

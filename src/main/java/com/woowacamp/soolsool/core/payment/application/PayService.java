@@ -7,15 +7,15 @@ import com.woowacamp.soolsool.core.member.application.MemberService;
 import com.woowacamp.soolsool.core.order.application.OrderService;
 import com.woowacamp.soolsool.core.order.domain.Order;
 import com.woowacamp.soolsool.core.order.domain.OrderPaymentInfo;
+import com.woowacamp.soolsool.core.payment.domain.PayClient;
 import com.woowacamp.soolsool.core.payment.dto.request.PayOrderRequest;
 import com.woowacamp.soolsool.core.payment.dto.response.PayReadyResponse;
 import com.woowacamp.soolsool.core.payment.exception.PayErrorCode;
-import com.woowacamp.soolsool.core.payment.infra.PayClient;
+import com.woowacamp.soolsool.core.receipt.application.ReceiptService;
 import com.woowacamp.soolsool.core.receipt.domain.Receipt;
 import com.woowacamp.soolsool.core.receipt.domain.ReceiptItem;
+import com.woowacamp.soolsool.core.receipt.domain.event.ReceiptRemoveEvent;
 import com.woowacamp.soolsool.core.receipt.domain.vo.ReceiptStatusType;
-import com.woowacamp.soolsool.core.receipt.event.ReceiptRemoveEvent;
-import com.woowacamp.soolsool.core.receipt.service.ReceiptService;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import com.woowacamp.soolsool.global.infra.LockType;
 import java.util.ArrayList;
@@ -52,6 +52,7 @@ public class PayService {
 
 
     // TODO : 결제 로직 분리
+    // TODO : ready 일때, 재고 차감, 마일리지 차감, 장바구니 비우는 것을 진행
     @Transactional
     public PayReadyResponse ready(final Long memberId, final PayOrderRequest payOrderRequest) {
         final Receipt receipt = receiptService
@@ -60,6 +61,9 @@ public class PayService {
         return payClient.ready(receipt);
     }
 
+    // TODO : 결제 로직 분리
+    //  성공하면, 주문서 상태를 success 로 바꾸기, receiptPublisher remove 하기
+    //  실패하면 재고 복귀, 마일리지 복귀, 장바구니 복귀 진행
     @Transactional
     public Order approve(final Long memberId, final Long receiptId, final String pgToken) {
         final Receipt receipt = receiptService.getMemberReceipt(memberId, receiptId);
@@ -81,7 +85,6 @@ public class PayService {
 
             // 주문서를 바탕으로 주문을 넣는다.
             final Order order = orderService.addOrder(memberId, receipt);
-
             // 마일리지를 차감한다. (멤버 락)
             memberService.subtractMemberMileage(memberId, order, receipt.getMileageUsage());
 
@@ -96,6 +99,7 @@ public class PayService {
                 .toEntity(order.getId());
             orderService.addPaymentInfo(payInfo);
 
+            // TODO : 단일 책임원칙이 지켜지지 않음. receipt 리무브 하는 것을 여기서 진행함..
             // publisher 를 가지고 이벤트를 발행한다.
             publisher.publishEvent(new ReceiptRemoveEvent(receiptId));
 

@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.woowacamp.soolsool.core.receipt.domain.Receipt;
 import com.woowacamp.soolsool.core.receipt.domain.ReceiptStatus;
+import com.woowacamp.soolsool.core.receipt.domain.repository.ReceiptRepository;
+import com.woowacamp.soolsool.core.receipt.domain.repository.ReceiptStatusRepository;
 import com.woowacamp.soolsool.core.receipt.domain.vo.ReceiptStatusType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

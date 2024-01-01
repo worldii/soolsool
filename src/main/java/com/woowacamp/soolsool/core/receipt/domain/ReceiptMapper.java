@@ -1,17 +1,14 @@
-package com.woowacamp.soolsool.core.receipt.service;
+package com.woowacamp.soolsool.core.receipt.domain;
 
 import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.NOT_FOUND_CART_ITEM;
 import static com.woowacamp.soolsool.core.receipt.domain.vo.ReceiptStatusType.INPROGRESS;
 import static com.woowacamp.soolsool.core.receipt.exception.ReceiptErrorCode.NOT_RECEIPT_TYPE_FOUND;
 
 import com.woowacamp.soolsool.core.cart.domain.CartItem;
-import com.woowacamp.soolsool.core.receipt.domain.Receipt;
-import com.woowacamp.soolsool.core.receipt.domain.ReceiptItem;
-import com.woowacamp.soolsool.core.receipt.domain.ReceiptStatus;
+import com.woowacamp.soolsool.core.receipt.domain.repository.ReceiptStatusCache;
 import com.woowacamp.soolsool.core.receipt.domain.vo.ReceiptItemPrice;
 import com.woowacamp.soolsool.core.receipt.domain.vo.ReceiptItemQuantity;
 import com.woowacamp.soolsool.core.receipt.domain.vo.ReceiptStatusType;
-import com.woowacamp.soolsool.core.receipt.repository.ReceiptStatusCache;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.math.BigInteger;
 import java.util.List;

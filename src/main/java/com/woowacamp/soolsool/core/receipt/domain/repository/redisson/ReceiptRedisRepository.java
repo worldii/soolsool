@@ -1,7 +1,7 @@
-package com.woowacamp.soolsool.core.receipt.repository.redisson;
+package com.woowacamp.soolsool.core.receipt.domain.repository.redisson;
 
-import com.woowacamp.soolsool.core.receipt.event.ReceiptExpiredEvent;
-import com.woowacamp.soolsool.core.receipt.event.ReceiptRemoveEvent;
+import com.woowacamp.soolsool.core.receipt.domain.event.ReceiptExpiredEvent;
+import com.woowacamp.soolsool.core.receipt.domain.event.ReceiptRemoveEvent;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RMapCache;

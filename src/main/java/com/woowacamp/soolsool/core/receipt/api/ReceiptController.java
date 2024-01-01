@@ -1,10 +1,10 @@
-package com.woowacamp.soolsool.core.receipt.controller;
+package com.woowacamp.soolsool.core.receipt.api;
 
 import static com.woowacamp.soolsool.core.receipt.exception.ReceiptResultCode.RECEIPT_ADD_SUCCESS;
 import static com.woowacamp.soolsool.core.receipt.exception.ReceiptResultCode.RECEIPT_FOUND;
 
+import com.woowacamp.soolsool.core.receipt.application.ReceiptService;
 import com.woowacamp.soolsool.core.receipt.dto.response.ReceiptDetailResponse;
-import com.woowacamp.soolsool.core.receipt.service.ReceiptService;
 import com.woowacamp.soolsool.global.aop.RequestLogging;
 import com.woowacamp.soolsool.global.auth.dto.LoginUser;
 import com.woowacamp.soolsool.global.common.ApiResponse;

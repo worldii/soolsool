@@ -1,8 +1,8 @@
-package com.woowacamp.soolsool.core.receipt.event.listener;
+package com.woowacamp.soolsool.core.receipt.domain.event.listener;
 
+import com.woowacamp.soolsool.core.receipt.application.ReceiptService;
+import com.woowacamp.soolsool.core.receipt.domain.event.ReceiptExpiredEvent;
 import com.woowacamp.soolsool.core.receipt.domain.vo.ReceiptStatusType;
-import com.woowacamp.soolsool.core.receipt.event.ReceiptExpiredEvent;
-import com.woowacamp.soolsool.core.receipt.service.ReceiptService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;

@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.receipt.service;
+package com.woowacamp.soolsool.core.receipt.application;
 
 import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.NOT_FOUND_CART_ITEM;
 import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.MEMBER_NO_INFORMATION;
@@ -14,9 +14,10 @@ import com.woowacamp.soolsool.core.liquor.application.LiquorCommandService;
 import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorCategoryCache;
 import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorQueryDslRepository;
 import com.woowacamp.soolsool.core.liquor.infra.IncreaseRedisLiquorCtrService;
+import com.woowacamp.soolsool.core.receipt.domain.ReceiptMapper;
+import com.woowacamp.soolsool.core.receipt.domain.repository.ReceiptStatusCache;
+import com.woowacamp.soolsool.core.receipt.domain.repository.redisson.ReceiptRedisRepository;
 import com.woowacamp.soolsool.core.receipt.dto.response.ReceiptDetailResponse;
-import com.woowacamp.soolsool.core.receipt.repository.ReceiptStatusCache;
-import com.woowacamp.soolsool.core.receipt.repository.redisson.ReceiptRedisRepository;
 import com.woowacamp.soolsool.global.config.CacheManagerConfig;
 import com.woowacamp.soolsool.global.config.QuerydslConfig;
 import com.woowacamp.soolsool.global.config.RedissonConfig;

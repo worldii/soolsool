@@ -2,6 +2,7 @@ package com.woowacamp.soolsool.core.receipt.repository.redisson;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
+import com.woowacamp.soolsool.core.receipt.domain.repository.redisson.ReceiptRedisRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
