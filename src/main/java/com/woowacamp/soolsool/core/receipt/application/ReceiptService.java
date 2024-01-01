@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.receipt.service;
+package com.woowacamp.soolsool.core.receipt.application;
 
 import static com.woowacamp.soolsool.core.receipt.exception.ReceiptErrorCode.ACCESS_DENIED_RECEIPT;
 import static com.woowacamp.soolsool.core.receipt.exception.ReceiptErrorCode.NOT_EQUALS_MEMBER;
@@ -10,21 +10,19 @@ import com.woowacamp.soolsool.core.cart.domain.CartItemRepository;
 import com.woowacamp.soolsool.core.member.domain.Member;
 import com.woowacamp.soolsool.core.member.domain.MemberRepository;
 import com.woowacamp.soolsool.core.receipt.domain.Receipt;
+import com.woowacamp.soolsool.core.receipt.domain.ReceiptMapper;
 import com.woowacamp.soolsool.core.receipt.domain.ReceiptStatus;
+import com.woowacamp.soolsool.core.receipt.domain.repository.ReceiptRepository;
+import com.woowacamp.soolsool.core.receipt.domain.repository.ReceiptStatusCache;
+import com.woowacamp.soolsool.core.receipt.domain.repository.redisson.ReceiptRedisRepository;
 import com.woowacamp.soolsool.core.receipt.domain.vo.ReceiptStatusType;
 import com.woowacamp.soolsool.core.receipt.dto.response.ReceiptDetailResponse;
 import com.woowacamp.soolsool.core.receipt.exception.ReceiptErrorCode;
-import com.woowacamp.soolsool.core.receipt.repository.ReceiptRepository;
-import com.woowacamp.soolsool.core.receipt.repository.ReceiptStatusCache;
-import com.woowacamp.soolsool.core.receipt.repository.redisson.ReceiptRedisRepository;
+import com.woowacamp.soolsool.global.aop.DistributedLock;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
-import com.woowacamp.soolsool.global.infra.LockType;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,9 +31,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReceiptService {
 
     private static final int RECEIPT_EXPIRED_MINUTES = 5;
-    private static final long LOCK_WAIT_TIME = 3L;
-    private static final long LOCK_LEASE_TIME = 3L;
-
     private final ReceiptMapper receiptMapper;
     private final ReceiptRepository receiptRepository;
     private final ReceiptStatusCache receiptStatusCache;
@@ -44,7 +39,6 @@ public class ReceiptService {
 
     private final ReceiptRedisRepository receiptRedisRepository;
 
-    private final RedissonClient redissonClient;
 
     @Transactional
     public Long addReceipt(final Long memberId) {
@@ -73,34 +67,24 @@ public class ReceiptService {
     }
 
     @Transactional
+    @DistributedLock(lockName = "RECEIPT:", entityId = "#receiptId", waitTime = 3L, leaseTime = 3L)
     public void modifyReceiptStatus(
         final Long memberId,
         final Long receiptId,
         final ReceiptStatusType receiptStatusType
     ) {
-        final RLock receiptLock = getReceiptLock(receiptId);
 
-        try {
-            receiptLock.tryLock(LOCK_WAIT_TIME, LOCK_LEASE_TIME, TimeUnit.SECONDS);
+        final Receipt receipt = getReceipt(receiptId);
 
-            final Receipt receipt = getReceipt(receiptId);
-
-            if (!Objects.equals(receipt.getMemberId(), memberId)) {
-                throw new SoolSoolException(NOT_EQUALS_MEMBER);
-            }
-
-            if (receipt.isNotInProgress()) {
-                throw new SoolSoolException(ReceiptErrorCode.UNMODIFIABLE_STATUS);
-            }
-
-            receipt.updateStatus(
-                getReceiptStatus(receiptStatusType)
-            );
-        } catch (final InterruptedException e) {
-            throw new SoolSoolException(ReceiptErrorCode.INTERRUPTED_THREAD);
-        } finally {
-            unlock(receiptLock);
+        if (!Objects.equals(receipt.getMemberId(), memberId)) {
+            throw new SoolSoolException(NOT_EQUALS_MEMBER);
         }
+
+        if (receipt.isNotInProgress()) {
+            throw new SoolSoolException(ReceiptErrorCode.UNMODIFIABLE_STATUS);
+        }
+
+        receipt.updateStatus(getReceiptStatus(receiptStatusType));
     }
 
     private Receipt getReceipt(final Long receiptId) {
@@ -111,16 +95,6 @@ public class ReceiptService {
     private ReceiptStatus getReceiptStatus(final ReceiptStatusType receiptStatusType) {
         return receiptStatusCache.findByType(receiptStatusType)
             .orElseThrow(() -> new SoolSoolException(ReceiptErrorCode.NOT_RECEIPT_TYPE_FOUND));
-    }
-
-    private RLock getReceiptLock(final Long receiptId) {
-        return redissonClient.getLock(LockType.RECEIPT.getPrefix() + receiptId);
-    }
-
-    private void unlock(final RLock lock) {
-        if (lock.isLocked() && lock.isHeldByCurrentThread()) {
-            lock.unlock();
-        }
     }
 
     @Transactional(readOnly = true)
