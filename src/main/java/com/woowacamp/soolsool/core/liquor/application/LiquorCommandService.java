@@ -18,6 +18,7 @@ import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtr;
 import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrRepository;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorModifyRequest;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorSaveRequest;
+import com.woowacamp.soolsool.global.aop.DistributedLock;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -68,6 +69,7 @@ public class LiquorCommandService {
 
     @CacheEvict(value = "liquorsFirstPage")
     @Transactional
+    @DistributedLock(entityId = "#liquorId", lockName = "Liquor")
     public void decreaseTotalStock(final Long liquorId, final int quantity) {
         findLiquor(liquorId).decreaseTotalStock(quantity);
     }

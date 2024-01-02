@@ -8,6 +8,7 @@ import com.woowacamp.soolsool.core.liquor.domain.stock.DecreaseStocksService;
 import com.woowacamp.soolsool.core.liquor.domain.stock.LiquorStock;
 import com.woowacamp.soolsool.core.liquor.domain.stock.LiquorStockRepository;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorStockSaveRequest;
+import com.woowacamp.soolsool.global.aop.DistributedLock;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,6 +34,7 @@ public class LiquorStockService {
     }
 
     @Transactional
+    @DistributedLock(entityId = "#liquorId", lockName = "LiquorStock", leaseTime = 3L, waitTime = 3L)
     public void decreaseLiquorStock(final Long liquorId, final int quantity) {
         final List<LiquorStock> stocks = liquorStockRepository
             .findAllByLiquorIdNotExpired(liquorId);
