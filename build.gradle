@@ -6,6 +6,11 @@ plugins {
     id "jacoco"
 }
 
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
 group = 'com.woowacamp'
 version = '0.0.1-SNAPSHOT'
 
