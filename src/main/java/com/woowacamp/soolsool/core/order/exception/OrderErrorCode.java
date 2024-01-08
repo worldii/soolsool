@@ -32,7 +32,7 @@ public enum OrderErrorCode implements ErrorCode {
     NOT_EXISTS_PAYMENT_INFO(500, "O113", "결제 정보가 존재하지 않습니다."),
 
     INTERRUPTED_THREAD(500, "O114", "예상치 못한 예외가 발생했습니다."),
-    ;
+    NOT_EXISTS_MEMBER(404, "0115", "멤버가 없습니다.");
 
     private final int status;
     private final String code;

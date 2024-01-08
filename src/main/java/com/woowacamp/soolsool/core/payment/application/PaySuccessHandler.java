@@ -4,6 +4,7 @@ import com.woowacamp.soolsool.core.cart.application.CartService;
 import com.woowacamp.soolsool.core.liquor.application.LiquorStockService;
 import com.woowacamp.soolsool.core.member.application.MemberService;
 import com.woowacamp.soolsool.core.order.application.OrderService;
+import com.woowacamp.soolsool.core.order.domain.MemberMileageUsageService;
 import com.woowacamp.soolsool.core.order.domain.Order;
 import com.woowacamp.soolsool.core.payment.dto.response.PayApproveResponse;
 import com.woowacamp.soolsool.core.receipt.application.ReceiptService;
@@ -28,6 +29,7 @@ public class PaySuccessHandler {
     private final ReceiptService receiptService;
     private final CartService cartService;
     private final LiquorStockService liquorStockService;
+    private final MemberMileageUsageService memberMileageUsageService;
 
 
     @Transactional
@@ -45,7 +47,8 @@ public class PaySuccessHandler {
         // 성공 후 receipt completed 로 바꿔주기
         receiptService.modifyReceiptStatus(memberId, receipt.getId(), ReceiptStatusType.COMPLETED);
         // 성공 후 멤버 마일리지 차감 // 성공 후
-        memberService.subtractMemberMileage(memberId, order, mileage);
+        memberService.subtractMemberMileage(memberId, mileage);
+        memberMileageUsageService.addMemberMileageUsage(order, memberId, mileage);
         // 성공 후 장바구니 비워 주기
         cartService.removeCartItems(memberId);
         // 성공 후 재고 수량 차감
