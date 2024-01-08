@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.core.member.domain;
+package com.woowacamp.soolsool.core.order.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

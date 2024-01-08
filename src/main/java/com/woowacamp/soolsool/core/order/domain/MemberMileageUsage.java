@@ -1,25 +1,16 @@
-package com.woowacamp.soolsool.core.member.domain;
+package com.woowacamp.soolsool.core.order.domain;
 
+import com.woowacamp.soolsool.core.member.domain.Member;
 import com.woowacamp.soolsool.core.member.domain.converter.MemberMileageConverter;
 import com.woowacamp.soolsool.core.member.domain.vo.MemberMileage;
-import com.woowacamp.soolsool.core.order.domain.Order;
 import com.woowacamp.soolsool.global.common.BaseEntity;
-import java.math.BigInteger;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.math.BigInteger;
 
 @Entity
 @Table(name = "member_mileage_usages")
@@ -46,9 +37,9 @@ public class MemberMileageUsage extends BaseEntity {
 
     @Builder
     public MemberMileageUsage(
-        final Member member,
-        final Order order,
-        final BigInteger amount
+            final Member member,
+            final Order order,
+            final BigInteger amount
     ) {
         this.member = member;
         this.order = order;

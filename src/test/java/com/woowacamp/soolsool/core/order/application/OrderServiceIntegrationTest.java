@@ -2,7 +2,6 @@ package com.woowacamp.soolsool.core.order.application;
 
 import com.woowacamp.soolsool.core.member.application.MemberService;
 import com.woowacamp.soolsool.core.member.domain.MemberRoleCache;
-import com.woowacamp.soolsool.core.member.domain.OrderMemberServiceImpl;
 import com.woowacamp.soolsool.core.order.domain.*;
 import com.woowacamp.soolsool.core.order.domain.vo.OrderStatusType;
 import com.woowacamp.soolsool.global.config.CacheManagerConfig;
@@ -22,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @DataJpaTest
 @Import(
         {
-                OrderService.class, OrderStatusCache.class, OrderMemberServiceImpl.class,
+                OrderService.class, OrderStatusCache.class,
                 OrderQueryRepository.class, QuerydslConfig.class, RedissonConfig.class,
                 CacheManagerConfig.class, OrderCancelService.class, OrderStatusService.class,
                 MemberService.class, MemberRoleCache.class
