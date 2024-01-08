@@ -67,7 +67,7 @@ public class ReceiptService {
     }
 
     @Transactional
-    @DistributedLock(lockName = "RECEIPT:", entityId = "#receiptId", waitTime = 3L, leaseTime = 3L)
+    @DistributedLock(lockName = "Receipt", entityId = "#receiptId", waitTime = 3L, leaseTime = 3L)
     public void modifyReceiptStatus(
         final Long memberId,
         final Long receiptId,

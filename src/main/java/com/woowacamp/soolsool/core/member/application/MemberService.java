@@ -96,7 +96,7 @@ public class MemberService {
     }
 
     @Transactional
-    @DistributedLock(lockName = "memberMileageCharge", entityId = "#memberId", waitTime = 3L, leaseTime = 3L)
+    @DistributedLock(lockName = "Member", entityId = "#memberId", waitTime = 3L, leaseTime = 3L)
     public void addMemberMileage(
         final Long memberId,
         final MemberMileageChargeRequest memberMileageChargeRequest
@@ -113,6 +113,7 @@ public class MemberService {
     }
 
     @Transactional
+    @DistributedLock(lockName = "Member", entityId = "#memberId", waitTime = 3L, leaseTime = 3L)
     public void subtractMemberMileage(
         final Long memberId,
         final Order order,
