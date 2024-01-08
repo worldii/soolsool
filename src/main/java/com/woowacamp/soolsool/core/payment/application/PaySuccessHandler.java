@@ -41,7 +41,7 @@ public class PaySuccessHandler {
         // 주문서를 바탕으로 주문을 넣는다. // 성공 후.
         final Order order = orderService.addOrder(memberId, receipt);
         // 결제 정보를 받아 저장한다.(주문 서비스락) // 성공 후
-        orderService.addPaymentInfo(payApproveResponse, order.getId());
+        orderService.addPaymentInfo(payApproveResponse.toEntity(order.getId()));
         // 성공 후 receipt completed 로 바꿔주기
         receiptService.modifyReceiptStatus(memberId, receipt.getId(), ReceiptStatusType.COMPLETED);
         // 성공 후 멤버 마일리지 차감 // 성공 후
@@ -52,7 +52,7 @@ public class PaySuccessHandler {
         decreaseStocksCount(receipt);
         // publisher 를 가지고 이벤트를 발행한다. // 성공 후
         publisher.publishEvent(new ReceiptRemoveEvent(receipt.getId()));
-        
+
         return order;
     }
 
