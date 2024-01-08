@@ -1,7 +1,5 @@
 package com.woowacamp.soolsool.core.order.domain;
 
-import com.woowacamp.soolsool.core.member.application.MemberService;
-import com.woowacamp.soolsool.core.member.dto.request.MemberMileageChargeRequest;
 import com.woowacamp.soolsool.core.order.exception.OrderErrorCode;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +16,8 @@ import static com.woowacamp.soolsool.core.order.exception.OrderErrorCode.ACCESS_
 public class OrderCancelService {
 
     private final OrderStatusService orderStatusService;
-    private final MemberService memberService;
     private final OrderRepository orderRepository;
+    private final OrderMemberService orderMemberService;
 
     @Transactional
     public Long cancelOrder(final Long memberId, final Long orderId) {
@@ -27,8 +25,7 @@ public class OrderCancelService {
                 .findOrderById(orderId).orElseThrow(() -> new SoolSoolException(OrderErrorCode.NOT_EXISTS_ORDER));
 
         validateAccessible(memberId, order);
-
-        memberService.addMemberMileage(memberId, new MemberMileageChargeRequest(order.getMileageUsage()));
+        orderMemberService.refundMileage(memberId, order.getMileageUsage());
 
         return orderStatusService.modifyOrderStatusType(memberId, order.getId(), CANCELED);
     }
