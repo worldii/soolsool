@@ -7,6 +7,7 @@ import com.woowacamp.soolsool.core.member.domain.OrderMemberServiceImpl;
 import com.woowacamp.soolsool.core.order.domain.Order;
 import com.woowacamp.soolsool.core.order.domain.OrderCancelService;
 import com.woowacamp.soolsool.core.order.domain.OrderQueryRepository;
+import com.woowacamp.soolsool.core.order.domain.OrderRepository;
 import com.woowacamp.soolsool.core.order.domain.OrderStatusCache;
 import com.woowacamp.soolsool.core.order.domain.vo.OrderStatusType;
 import com.woowacamp.soolsool.global.config.CacheManagerConfig;
@@ -33,6 +34,8 @@ class OrderServiceIntegrationTest {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Test
     @Sql({
@@ -127,9 +130,11 @@ class OrderServiceIntegrationTest {
         Long 김배달_주문 = 1L;
 
         /* when */
-        Order order = orderService.cancelOrder(김배달, 김배달_주문);
+        Long orderId = orderService.cancelOrder(김배달, 김배달_주문);
 
         /* then */
+        final Order order = orderRepository.findOrderById(orderId)
+            .orElseThrow(RuntimeException::new);
         assertThat(order.getStatus().getType()).isEqualTo(OrderStatusType.CANCELED);
     }
 }

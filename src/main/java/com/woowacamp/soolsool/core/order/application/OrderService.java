@@ -18,6 +18,7 @@ import com.woowacamp.soolsool.core.order.domain.vo.OrderStatusType;
 import com.woowacamp.soolsool.core.order.dto.response.OrderDetailResponse;
 import com.woowacamp.soolsool.core.order.dto.response.OrderListResponse;
 import com.woowacamp.soolsool.core.order.dto.response.PageOrderListResponse;
+import com.woowacamp.soolsool.core.payment.dto.response.PayApproveResponse;
 import com.woowacamp.soolsool.core.receipt.domain.Receipt;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.util.List;
@@ -32,7 +33,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderService {
 
     private static final int PERCENTAGE_BIAS = 100;
-
     private final OrderRepository orderRepository;
     private final OrderPaymentInfoRepository orderPaymentInfoRepository;
     private final OrderStatusCache orderStatusCache;
@@ -85,7 +85,7 @@ public class OrderService {
     }
 
     @Transactional
-    public Order cancelOrder(final Long memberId, final Long orderId) {
+    public Long cancelOrder(final Long memberId, final Long orderId) {
         return orderCancelService.cancelOrder(memberId, orderId);
     }
 
@@ -107,7 +107,8 @@ public class OrderService {
     }
 
     @Transactional
-    public Long addPaymentInfo(final OrderPaymentInfo orderPaymentInfo) {
-        return orderPaymentInfoRepository.save(orderPaymentInfo).getId();
+    public Long addPaymentInfo(final PayApproveResponse payApproveResponse, final Long orderId) {
+        OrderPaymentInfo payInfo = payApproveResponse.toEntity(orderId);
+        return orderPaymentInfoRepository.save(payInfo).getId();
     }
 }
