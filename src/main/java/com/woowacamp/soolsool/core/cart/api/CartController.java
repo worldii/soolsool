@@ -1,30 +1,20 @@
 package com.woowacamp.soolsool.core.cart.api;
 
-import static com.woowacamp.soolsool.core.cart.exception.CartResultCode.CART_ITEM_ADD_SUCCESS;
-import static com.woowacamp.soolsool.core.cart.exception.CartResultCode.CART_ITEM_DELETED;
-import static com.woowacamp.soolsool.core.cart.exception.CartResultCode.CART_ITEM_LIST_DELETED;
-import static com.woowacamp.soolsool.core.cart.exception.CartResultCode.CART_ITEM_LIST_FOUND;
-import static com.woowacamp.soolsool.core.cart.exception.CartResultCode.CART_ITEM_MODIFY_QUANTITY_SUCCESS;
-
 import com.woowacamp.soolsool.core.cart.application.CartService;
 import com.woowacamp.soolsool.core.cart.dto.request.CartItemModifyRequest;
 import com.woowacamp.soolsool.core.cart.dto.request.CartItemSaveRequest;
 import com.woowacamp.soolsool.core.cart.dto.response.CartItemResponse;
+import com.woowacamp.soolsool.core.member.dto.LoginUser;
 import com.woowacamp.soolsool.global.aop.RequestLogging;
-import com.woowacamp.soolsool.global.auth.dto.LoginUser;
 import com.woowacamp.soolsool.global.common.ApiResponse;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static com.woowacamp.soolsool.core.cart.exception.CartResultCode.*;
 
 @RestController
 @Slf4j
@@ -37,8 +27,8 @@ public class CartController {
     @RequestLogging
     @PostMapping
     public ResponseEntity<ApiResponse<Long>> addCartItem(
-        @LoginUser final Long memberId,
-        @RequestBody final CartItemSaveRequest cartItemSaveRequest
+            @LoginUser final Long memberId,
+            @RequestBody final CartItemSaveRequest cartItemSaveRequest
     ) {
         final Long cartItemId = cartService.addCartItem(memberId, cartItemSaveRequest);
 
@@ -48,9 +38,9 @@ public class CartController {
     @RequestLogging
     @PatchMapping("/{cartItemId}")
     public ResponseEntity<ApiResponse<Void>> modifyCartItemQuantity(
-        @LoginUser final Long memberId,
-        @PathVariable final Long cartItemId,
-        @RequestBody final CartItemModifyRequest cartItemModifyRequest
+            @LoginUser final Long memberId,
+            @PathVariable final Long cartItemId,
+            @RequestBody final CartItemModifyRequest cartItemModifyRequest
     ) {
         cartService.modifyCartItemQuantity(memberId, cartItemId, cartItemModifyRequest);
 
@@ -60,7 +50,7 @@ public class CartController {
     @RequestLogging
     @GetMapping
     public ResponseEntity<ApiResponse<List<CartItemResponse>>> cartItemList(
-        @LoginUser final Long memberId
+            @LoginUser final Long memberId
     ) {
         final List<CartItemResponse> cartItemResponses = cartService.cartItemList(memberId);
 
@@ -70,8 +60,8 @@ public class CartController {
     @RequestLogging
     @DeleteMapping("/{cartItemId}")
     public ResponseEntity<ApiResponse<Void>> removeCartItem(
-        @LoginUser final Long memberId,
-        @PathVariable final Long cartItemId
+            @LoginUser final Long memberId,
+            @PathVariable final Long cartItemId
     ) {
         cartService.removeCartItem(memberId, cartItemId);
 
@@ -81,7 +71,7 @@ public class CartController {
     @RequestLogging
     @DeleteMapping
     public ResponseEntity<ApiResponse<Void>> removeCartItemList(
-        @LoginUser final Long memberId
+            @LoginUser final Long memberId
     ) {
         cartService.removeCartItems(memberId);
 

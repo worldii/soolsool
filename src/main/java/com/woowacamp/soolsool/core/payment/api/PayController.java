@@ -1,5 +1,7 @@
 package com.woowacamp.soolsool.core.payment.api;
 
+import com.woowacamp.soolsool.core.member.dto.LoginUser;
+import com.woowacamp.soolsool.core.member.dto.NoAuth;
 import com.woowacamp.soolsool.core.order.domain.Order;
 import com.woowacamp.soolsool.core.payment.application.PayApproveService;
 import com.woowacamp.soolsool.core.payment.application.PayCancelService;
@@ -8,8 +10,6 @@ import com.woowacamp.soolsool.core.payment.dto.request.PayOrderRequest;
 import com.woowacamp.soolsool.core.payment.dto.response.PayReadyResponse;
 import com.woowacamp.soolsool.core.payment.dto.response.PaySuccessResponse;
 import com.woowacamp.soolsool.global.aop.RequestLogging;
-import com.woowacamp.soolsool.global.auth.dto.LoginUser;
-import com.woowacamp.soolsool.global.auth.dto.NoAuth;
 import com.woowacamp.soolsool.global.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

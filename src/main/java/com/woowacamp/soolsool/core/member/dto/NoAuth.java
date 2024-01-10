@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.global.auth.dto;
+package com.woowacamp.soolsool.core.member.dto;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

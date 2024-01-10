@@ -1,11 +1,12 @@
-package com.woowacamp.soolsool.global.auth.util;
+package com.woowacamp.soolsool.core.auth.util;
 
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-
-import java.util.Enumeration;
-import javax.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
+
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Component
 public class AuthorizationExtractor {

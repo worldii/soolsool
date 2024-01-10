@@ -1,10 +1,6 @@
 package com.woowacamp.soolsool.global.auth.util;
 
-import static com.woowacamp.soolsool.global.auth.code.AuthErrorCode.TOKEN_ERROR;
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
+import com.woowacamp.soolsool.core.auth.util.TokenProvider;
 import com.woowacamp.soolsool.core.member.domain.Member;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +8,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
+
+import static com.woowacamp.soolsool.core.auth.exception.AuthErrorCode.TOKEN_ERROR;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @DisplayName("단위 테스트: TokenProvider")
 class TokenProviderTest {
@@ -22,8 +23,8 @@ class TokenProviderTest {
     @BeforeEach
     void setUp() {
         tokenProvider = new TokenProvider(
-            "7Z2R7Z2R7KSR6rCE642w66qo64SI66y07Z6Y65Ok7JeI7Ja0Cg==",
-            123456789
+                "7Z2R7Z2R7KSR6rCE642w66qo64SI66y07Z6Y65Ok7JeI7Ja0Cg==",
+                123456789
         );
     }
 
@@ -49,8 +50,8 @@ class TokenProviderTest {
 
         // when & then
         assertThatCode(() -> tokenProvider.validateToken(expired))
-            .isInstanceOf(SoolSoolException.class)
-            .hasMessage(TOKEN_ERROR.getMessage());
+                .isInstanceOf(SoolSoolException.class)
+                .hasMessage(TOKEN_ERROR.getMessage());
     }
 
     @DisplayName("토큰이 비어있으면, 오류를 반환한다.")
@@ -59,8 +60,8 @@ class TokenProviderTest {
     void validateTokenTestWithNullAndEmptyKey(String accessKey) {
         // given & when & then
         assertThatCode(() -> tokenProvider.validateToken(accessKey))
-            .isInstanceOf(SoolSoolException.class)
-            .hasMessage(TOKEN_ERROR.getMessage());
+                .isInstanceOf(SoolSoolException.class)
+                .hasMessage(TOKEN_ERROR.getMessage());
     }
 
     @Test
@@ -71,8 +72,8 @@ class TokenProviderTest {
 
         // when & then
         assertThatCode(() -> tokenProvider.validateToken(accessKey))
-            .isInstanceOf(SoolSoolException.class)
-            .hasMessage(TOKEN_ERROR.getMessage());
+                .isInstanceOf(SoolSoolException.class)
+                .hasMessage(TOKEN_ERROR.getMessage());
     }
 }
 

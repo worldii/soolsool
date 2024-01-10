@@ -6,17 +6,18 @@ import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrExpiredEvent
 import com.woowacamp.soolsool.core.liquor.domain.liquorCtr.LiquorCtrRepository;
 import com.woowacamp.soolsool.core.liquor.exception.LiquorCtrErrorCode;
 import com.woowacamp.soolsool.global.aop.DistributedLock;
+import com.woowacamp.soolsool.global.common.DomainService;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
-import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RMapCache;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.map.event.EntryExpiredListener;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.stereotype.Service;
+
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
-@Service
+@DomainService
 public class IncreaseRedisLiquorCtrService implements IncreaseLiquorCtrService {
 
     private static final String LIQUOR_CTR_KEY = "LIQUOR_CTR";
@@ -26,9 +27,9 @@ public class IncreaseRedisLiquorCtrService implements IncreaseLiquorCtrService {
     private final RMapCache<Long, RedisLiquorCtr> liquorCtrs;
 
     public IncreaseRedisLiquorCtrService(
-        final LiquorCtrRepository liquorCtrRepository,
-        final RedissonClient redissonClient,
-        final ApplicationEventPublisher publisher
+            final LiquorCtrRepository liquorCtrRepository,
+            final RedissonClient redissonClient,
+            final ApplicationEventPublisher publisher
     ) {
         publicCtrExpiredEvent(redissonClient, publisher);
         this.liquorCtrRepository = liquorCtrRepository;
@@ -36,17 +37,17 @@ public class IncreaseRedisLiquorCtrService implements IncreaseLiquorCtrService {
     }
 
     private void publicCtrExpiredEvent(
-        final RedissonClient redissonClient, final ApplicationEventPublisher publisher
+            final RedissonClient redissonClient, final ApplicationEventPublisher publisher
     ) {
         redissonClient.getMapCache(LIQUOR_CTR_KEY)
-            .addListener((EntryExpiredListener<Long, RedisLiquorCtr>) event ->
-                publisher.publishEvent(
-                    new LiquorCtrExpiredEvent(
-                        event.getKey(),
-                        event.getValue()
-                    )
-                )
-            );
+                .addListener((EntryExpiredListener<Long, RedisLiquorCtr>) event ->
+                        publisher.publishEvent(
+                                new LiquorCtrExpiredEvent(
+                                        event.getKey(),
+                                        event.getValue()
+                                )
+                        )
+                );
     }
 
     public Double getCtr(final Long liquorId) {
@@ -69,8 +70,8 @@ public class IncreaseRedisLiquorCtrService implements IncreaseLiquorCtrService {
             final LiquorCtr liquorCtr = findLiquorCtr(liquorId);
 
             liquorCtrs.put(
-                liquorId, new RedisLiquorCtr(liquorCtr.getImpression(), liquorCtr.getClick()),
-                LIQUOR_CTR_TTL, TimeUnit.MINUTES
+                    liquorId, new RedisLiquorCtr(liquorCtr.getImpression(), liquorCtr.getClick()),
+                    LIQUOR_CTR_TTL, TimeUnit.MINUTES
             );
         }
         return liquorCtrs.get(liquorId);
@@ -78,6 +79,6 @@ public class IncreaseRedisLiquorCtrService implements IncreaseLiquorCtrService {
 
     private LiquorCtr findLiquorCtr(final Long liquorId) {
         return liquorCtrRepository.findByLiquorId(liquorId)
-            .orElseThrow(() -> new SoolSoolException(LiquorCtrErrorCode.NOT_LIQUOR_CTR_FOUND));
+                .orElseThrow(() -> new SoolSoolException(LiquorCtrErrorCode.NOT_LIQUOR_CTR_FOUND));
     }
 }

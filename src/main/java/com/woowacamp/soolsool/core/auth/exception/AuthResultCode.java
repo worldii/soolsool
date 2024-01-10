@@ -1,4 +1,4 @@
-package com.woowacamp.soolsool.global.auth.code;
+package com.woowacamp.soolsool.core.auth.exception;
 
 import com.woowacamp.soolsool.global.common.ResultCode;
 import lombok.Getter;

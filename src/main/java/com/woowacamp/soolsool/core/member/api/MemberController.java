@@ -1,28 +1,23 @@
 package com.woowacamp.soolsool.core.member.api;
 
-import static org.springframework.http.HttpStatus.NO_CONTENT;
-import static org.springframework.http.HttpStatus.OK;
-
 import com.woowacamp.soolsool.core.member.application.MemberService;
+import com.woowacamp.soolsool.core.member.dto.LoginUser;
+import com.woowacamp.soolsool.core.member.dto.NoAuth;
 import com.woowacamp.soolsool.core.member.dto.request.MemberAddRequest;
 import com.woowacamp.soolsool.core.member.dto.request.MemberMileageChargeRequest;
 import com.woowacamp.soolsool.core.member.dto.request.MemberModifyRequest;
 import com.woowacamp.soolsool.core.member.dto.response.MemberDetailResponse;
 import com.woowacamp.soolsool.core.member.exception.MemberResultCode;
 import com.woowacamp.soolsool.global.aop.RequestLogging;
-import com.woowacamp.soolsool.global.auth.dto.LoginUser;
-import com.woowacamp.soolsool.global.auth.dto.NoAuth;
 import com.woowacamp.soolsool.global.common.ApiResponse;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/members")
@@ -35,57 +30,57 @@ public class MemberController {
     @RequestLogging
     @PostMapping
     public ResponseEntity<ApiResponse<Void>> addMember(
-        @RequestBody @Valid final MemberAddRequest memberAddRequest
+            @RequestBody @Valid final MemberAddRequest memberAddRequest
     ) {
         memberService.addMember(memberAddRequest);
 
         return ResponseEntity.status(OK)
-            .body(ApiResponse.from(MemberResultCode.MEMBER_CREATE_SUCCESS));
+                .body(ApiResponse.from(MemberResultCode.MEMBER_CREATE_SUCCESS));
     }
 
     @RequestLogging
     @GetMapping
     public ResponseEntity<ApiResponse<MemberDetailResponse>> findMemberDetails(
-        @LoginUser final Long memberId
+            @LoginUser final Long memberId
     ) {
         final MemberDetailResponse memberDetailResponse = memberService.findMember(memberId);
 
         return ResponseEntity.status(OK)
-            .body(ApiResponse.of(MemberResultCode.MEMBER_FIND_SUCCESS, memberDetailResponse));
+                .body(ApiResponse.of(MemberResultCode.MEMBER_FIND_SUCCESS, memberDetailResponse));
     }
 
     @RequestLogging
     @PatchMapping
     public ResponseEntity<ApiResponse<Void>> modifyMember(
-        @LoginUser final Long memberId,
-        @RequestBody @Valid final MemberModifyRequest memberModifyRequest
+            @LoginUser final Long memberId,
+            @RequestBody @Valid final MemberModifyRequest memberModifyRequest
     ) {
         memberService.modifyMember(memberId, memberModifyRequest);
 
         return ResponseEntity.status(OK)
-            .body(ApiResponse.from(MemberResultCode.MEMBER_MODIFY_SUCCESS));
+                .body(ApiResponse.from(MemberResultCode.MEMBER_MODIFY_SUCCESS));
     }
 
     @RequestLogging
     @DeleteMapping
     public ResponseEntity<ApiResponse<Void>> removeMember(
-        @LoginUser final Long memberId
+            @LoginUser final Long memberId
     ) {
         memberService.removeMember(memberId);
 
         return ResponseEntity.status(NO_CONTENT)
-            .body(ApiResponse.from(MemberResultCode.MEMBER_DELETE_SUCCESS));
+                .body(ApiResponse.from(MemberResultCode.MEMBER_DELETE_SUCCESS));
     }
 
     @RequestLogging
     @PatchMapping("/mileage")
     public ResponseEntity<ApiResponse<Void>> addMemberMileage(
-        @LoginUser final Long memberId,
-        @RequestBody @Valid final MemberMileageChargeRequest memberMileageChargeRequest
+            @LoginUser final Long memberId,
+            @RequestBody @Valid final MemberMileageChargeRequest memberMileageChargeRequest
     ) {
         memberService.addMemberMileage(memberId, memberMileageChargeRequest);
 
         return ResponseEntity.status(OK)
-            .body(ApiResponse.from(MemberResultCode.MEMBER_MILEAGE_CHARGE_SUCCESS));
+                .body(ApiResponse.from(MemberResultCode.MEMBER_MILEAGE_CHARGE_SUCCESS));
     }
 }

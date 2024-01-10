@@ -1,18 +1,19 @@
-package com.woowacamp.soolsool.global.auth.util;
+package com.woowacamp.soolsool.core.auth.util;
 
-import static com.woowacamp.soolsool.global.auth.code.AuthErrorCode.TOKEN_ERROR;
-
+import com.woowacamp.soolsool.core.auth.dto.UserDto;
 import com.woowacamp.soolsool.core.member.domain.Member;
-import com.woowacamp.soolsool.global.auth.dto.UserDto;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import java.util.Date;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
+
+import static com.woowacamp.soolsool.core.auth.exception.AuthErrorCode.TOKEN_ERROR;
 
 @Component
 @Slf4j
@@ -23,8 +24,8 @@ public class TokenProvider {
     private final long validityInMilliseconds;
 
     public TokenProvider(
-        @Value("${security.jwt.token.secret-key}") final String secretKey,
-        @Value("${security.jwt.token.expire-length}") final long validityInMilliseconds
+            @Value("${security.jwt.token.secret-key}") final String secretKey,
+            @Value("${security.jwt.token.expire-length}") final long validityInMilliseconds
     ) {
         this.secretKey = secretKey;
         this.validityInMilliseconds = validityInMilliseconds;
@@ -35,12 +36,12 @@ public class TokenProvider {
         final Date validity = new Date(now.getTime() + validityInMilliseconds);
 
         return Jwts.builder()
-            .setSubject(member.getId().toString())
-            .setIssuedAt(now)
-            .claim(ROLE_TYPE, member.getRoleName())
-            .setExpiration(validity)
-            .signWith(SignatureAlgorithm.HS256, secretKey)
-            .compact();
+                .setSubject(member.getId().toString())
+                .setIssuedAt(now)
+                .claim(ROLE_TYPE, member.getRoleName())
+                .setExpiration(validity)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
     }
 
     public void validateToken(final String token) {
@@ -56,9 +57,9 @@ public class TokenProvider {
         }
         try {
             return Jwts
-                .parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(token).getBody();
+                    .parser()
+                    .setSigningKey(secretKey)
+                    .parseClaimsJws(token).getBody();
         } catch (final JwtException | IllegalArgumentException e) {
             throw new SoolSoolException(TOKEN_ERROR);
         }

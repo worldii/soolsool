@@ -1,7 +1,6 @@
 package com.woowacamp.soolsool.global.auth.util;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import com.woowacamp.soolsool.core.auth.util.AuthorizationExtractor;
 import org.apache.http.HttpHeaders;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -9,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.mock.web.MockHttpServletRequest;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("단위 테스트: AuthorizationExtractor")
 class AuthorizationExtractorTest {

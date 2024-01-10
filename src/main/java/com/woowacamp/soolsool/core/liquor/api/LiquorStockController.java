@@ -2,8 +2,8 @@ package com.woowacamp.soolsool.core.liquor.api;
 
 import com.woowacamp.soolsool.core.liquor.application.LiquorStockService;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorStockSaveRequest;
+import com.woowacamp.soolsool.core.member.dto.Vendor;
 import com.woowacamp.soolsool.global.aop.RequestLogging;
-import com.woowacamp.soolsool.global.auth.dto.Vendor;
 import com.woowacamp.soolsool.global.common.ApiResponse;
 import com.woowacamp.soolsool.global.common.LiquorResultCode;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class LiquorStockController {
     @RequestLogging
     @PutMapping
     public ResponseEntity<ApiResponse<Void>> saveLiquorStock(
-        @RequestBody final LiquorStockSaveRequest request
+            @RequestBody final LiquorStockSaveRequest request
     ) {
         liquorStockService.saveLiquorStock(request);
 
