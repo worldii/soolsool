@@ -3,17 +3,16 @@ package com.woowacamp.soolsool.core.order.domain;
 import com.woowacamp.soolsool.core.member.application.MemberService;
 import com.woowacamp.soolsool.core.member.dto.request.MemberMileageChargeRequest;
 import com.woowacamp.soolsool.core.order.exception.OrderErrorCode;
+import com.woowacamp.soolsool.global.common.DomainService;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
 import static com.woowacamp.soolsool.core.order.domain.vo.OrderStatusType.CANCELED;
 import static com.woowacamp.soolsool.core.order.exception.OrderErrorCode.ACCESS_DENIED_ORDER;
 
-@Service
+@DomainService
 @RequiredArgsConstructor
 public class OrderCancelService {
 
@@ -21,7 +20,6 @@ public class OrderCancelService {
     private final OrderRepository orderRepository;
     private final MemberService memberService;
 
-    @Transactional
     public Long cancelOrder(final Long memberId, final Long orderId) {
         final Order order = orderRepository
                 .findOrderById(orderId).orElseThrow(() -> new SoolSoolException(OrderErrorCode.NOT_EXISTS_ORDER));
