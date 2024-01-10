@@ -4,6 +4,7 @@ import com.woowacamp.soolsool.core.member.application.MemberService;
 import com.woowacamp.soolsool.core.member.domain.MemberRoleCache;
 import com.woowacamp.soolsool.core.order.domain.*;
 import com.woowacamp.soolsool.core.order.domain.vo.OrderStatusType;
+import com.woowacamp.soolsool.core.order.exception.OrderErrorCode;
 import com.woowacamp.soolsool.global.config.CacheManagerConfig;
 import com.woowacamp.soolsool.global.config.QuerydslConfig;
 import com.woowacamp.soolsool.global.config.RedissonConfig;
@@ -21,17 +22,19 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @DataJpaTest
 @Import(
         {
-                OrderService.class, OrderStatusCache.class,
-                OrderQueryRepository.class, QuerydslConfig.class, RedissonConfig.class,
+                OrderCommandService.class, OrderStatusCache.class, QuerydslConfig.class, RedissonConfig.class,
                 CacheManagerConfig.class, OrderCancelService.class, OrderStatusService.class,
-                MemberService.class, MemberRoleCache.class
+                MemberService.class, MemberRoleCache.class, OrderRatioService.class, OrderQueryService.class,
+                OrderQueryDslRepository.class
         }
 )
 @DisplayName("통합 테스트: OrderService")
-class OrderServiceIntegrationTest {
+class OrderCommandServiceIntegrationTest {
 
     @Autowired
-    private OrderService orderService;
+    private OrderCommandService orderCommandService;
+    @Autowired
+    private OrderQueryService orderQueryService;
     @Autowired
     private OrderRepository orderRepository;
 
@@ -49,9 +52,10 @@ class OrderServiceIntegrationTest {
         Long 김배달 = 1L;
 
         // when & then
-        assertThatThrownBy(() -> orderService.orderDetail(김배달, 99999L))
+
+        assertThatThrownBy(() -> orderQueryService.orderDetail(김배달, 99999L))
                 .isExactlyInstanceOf(SoolSoolException.class)
-                .hasMessage("주문 내역이 존재하지 않습니다.");
+                .hasMessage(OrderErrorCode.NOT_EXISTS_ORDER.getMessage());
     }
 
     @Test
@@ -69,9 +73,9 @@ class OrderServiceIntegrationTest {
         Long 김배달_주문 = 1L;
 
         // when & then
-        assertThatThrownBy(() -> orderService.orderDetail(최민족, 김배달_주문))
+        assertThatThrownBy(() -> orderQueryService.orderDetail(최민족, 김배달_주문))
                 .isExactlyInstanceOf(SoolSoolException.class)
-                .hasMessage("본인의 주문 내역만 조회할 수 있습니다.");
+                .hasMessage(OrderErrorCode.NOT_EXISTS_ORDER.getMessage());
     }
 
     @Test
@@ -88,7 +92,7 @@ class OrderServiceIntegrationTest {
         Long 김배달 = 1L;
 
         // when & then
-        assertThatThrownBy(() -> orderService.cancelOrder(김배달, 99999L))
+        assertThatThrownBy(() -> orderCommandService.cancelOrder(김배달, 99999L))
                 .isExactlyInstanceOf(SoolSoolException.class)
                 .hasMessage("주문 내역이 존재하지 않습니다.");
     }
@@ -108,7 +112,7 @@ class OrderServiceIntegrationTest {
         Long 김배달_주문 = 1L;
 
         // when & then
-        assertThatThrownBy(() -> orderService.cancelOrder(최민족, 김배달_주문))
+        assertThatThrownBy(() -> orderCommandService.cancelOrder(최민족, 김배달_주문))
                 .isExactlyInstanceOf(SoolSoolException.class)
                 .hasMessage("본인의 주문 내역만 조회할 수 있습니다.");
     }
@@ -128,7 +132,7 @@ class OrderServiceIntegrationTest {
         Long 김배달_주문 = 1L;
 
         /* when */
-        Long orderId = orderService.cancelOrder(김배달, 김배달_주문);
+        Long orderId = orderCommandService.cancelOrder(김배달, 김배달_주문);
 
         /* then */
         final Order order = orderRepository.findOrderById(orderId)
