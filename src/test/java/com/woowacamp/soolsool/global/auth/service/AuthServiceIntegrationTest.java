@@ -1,11 +1,8 @@
 package com.woowacamp.soolsool.global.auth.service;
 
-import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.MEMBER_NO_INFORMATION;
-import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.MEMBER_NO_MATCH_PASSWORD;
-import static org.assertj.core.api.Assertions.assertThatCode;
-
-import com.woowacamp.soolsool.global.auth.dto.LoginRequest;
-import com.woowacamp.soolsool.global.auth.util.TokenProvider;
+import com.woowacamp.soolsool.core.auth.application.AuthService;
+import com.woowacamp.soolsool.core.auth.dto.LoginRequest;
+import com.woowacamp.soolsool.core.auth.util.TokenProvider;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
+
+import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.MEMBER_NO_INFORMATION;
+import static com.woowacamp.soolsool.core.member.exception.MemberErrorCode.MEMBER_NO_MATCH_PASSWORD;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
 @DataJpaTest
 @Import({AuthService.class, TokenProvider.class})
@@ -31,7 +32,7 @@ class AuthServiceIntegrationTest {
 
         // when & then
         assertThatCode(() -> authService.createToken(loginRequest))
-            .doesNotThrowAnyException();
+                .doesNotThrowAnyException();
     }
 
     @Test
@@ -40,14 +41,14 @@ class AuthServiceIntegrationTest {
     void throwErrorWithWrongEmail() {
         // given
         LoginRequest loginRequest = new LoginRequest(
-            "wrong@email.com",
-            "baedal"
+                "wrong@email.com",
+                "baedal"
         );
 
         // when & then
         assertThatCode(() -> authService.createToken(loginRequest))
-            .isInstanceOf(SoolSoolException.class)
-            .hasMessage(MEMBER_NO_INFORMATION.getMessage());
+                .isInstanceOf(SoolSoolException.class)
+                .hasMessage(MEMBER_NO_INFORMATION.getMessage());
     }
 
     @Test
@@ -56,13 +57,13 @@ class AuthServiceIntegrationTest {
     void throwErrorWithWrongPassword() {
         // given
         LoginRequest loginRequest = new LoginRequest(
-            "kim@email.com",
-            "wrong"
+                "kim@email.com",
+                "wrong"
         );
 
         // when & then
         assertThatCode(() -> authService.createToken(loginRequest))
-            .isInstanceOf(SoolSoolException.class)
-            .hasMessage(MEMBER_NO_MATCH_PASSWORD.getMessage());
+                .isInstanceOf(SoolSoolException.class)
+                .hasMessage(MEMBER_NO_MATCH_PASSWORD.getMessage());
     }
 }

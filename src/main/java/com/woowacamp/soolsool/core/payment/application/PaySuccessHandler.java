@@ -4,7 +4,7 @@ import com.woowacamp.soolsool.core.cart.application.CartService;
 import com.woowacamp.soolsool.core.liquor.application.LiquorStockService;
 import com.woowacamp.soolsool.core.member.application.MemberService;
 import com.woowacamp.soolsool.core.order.application.OrderCommandService;
-import com.woowacamp.soolsool.core.order.application.OrderPaymentService;
+import com.woowacamp.soolsool.core.order.application.OrderPaymentCommandService;
 import com.woowacamp.soolsool.core.order.domain.MemberMileageUsageService;
 import com.woowacamp.soolsool.core.order.domain.Order;
 import com.woowacamp.soolsool.core.payment.dto.response.PayApproveResponse;
@@ -26,7 +26,7 @@ public class PaySuccessHandler {
 
     private final ApplicationEventPublisher publisher;
     private final OrderCommandService orderCommandService;
-    private final OrderPaymentService orderPaymentService;
+    private final OrderPaymentCommandService orderPaymentCommandService;
     private final MemberService memberService;
     private final ReceiptService receiptService;
     private final CartService cartService;
@@ -45,7 +45,7 @@ public class PaySuccessHandler {
         // 주문서를 바탕으로 주문을 넣는다. // 성공 후.
         final Order order = orderCommandService.addOrder(memberId, receipt);
         // 결제 정보를 받아 저장한다.(주문 서비스락) // 성공 후
-        orderPaymentService.addPaymentInfo(payApproveResponse.toEntity(order.getId()));
+        orderPaymentCommandService.addPaymentInfo(payApproveResponse.toEntity(order.getId()));
         // 성공 후 receipt completed 로 바꿔주기
         receiptService.modifyReceiptStatus(memberId, receipt.getId(), ReceiptStatusType.COMPLETED);
         // 성공 후 멤버 마일리지 차감 // 성공 후

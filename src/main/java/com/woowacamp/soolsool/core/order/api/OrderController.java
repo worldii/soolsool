@@ -1,5 +1,7 @@
 package com.woowacamp.soolsool.core.order.api;
 
+import com.woowacamp.soolsool.core.member.dto.LoginUser;
+import com.woowacamp.soolsool.core.member.dto.NoAuth;
 import com.woowacamp.soolsool.core.order.application.OrderCommandService;
 import com.woowacamp.soolsool.core.order.application.OrderQueryService;
 import com.woowacamp.soolsool.core.order.dto.response.OrderDetailResponse;
@@ -7,8 +9,6 @@ import com.woowacamp.soolsool.core.order.dto.response.OrderRatioResponse;
 import com.woowacamp.soolsool.core.order.dto.response.PageOrderListResponse;
 import com.woowacamp.soolsool.core.order.exception.OrderResultCode;
 import com.woowacamp.soolsool.global.aop.RequestLogging;
-import com.woowacamp.soolsool.global.auth.dto.LoginUser;
-import com.woowacamp.soolsool.global.auth.dto.NoAuth;
 import com.woowacamp.soolsool.global.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

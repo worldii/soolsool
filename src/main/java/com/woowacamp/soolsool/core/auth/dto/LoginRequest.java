@@ -1,11 +1,12 @@
-package com.woowacamp.soolsool.global.auth.dto;
+package com.woowacamp.soolsool.core.auth.dto;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 
 @Getter
 @ToString

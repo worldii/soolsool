@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class OrderPaymentService {
+public class OrderPaymentCommandService {
     private final OrderPaymentInfoRepository orderPaymentInfoRepository;
 
     @Transactional

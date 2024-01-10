@@ -1,11 +1,5 @@
 package com.woowacamp.soolsool.core.payment.infra;
 
-import static org.springframework.http.HttpHeaders.ACCEPT;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
-import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
 import com.woowacamp.soolsool.core.payment.domain.KakaoPayReceipt;
 import com.woowacamp.soolsool.core.payment.domain.KakaoPayReceiptRepository;
 import com.woowacamp.soolsool.core.payment.domain.PayClient;
@@ -16,21 +10,26 @@ import com.woowacamp.soolsool.core.payment.infra.dto.response.KakaoPayApproveRes
 import com.woowacamp.soolsool.core.payment.infra.dto.response.KakaoPayReadyResponse;
 import com.woowacamp.soolsool.core.receipt.domain.Receipt;
 import com.woowacamp.soolsool.core.receipt.domain.ReceiptItem;
+import com.woowacamp.soolsool.global.common.DomainService;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
-import java.net.URI;
-import java.util.List;
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-@Service
+import java.net.URI;
+import java.util.List;
+import java.util.Objects;
+
+import static org.springframework.http.HttpHeaders.*;
+import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
+@DomainService
 @RequiredArgsConstructor
 public class KakaoPayClient implements PayClient {
 
@@ -54,14 +53,14 @@ public class KakaoPayClient implements PayClient {
     @Transactional
     public PayReadyResponse ready(final Receipt receipt) {
         final HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<>(
-            getKakaoPayReadyBody(receipt),
-            getKakaoPayHeaders()
+                getKakaoPayReadyBody(receipt),
+                getKakaoPayHeaders()
         );
 
         final KakaoPayReadyResponse kakaoPayReadyResponse = readyForKakaoPay(body);
 
         kakaoPayReceiptRepository.save(
-            KakaoPayReceipt.of(receipt.getId(), kakaoPayReadyResponse.getTid()));
+                KakaoPayReceipt.of(receipt.getId(), kakaoPayReadyResponse.getTid()));
 
         return kakaoPayReadyResponse.toReadyResponse();
     }
@@ -90,10 +89,10 @@ public class KakaoPayClient implements PayClient {
     }
 
     private KakaoPayReadyResponse readyForKakaoPay(
-        final HttpEntity<MultiValueMap<String, String>> body
+            final HttpEntity<MultiValueMap<String, String>> body
     ) {
         final KakaoPayReadyResponse kakaoPayReadyResponse = restTemplate.postForObject(
-            URI.create(HOST + READY_ENDPOINT), body, KakaoPayReadyResponse.class
+                URI.create(HOST + READY_ENDPOINT), body, KakaoPayReadyResponse.class
         );
 
         if (Objects.isNull(kakaoPayReadyResponse)) {
@@ -109,12 +108,12 @@ public class KakaoPayClient implements PayClient {
         final String pgToken = (String) args[1];
 
         final KakaoPayReceipt kakaoPayReceipt = kakaoPayReceiptRepository
-            .findByReceiptId(receipt.getId())
-            .orElseThrow(() -> new SoolSoolException(PayErrorCode.NOT_FOUND_KAKAO_PAY_RECEIPT));
+                .findByReceiptId(receipt.getId())
+                .orElseThrow(() -> new SoolSoolException(PayErrorCode.NOT_FOUND_KAKAO_PAY_RECEIPT));
 
         final HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<>(
-            getKakaoPayApproveBody(receipt, pgToken, kakaoPayReceipt),
-            getKakaoPayHeaders()
+                getKakaoPayApproveBody(receipt, pgToken, kakaoPayReceipt),
+                getKakaoPayHeaders()
         );
 
         final KakaoPayApproveResponse kakaoPayApproveResponse = approveForKakaoPay(body);
@@ -123,10 +122,10 @@ public class KakaoPayClient implements PayClient {
     }
 
     private KakaoPayApproveResponse approveForKakaoPay(
-        final HttpEntity<MultiValueMap<String, String>> body
+            final HttpEntity<MultiValueMap<String, String>> body
     ) {
         final KakaoPayApproveResponse kakaoPayApproveResponse = restTemplate.postForObject(
-            URI.create(HOST + APPROVE_ENDPOINT), body, KakaoPayApproveResponse.class);
+                URI.create(HOST + APPROVE_ENDPOINT), body, KakaoPayApproveResponse.class);
 
         if (Objects.isNull(kakaoPayApproveResponse)) {
             throw new SoolSoolException(PayErrorCode.NOT_FOUND_PAY_APPROVE_RESPONSE);
@@ -136,9 +135,9 @@ public class KakaoPayClient implements PayClient {
     }
 
     private MultiValueMap<String, String> getKakaoPayApproveBody(
-        final Receipt receipt,
-        final String pgToken,
-        final KakaoPayReceipt kakaoPayReceipt
+            final Receipt receipt,
+            final String pgToken,
+            final KakaoPayReceipt kakaoPayReceipt
     ) {
         final MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("cid", CID);

@@ -1,18 +1,15 @@
 package com.woowacamp.soolsool.core.cart.domain;
 
-import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.EXCEED_MAX_CART_SIZE;
-import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.EXISTS_CART_ITEM;
-import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.NOT_EQUALS_MEMBER;
-import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.NULL_LIQUOR;
-import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.STOPPED_LIQUOR;
-
+import com.woowacamp.soolsool.global.common.DomainService;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
+import lombok.Getter;
+
 import java.util.List;
 import java.util.Objects;
-import lombok.Getter;
-import org.springframework.stereotype.Service;
 
-@Service
+import static com.woowacamp.soolsool.core.cart.exception.CartErrorCode.*;
+
+@DomainService
 @Getter
 public class AddCartItemService {
 

@@ -1,13 +1,14 @@
 package com.woowacamp.soolsool.core.liquor.domain.stock;
 
 import com.woowacamp.soolsool.core.liquor.exception.LiquorStockErrorCode;
+import com.woowacamp.soolsool.global.common.DomainService;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
-import java.util.List;
 import lombok.Getter;
-import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Getter
-@Service
+@DomainService
 public final class DecreaseStocksService {
 
     public void decreaseStock(final List<LiquorStock> stocks, final int quantity) {
@@ -33,8 +34,8 @@ public final class DecreaseStocksService {
 
     private void validateEnoughStocks(final List<LiquorStock> liquorStocks, final int quantity) {
         final int totalStock = liquorStocks.stream()
-            .mapToInt(LiquorStock::getStock)
-            .sum();
+                .mapToInt(LiquorStock::getStock)
+                .sum();
 
         if (totalStock < quantity) {
             throw new SoolSoolException(LiquorStockErrorCode.NOT_ENOUGH_LIQUOR_STOCKS);

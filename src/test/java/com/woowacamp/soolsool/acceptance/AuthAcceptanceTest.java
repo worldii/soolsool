@@ -1,10 +1,8 @@
 package com.woowacamp.soolsool.acceptance;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.woowacamp.soolsool.acceptance.fixture.RestMemberFixture;
-import com.woowacamp.soolsool.global.auth.dto.LoginRequest;
-import com.woowacamp.soolsool.global.auth.dto.LoginResponse;
+import com.woowacamp.soolsool.core.auth.dto.LoginRequest;
+import com.woowacamp.soolsool.core.auth.dto.LoginResponse;
 import com.woowacamp.soolsool.global.common.ApiResponse;
 import io.restassured.RestAssured;
 import io.restassured.common.mapper.TypeRef;
@@ -15,6 +13,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("인수 테스트: /auth")
 class AuthAcceptanceTest extends AcceptanceTest {
@@ -34,19 +34,19 @@ class AuthAcceptanceTest extends AcceptanceTest {
 
         // when
         ExtractableResponse<Response> response = RestAssured
-            .given()
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .body(loginRequest).log().all()
-            .when().post("/api/auth/login")
-            .then().log().all()
-            .extract();
+                .given()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(loginRequest).log().all()
+                .when().post("/api/auth/login")
+                .then().log().all()
+                .extract();
 
         // then
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.body().as(new TypeRef<ApiResponse<LoginResponse>>() {
-            })
-            .getData()
-            .getAccessToken())
-            .isNotNull();
+                })
+                .getData()
+                .getAccessToken())
+                .isNotNull();
     }
 }
