@@ -6,26 +6,16 @@ import com.woowacamp.soolsool.core.receipt.domain.vo.ReceiptItemPrice;
 import com.woowacamp.soolsool.core.receipt.domain.vo.ReceiptItemQuantity;
 import com.woowacamp.soolsool.core.receipt.domain.vo.ReceiptStatusType;
 import com.woowacamp.soolsool.global.common.BaseEntity;
-import java.math.BigInteger;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.math.BigInteger;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "receipts")
@@ -71,13 +61,13 @@ public class Receipt extends BaseEntity {
 
     @Builder
     public Receipt(
-        final Long memberId,
-        final ReceiptStatus receiptStatus,
-        final ReceiptItemPrice originalTotalPrice,
-        final ReceiptItemPrice mileageUsage,
-        final ReceiptItemPrice purchasedTotalPrice,
-        final ReceiptItemQuantity totalQuantity,
-        final List<ReceiptItem> receiptItems
+            final Long memberId,
+            final ReceiptStatus receiptStatus,
+            final ReceiptItemPrice originalTotalPrice,
+            final ReceiptItemPrice mileageUsage,
+            final ReceiptItemPrice purchasedTotalPrice,
+            final ReceiptItemQuantity totalQuantity,
+            final List<ReceiptItem> receiptItems
     ) {
         this.memberId = memberId;
         this.receiptStatus = receiptStatus;

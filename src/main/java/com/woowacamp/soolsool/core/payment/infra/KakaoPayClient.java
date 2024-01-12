@@ -102,7 +102,6 @@ public class KakaoPayClient implements PayClient {
         return kakaoPayReadyResponse;
     }
 
-    @Transactional(readOnly = true)
     public PayApproveResponse payApprove(final Object... args) {
         final Receipt receipt = (Receipt) args[0];
         final String pgToken = (String) args[1];

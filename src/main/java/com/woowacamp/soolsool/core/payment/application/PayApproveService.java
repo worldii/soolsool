@@ -5,7 +5,6 @@ import com.woowacamp.soolsool.core.payment.domain.PayClient;
 import com.woowacamp.soolsool.core.payment.dto.response.PayApproveResponse;
 import com.woowacamp.soolsool.core.receipt.application.ReceiptService;
 import com.woowacamp.soolsool.core.receipt.domain.Receipt;
-import com.woowacamp.soolsool.global.aop.DistributedLock;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +20,6 @@ public class PayApproveService {
 
     private final ReceiptService receiptService;
 
-    @DistributedLock(lockName = "Receipt", entityId = "#receiptId", waitTime = 10L, leaseTime = 3L)
     public Order approve(final Long memberId, final Long receiptId, final String pgToken) {
         try {
             final Receipt receipt = receiptService.getMemberReceipt(memberId, receiptId);
