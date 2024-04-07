@@ -1,6 +1,6 @@
 package com.woowacamp.soolsool.config;
 
-import com.woowacamp.soolsool.fake.DistributedLockAspect;
+import com.woowacamp.soolsool.global.aop.DistributedLockAspect;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;

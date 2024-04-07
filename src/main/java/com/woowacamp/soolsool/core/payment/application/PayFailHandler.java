@@ -17,7 +17,7 @@ public class PayFailHandler {
     private final LiquorCommandService liquorCommandService;
 
     @Transactional
-    @DistributedLock(lockName = "Receipt", entityId = "#receiptId", waitTime = 10L, leaseTime = 3L)
+    @DistributedLock(lockName = "Receipt", entityId = "#receiptId")
     public void recover(final Long memberId, final Long receiptId) {
         final Receipt receipt = receiptService.getMemberReceipt(memberId, receiptId);
 

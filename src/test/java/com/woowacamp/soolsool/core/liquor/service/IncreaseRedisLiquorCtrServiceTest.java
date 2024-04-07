@@ -9,7 +9,6 @@ import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorClickAddRequest;
 import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorImpressionAddRequest;
 import com.woowacamp.soolsool.core.liquor.infra.IncreaseRedisLiquorCtrService;
 import com.woowacamp.soolsool.core.liquor.infra.RedisLiquorCtr;
-import com.woowacamp.soolsool.fake.DistributedLockAspect;
 import com.woowacamp.soolsool.global.config.AspectProxyConfig;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -27,9 +26,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
 @Import({RedisTestConfig.class, AspectProxyConfig.class,
-    LiquorCtrService.class, IncreaseRedisLiquorCtrService.class,
-    DistributedLockAspect.class
-})
+    LiquorCtrService.class, IncreaseRedisLiquorCtrService.class})
 @DisplayName("통합 테스트 : LiquorCtrRedisRepository")
 class IncreaseRedisLiquorCtrServiceTest {
 

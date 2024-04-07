@@ -10,8 +10,10 @@ import com.woowacamp.soolsool.core.liquor.domain.stock.LiquorStockRepository;
 import com.woowacamp.soolsool.core.liquor.dto.request.LiquorStockSaveRequest;
 import com.woowacamp.soolsool.global.aop.DistributedLock;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
+
 import java.util.List;
 import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,16 +27,16 @@ public class LiquorStockService {
     private final DecreaseStocksService decreaseStocksService;
 
     @Transactional
+    @DistributedLock(entityId = "#request.getLiquorId()", lockName = "LiquorStock")
     public Long saveLiquorStock(final LiquorStockSaveRequest request) {
         final Liquor liquor = findLiquor(request.getLiquorId());
-
         liquor.increaseTotalStock(request.getStock());
 
         return liquorStockRepository.save(request.toEntity()).getId();
     }
 
     @Transactional
-    @DistributedLock(entityId = "#liquorId", lockName = "LiquorStock", leaseTime = 3L, waitTime = 3L)
+    @DistributedLock(entityId = "#liquorId", lockName = "LiquorStock")
     public void decreaseLiquorStock(final Long liquorId, final int quantity) {
         final List<LiquorStock> stocks = liquorStockRepository
             .findAllByLiquorIdNotExpired(liquorId);
