@@ -54,12 +54,12 @@ public class IncreaseRedisLiquorCtrService implements IncreaseLiquorCtrService {
         return lookUpLiquorCtr(liquorId).toEntity(liquorId).getCtr();
     }
 
-    @DistributedLock(lockName = "LIQUOR_CTR:", entityId = "#liquorId", waitTime = 1L, leaseTime = 1L)
+    @DistributedLock(lockName = "LIQUOR_CTR:", entityId = "#liquorId")
     public void increaseImpression(final Long liquorId) {
         liquorCtrs.replace(liquorId, lookUpLiquorCtr(liquorId).increaseImpression());
     }
 
-    @DistributedLock(lockName = "LIQUOR_CTR:", entityId = "#liquorId", waitTime = 1L, leaseTime = 1L)
+    @DistributedLock(lockName = "LIQUOR_CTR:", entityId = "#liquorId")
     public void increaseClick(final Long liquorId) {
         liquorCtrs.replace(liquorId, lookUpLiquorCtr(liquorId).increaseClick());
     }
