@@ -15,7 +15,7 @@ public @interface DistributedLock {
     String lockName() default "";
     TimeUnit timeUnit() default TimeUnit.SECONDS;
 
-    long waitTime() default 1000L;
+    long waitTime() default 1L;
 
-    long leaseTime() default 10000L;
+    long leaseTime() default 1L;
 }
