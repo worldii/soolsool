@@ -1,5 +1,6 @@
 package com.woowacamp.soolsool.config;
 
+import com.woowacamp.soolsool.global.aop.AopForTransaction;
 import com.woowacamp.soolsool.global.aop.DistributedLockAspect;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
@@ -48,7 +49,8 @@ public class RedisTestConfig {
     }
 
     @Bean
-    public DistributedLockAspect distributedLockAspect(final RedissonClient redissonClient) {
-        return new DistributedLockAspect(redissonClient);
+    public DistributedLockAspect distributedLockAspect(
+        final RedissonClient redissonClient, final AopForTransaction aopForTransaction) {
+        return new DistributedLockAspect(redissonClient, aopForTransaction);
     }
 }

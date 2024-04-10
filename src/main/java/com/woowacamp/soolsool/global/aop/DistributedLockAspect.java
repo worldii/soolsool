@@ -17,6 +17,7 @@ import java.lang.reflect.Method;
 public class DistributedLockAspect {
 
     private final RedissonClient redissonClient;
+    private final AopForTransaction aopForTransaction;
 
     @Around("@annotation(com.woowacamp.soolsool.global.aop.DistributedLock)")
     public Object lock(final ProceedingJoinPoint joinPoint) throws Throwable {
@@ -31,7 +32,7 @@ public class DistributedLockAspect {
             if (!rLock.tryLock(lock.waitTime(), lock.leaseTime(), lock.timeUnit())) {
                 return false;
             }
-            return joinPoint.proceed();
+            return aopForTransaction.proceed(joinPoint);
         } catch (final Exception e) {
             Thread.currentThread().interrupt();
             throw new InterruptedException();

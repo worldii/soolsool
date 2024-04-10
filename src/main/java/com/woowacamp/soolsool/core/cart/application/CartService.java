@@ -12,7 +12,6 @@ import com.woowacamp.soolsool.core.cart.dto.request.CartItemSaveRequest;
 import com.woowacamp.soolsool.core.cart.dto.response.CartItemResponse;
 import com.woowacamp.soolsool.core.liquor.domain.liquor.Liquor;
 import com.woowacamp.soolsool.core.liquor.domain.liquor.LiquorRepository;
-import com.woowacamp.soolsool.global.aop.DistributedLock;
 import com.woowacamp.soolsool.global.exception.SoolSoolException;
 import java.util.List;
 import java.util.Objects;
@@ -94,7 +93,6 @@ public class CartService {
     }
 
     @Transactional
-    @DistributedLock(lockName = "Member", entityId = "#memberId", waitTime = 3L, leaseTime = 3L)
     public void removeCartItems(final Long memberId) {
         cartItemRepository.deleteAllByMemberId(memberId);
     }
