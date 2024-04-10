@@ -10,6 +10,7 @@ import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorClickAddRequest;
 import com.woowacamp.soolsool.core.liquor.dto.liquorCtr.LiquorImpressionAddRequest;
 import com.woowacamp.soolsool.core.liquor.infra.IncreaseRedisLiquorCtrService;
 import com.woowacamp.soolsool.core.liquor.infra.RedisLiquorCtr;
+import com.woowacamp.soolsool.global.aop.AopForTransaction;
 import com.woowacamp.soolsool.global.config.AspectProxyConfig;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
@@ -24,7 +25,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
 @Import({
-    LiquorCtrService.class, RedisTestConfig.class,
+    LiquorCtrService.class, RedisTestConfig.class, AopForTransaction.class,
     IncreaseRedisLiquorCtrService.class,
     AspectProxyConfig.class
 })

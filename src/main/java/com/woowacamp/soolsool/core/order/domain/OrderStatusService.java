@@ -17,7 +17,6 @@ public class OrderStatusService {
     private final OrderRepository orderRepository;
     private final OrderStatusCache orderStatusCache;
 
-    @DistributedLock(lockName = "Order", entityId = "#orderId")
     public Long modifyOrderStatusType(
             final Long memberId,
             final Long orderId,
